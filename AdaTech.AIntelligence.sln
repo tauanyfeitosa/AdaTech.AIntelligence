@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34322.80
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdaTech.AIntelligence.WebAPI", "AdaTech.AIntelligence.WebAPI\AdaTech.AIntelligence.WebAPI.csproj", "{83DE7A57-887D-40CC-910E-BF95E33E4AC5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1D27913F-F3A1-4B52-B79E-EEF02C0836CF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdaTech.AIntelligence.Presentation", "AdaTech.AIntelligence.Presentation", "{3CE98631-A05E-43F0-BA6A-2CBA5F293FD4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdaTech.AIntelligence.Domain", "AdaTech.AIntelligence.Domain", "{3C2C4765-57B9-47E1-9899-8B59E21DC1B8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdaTech.AIntelligence.Application", "AdaTech.AIntelligence.Application", "{40E8C7B5-5B26-4D11-BD57-0E3408E43279}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdaTech.AIntelligence.Infra", "AdaTech.AIntelligence.Infra", "{7625578D-3775-4783-9360-D8D97C5BFE3B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{BC1515D0-CE51-4AFE-B29A-AE21AB01DCD3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{83DE7A57-887D-40CC-910E-BF95E33E4AC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83DE7A57-887D-40CC-910E-BF95E33E4AC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83DE7A57-887D-40CC-910E-BF95E33E4AC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83DE7A57-887D-40CC-910E-BF95E33E4AC5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{83DE7A57-887D-40CC-910E-BF95E33E4AC5} = {3CE98631-A05E-43F0-BA6A-2CBA5F293FD4}
+		{3CE98631-A05E-43F0-BA6A-2CBA5F293FD4} = {1D27913F-F3A1-4B52-B79E-EEF02C0836CF}
+		{3C2C4765-57B9-47E1-9899-8B59E21DC1B8} = {1D27913F-F3A1-4B52-B79E-EEF02C0836CF}
+		{40E8C7B5-5B26-4D11-BD57-0E3408E43279} = {1D27913F-F3A1-4B52-B79E-EEF02C0836CF}
+		{7625578D-3775-4783-9360-D8D97C5BFE3B} = {1D27913F-F3A1-4B52-B79E-EEF02C0836CF}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {22918284-F192-4785-9A60-CCBD0AF090B4}
+	EndGlobalSection
+EndGlobal
