@@ -4,12 +4,17 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using AdaTech.AIntelligence.DateLibrary.Context;
+using AdaTech.AIntelligence.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<MustHaveAToken>();
+builder.Services.AddDbContext<ExpenseReportingDbContext>();
 
 builder.Services.AddAuthentication(
     config =>
