@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 namespace AdaTech.AIntelligence.DateLibrary.Context
 {
-    public class ExpenseReportingDbContext : DbContext
+    public class ExpenseReportingDbContext : IdentityDbContext<UserInfo>
     {
         public DbSet<Expense> Expenses { get; set; }
 
