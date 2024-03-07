@@ -1,4 +1,5 @@
 using AdaTech.AIntelligence.Service.Services;
+using AdaTech.AIntelligence.WebAPI.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<MustHaveAToken>();
 
 builder.Services.AddAuthentication(
     config =>
