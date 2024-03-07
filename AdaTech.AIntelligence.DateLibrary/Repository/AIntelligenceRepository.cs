@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AdaTech.AIntelligence.DateLibrary.Repository
 {
-    internal class AIntelligenceRepository<T> : IAInteligenceRepository<T> where T : class
+    public class AIntelligenceRepository<T> : IAInteligenceRepository<T> where T : class
     {
         private readonly ExpenseReportingDbContext _context;
 
@@ -31,7 +31,7 @@ namespace AdaTech.AIntelligence.DateLibrary.Repository
 
         public async Task<T> GetOne(int id)
         {
-            return await _context.Set<T>().FindAsync(id); // chegar se vai ser pesquisado por ID 
+            return await _context.Set<T>().FindAsync(id);
         }
 
         public async Task<bool> Update(T entity)
