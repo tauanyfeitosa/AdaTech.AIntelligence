@@ -7,7 +7,7 @@ namespace AdaTech.AIntelligence.Service.Services
 {
     public class TokenService : ITokenService
     {
-        public string GenerateToken(string email, string password)
+        public string GenerateToken(string user, string password)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
 
@@ -15,7 +15,7 @@ namespace AdaTech.AIntelligence.Service.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, email)
+                    new Claim(ClaimTypes.Name, user)
                 }),
                 Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(
