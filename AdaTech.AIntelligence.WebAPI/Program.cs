@@ -7,7 +7,7 @@ using System.Text;
 using AdaTech.AIntelligence.DateLibrary.Context;
 using AdaTech.AIntelligence.Entities;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.UI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +15,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<MustHaveAToken>();
 builder.Services.AddDbContext<ExpenseReportingDbContext>();
+builder.Services.AddIdentity<UserInfo, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+        .AddEntityFrameworkStores<ExpenseReportingDbContext>()
+        .AddDefaultUI()
+        .AddDefaultTokenProviders();
 
 builder.Services.AddAuthentication(
     config =>

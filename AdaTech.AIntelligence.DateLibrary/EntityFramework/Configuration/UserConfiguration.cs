@@ -8,8 +8,6 @@ namespace AdaTech.AIntelligence.DateLibrary.EntityFramework.Configuration
     {
         public void Configure(EntityTypeBuilder<UserInfo> builder)
         {
-            builder.HasKey(u => u.Id);
-            builder.Property(u => u.Id).ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(u => u.DateBirth).IsRequired();
             builder.Property(u => u.PhoneNumber);
             builder.Property(u => u.CPF).IsRequired(); 
@@ -19,8 +17,8 @@ namespace AdaTech.AIntelligence.DateLibrary.EntityFramework.Configuration
             builder.Property(u => u.IsLogged).IsRequired();
             builder.Property(u => u.IsStaff).IsRequired();
             builder.Property(u => u.IsSuperUser).IsRequired();
-            builder.Property(u => u.Login).IsRequired();
-            builder.Property(u => u.Password).IsRequired();
+            builder.Property(u => u.UserName).IsRequired();
+            builder.Property(u => u.PasswordHash).IsRequired();
         }
     }
 }
