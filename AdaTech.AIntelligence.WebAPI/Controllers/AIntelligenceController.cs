@@ -1,4 +1,5 @@
 ﻿using AdaTech.AIntelligence.Service.Services;
+using AdaTech.AIntelligence.WebAPI.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +29,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         }
 
         [HttpPost("deletarToken")]
+        [ServiceFilter(typeof(MustHaveAToken))]
         public IActionResult DeletarToken()
         {
             Response.Cookies.Delete("jwt");
