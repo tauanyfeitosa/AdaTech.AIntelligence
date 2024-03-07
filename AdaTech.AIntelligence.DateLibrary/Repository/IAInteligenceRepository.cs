@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdaTech.AIntelligence.DateLibrary.Repository
+﻿namespace AdaTech.AIntelligence.DateLibrary.Repository
 {
-    internal interface IAInteligenceRepository
+    public interface IAInteligenceRepository<T> where T : class
     {
+        Task<bool> Create(T entity);
+        Task<bool> Update(T entity);
+        Task<bool> Delete(T entity);
+        Task<IEnumerable<T>> GetAll();  
+        Task<T> GetOne (int id);
     }
 }
