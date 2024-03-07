@@ -1,10 +1,12 @@
-﻿namespace AdaTech.AIntelligence.Entities
+﻿using AdaTech.AIntelligence.Entities.Enums;
+
+namespace AdaTech.AIntelligence.Entities
 {
     public class Expense
     {
         public int Id { get; set; }
-        public int Status { get; set; }
-        public int Category {  get; set; }
+        public ExpenseStatus Status { get; set; }
+        public Category Category {  get; set; }
         public string? Description { get; set; }
     }
 }
