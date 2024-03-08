@@ -1,5 +1,5 @@
-﻿using AdaTech.AIntelligence.Service.Services;
-using AdaTech.AIntelligence.WebAPI.Filters;
+﻿using AdaTech.AIntelligence.Ioc.Filters;
+using AdaTech.AIntelligence.Service.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
