@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using AdaTech.AIntelligence.IoC.Extensions;
 using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.WebAPI.Utils.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -86,6 +87,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseMiddleware<MiddlewareException>();
 app.UseAuthentication();
 app.UseAuthorization();
 
