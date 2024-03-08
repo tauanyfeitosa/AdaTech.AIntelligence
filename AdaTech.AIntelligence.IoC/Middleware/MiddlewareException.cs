@@ -1,6 +1,9 @@
 ﻿using AdaTech.AIntelligence.Service.Exceptions;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
+using System.Text.Json;
 
-namespace AdaTech.AIntelligence.WebAPI.Utils.Middleware
+namespace AdaTech.AIntelligence.IoC.Middleware
 {
     public class MiddlewareException
     {
@@ -30,7 +33,9 @@ namespace AdaTech.AIntelligence.WebAPI.Utils.Middleware
 
         private static async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            context.Response.ContentType = "application/json";
+           
+            context.Response.ContentType = "application/json; charset=utf-8";
+
 
             var statusCode = exception switch
             {
@@ -52,11 +57,14 @@ namespace AdaTech.AIntelligence.WebAPI.Utils.Middleware
 
             var errorResponse = new ErrorDetails
             {
+
                 StatusCode = statusCode,
                 Message = message
             };
 
-            await context.Response.WriteAsJsonAsync(errorResponse);
+            var erro = JsonSerializer.Serialize(errorResponse);
+
+            await context.Response.WriteAsync(erro);
         }
     }
 }

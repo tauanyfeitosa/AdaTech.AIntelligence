@@ -1,10 +1,8 @@
-﻿using AdaTech.AIntelligence.Ioc.Filters;
-using AdaTech.AIntelligence.IoC.Extensions.ApplicationInitializer;
-using AdaTech.AIntelligence.Service.Services;
-using AdaTech.AIntelligence.Service.Services.SeedUser;
+﻿using AdaTech.AIntelligence.IoC.Extensions.ApplicationInitializer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Runtime.CompilerServices;
+using AdaTech.AIntelligence.IoC;
 
 [assembly: InternalsVisibleTo("AdaTech.AIntelligence.WebAPI")]
 namespace AdaTech.AIntelligence.IoC.Extensions
@@ -20,23 +18,20 @@ namespace AdaTech.AIntelligence.IoC.Extensions
         internal static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.ResolveDependenciesService()
-                    //.ResolveDependenciesRepository()
-                    .AddCustomConfiguration(configuration);
-                    //.AddCustomSwagger()
-                    //.AddSerilog(LoggingConfiguration.ConfigureSerilog(configuration));
+                    .ResolveDependenciesDbContext()
+                    .ResolveDependencieTokens()
+                    .AddCustomConfiguration(configuration)
+                    .AddCustomSwagger();
+            //.AddSerilog(LoggingConfiguration.ConfigureSerilog(configuration));
+
 
             services.AddHostedService<StartupHostedApplication>();
 
             return services;
         }
 
-        private static IServiceCollection ResolveDependenciesService(this IServiceCollection services)
-        {
-            services.AddScoped<ITokenService, TokenService>();
-            services.AddScoped<MustHaveAToken>();
-            services.AddScoped<ISeedUserInitial, SeedUserInitial>();
+       
+   
 
-            return services;
-        }
     }
 }
