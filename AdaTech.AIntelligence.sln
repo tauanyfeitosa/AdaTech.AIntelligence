@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdaTech.AIntelligence.Infra
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{BC1515D0-CE51-4AFE-B29A-AE21AB01DCD3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdaTech.AIntelligence", "AdaTech.AIntelligence", "{F28DDB68-BAFA-4AC9-A239-4BA9B7380A17}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaTech.AIntelligence.Service", "AdaTech.AIntelligence.Service\AdaTech.AIntelligence.Service.csproj", "{F70FB5B2-3A6D-4E7A-ABC8-B106BD6501DB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaTech.AIntelligence.DateLibrary", "AdaTech.AIntelligence.DateLibrary\AdaTech.AIntelligence.DateLibrary.csproj", "{84517B57-A793-40CD-848F-29A563FB0694}"
@@ -28,7 +30,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaTech.AIntelligence.IoC",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdaTech.AIntelligence.Helper", "AdaTech.AIntelligence.Helper", "{FDFAD52E-C132-4039-9520-00C20BD1FD7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdaTech.AIntelligence.Configuration", "AdaTech.AIntelligence.Configuration\AdaTech.AIntelligence.Configuration.csproj", "{40C2D7A8-E0AD-4217-AAEE-21D66DB5A5E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaTech.AIntelligence.Configuration", "AdaTech.AIntelligence.Configuration\AdaTech.AIntelligence.Configuration.csproj", "{40C2D7A8-E0AD-4217-AAEE-21D66DB5A5E8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaTech.AIntelligence.Tests", "AdaTech.AIntelligence.Tests\AdaTech.AIntelligence.Tests.csproj", "{DB6DDE16-646B-4615-8E48-C7615CFEF438}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,6 +64,10 @@ Global
 		{40C2D7A8-E0AD-4217-AAEE-21D66DB5A5E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40C2D7A8-E0AD-4217-AAEE-21D66DB5A5E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40C2D7A8-E0AD-4217-AAEE-21D66DB5A5E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB6DDE16-646B-4615-8E48-C7615CFEF438}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB6DDE16-646B-4615-8E48-C7615CFEF438}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB6DDE16-646B-4615-8E48-C7615CFEF438}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB6DDE16-646B-4615-8E48-C7615CFEF438}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,6 +85,7 @@ Global
 		{F3B04655-246A-473C-9337-AFDE61EAA274} = {5F2CC1A6-AA1C-44F8-9F7B-4F6717FB2D1A}
 		{FDFAD52E-C132-4039-9520-00C20BD1FD7A} = {1D27913F-F3A1-4B52-B79E-EEF02C0836CF}
 		{40C2D7A8-E0AD-4217-AAEE-21D66DB5A5E8} = {FDFAD52E-C132-4039-9520-00C20BD1FD7A}
+		{DB6DDE16-646B-4615-8E48-C7615CFEF438} = {BC1515D0-CE51-4AFE-B29A-AE21AB01DCD3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {22918284-F192-4785-9A60-CCBD0AF090B4}

@@ -22,6 +22,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// add middlewares
 app.UseHttpsRedirection();
 app.ResolveDependenciesMiddleware();
 app.UseAuthentication();

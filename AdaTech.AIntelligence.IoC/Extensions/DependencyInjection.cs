@@ -1,4 +1,4 @@
-﻿using AdaTech.AIntelligence.IoC.Extensions.ApplicationInitializer;
+using AdaTech.AIntelligence.IoC.Extensions.ApplicationInitializer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Runtime.CompilerServices;
