@@ -11,14 +11,21 @@ using AdaTech.AIntelligence.Entities.Objects;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddServices(builder.Configuration);
+// add services
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IUserAuthService, UserAuthService>();
+
+// add filters
+builder.Services.AddScoped<MustHaveAToken>();
+
+// add identity configuration and db context
 builder.Services.AddDbContext<ExpenseReportingDbContext>();
 builder.Services.AddIdentity<UserInfo, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
         .AddEntityFrameworkStores<ExpenseReportingDbContext>()
         .AddDefaultUI()
         .AddDefaultTokenProviders();
 
+// add authentication configuration
 builder.Services.AddAuthentication(
     config =>
     {
@@ -85,6 +92,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// add middlewares
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
