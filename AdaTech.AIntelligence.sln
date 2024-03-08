@@ -1,4 +1,4 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34322.80
@@ -15,13 +15,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdaTech.AIntelligence.Appli
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdaTech.AIntelligence.Infra", "AdaTech.AIntelligence.Infra", "{7625578D-3775-4783-9360-D8D97C5BFE3B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{BC1515D0-CE51-4AFE-B29A-AE21AB01DCD3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdaTech.AIntelligence.Tests", "AdaTech.AIntelligence.Tests", "{BC1515D0-CE51-4AFE-B29A-AE21AB01DCD3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdaTech.AIntelligence.Service", "AdaTech.AIntelligence.Service\AdaTech.AIntelligence.Service.csproj", "{F70FB5B2-3A6D-4E7A-ABC8-B106BD6501DB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdaTech.AIntelligence.DateLibrary", "AdaTech.AIntelligence.DateLibrary\AdaTech.AIntelligence.DateLibrary.csproj", "{84517B57-A793-40CD-848F-29A563FB0694}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdaTech.AIntelligence.Entities", "AdaTech.AIntelligence.Entities\AdaTech.AIntelligence.Entities.csproj", "{178CDA6D-69FA-436F-B946-0D593BDF7DE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdaTech.AIntelligence.Tests", "AdaTech.AIntelligence.Tests\AdaTech.AIntelligence.Tests.csproj", "{DB6DDE16-646B-4615-8E48-C7615CFEF438}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{178CDA6D-69FA-436F-B946-0D593BDF7DE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{178CDA6D-69FA-436F-B946-0D593BDF7DE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{178CDA6D-69FA-436F-B946-0D593BDF7DE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB6DDE16-646B-4615-8E48-C7615CFEF438}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB6DDE16-646B-4615-8E48-C7615CFEF438}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB6DDE16-646B-4615-8E48-C7615CFEF438}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB6DDE16-646B-4615-8E48-C7615CFEF438}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,9 +61,11 @@ Global
 		{3C2C4765-57B9-47E1-9899-8B59E21DC1B8} = {1D27913F-F3A1-4B52-B79E-EEF02C0836CF}
 		{40E8C7B5-5B26-4D11-BD57-0E3408E43279} = {1D27913F-F3A1-4B52-B79E-EEF02C0836CF}
 		{7625578D-3775-4783-9360-D8D97C5BFE3B} = {1D27913F-F3A1-4B52-B79E-EEF02C0836CF}
+		{BC1515D0-CE51-4AFE-B29A-AE21AB01DCD3} = {1D27913F-F3A1-4B52-B79E-EEF02C0836CF}
 		{F70FB5B2-3A6D-4E7A-ABC8-B106BD6501DB} = {40E8C7B5-5B26-4D11-BD57-0E3408E43279}
 		{84517B57-A793-40CD-848F-29A563FB0694} = {7625578D-3775-4783-9360-D8D97C5BFE3B}
 		{178CDA6D-69FA-436F-B946-0D593BDF7DE1} = {3C2C4765-57B9-47E1-9899-8B59E21DC1B8}
+		{DB6DDE16-646B-4615-8E48-C7615CFEF438} = {BC1515D0-CE51-4AFE-B29A-AE21AB01DCD3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {22918284-F192-4785-9A60-CCBD0AF090B4}
