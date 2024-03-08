@@ -1,4 +1,4 @@
-﻿using AdaTech.AIntelligence.Entities;
+﻿using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.DTOs;
 using AdaTech.AIntelligence.Service.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -28,7 +28,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
 
             if (succeeded)
             {
-                UserAuth user = new UserAuth()
+                UserInfo user = new UserInfo()
                 {
                     Email = userLoginInfo.Email,
                     PasswordHash = userLoginInfo.Password,

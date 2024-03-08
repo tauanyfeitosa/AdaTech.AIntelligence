@@ -1,17 +1,17 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
-using AdaTech.AIntelligence.Entities;
+using AdaTech.AIntelligence.Entities.Objects;
 
 namespace AdaTech.AIntelligence.Service.Services
 {
     public class UserAuthService : IUserAuthService
     {
-        private readonly UserManager<UserAuth> _userManager;
-        private readonly SignInManager<UserAuth> _signInManager;
+        private readonly UserManager<UserInfo> _userManager;
+        private readonly SignInManager<UserInfo> _signInManager;
         private readonly ILogger<UserAuthService> _logger;
 
-        public UserAuthService(SignInManager<UserAuth> signInManager,
-            UserManager<UserAuth> userManager,
+        public UserAuthService(SignInManager<UserInfo> signInManager,
+            UserManager<UserInfo> userManager,
             ILogger<UserAuthService> logger)
         {
             _signInManager = signInManager;
@@ -56,16 +56,16 @@ namespace AdaTech.AIntelligence.Service.Services
         {
             try
             {
-                var userAuth = new UserAuth
+                var userInfo = new UserInfo
                 {
                     UserName = email,
                     Email = email,
                 };
 
-                var result = await _userManager.CreateAsync(userAuth, password);
+                var result = await _userManager.CreateAsync(userInfo, password);
 
                 if (result.Succeeded)
-                    await _signInManager.SignInAsync(userAuth, isPersistent: false);
+                    await _signInManager.SignInAsync(userInfo, isPersistent: false);
 
                 return result.Succeeded;
             }

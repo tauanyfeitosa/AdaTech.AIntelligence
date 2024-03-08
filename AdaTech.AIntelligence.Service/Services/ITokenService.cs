@@ -1,9 +1,9 @@
-﻿using AdaTech.AIntelligence.Entities;
+﻿using AdaTech.AIntelligence.Entities.Objects;
 
 namespace AdaTech.AIntelligence.Service.Services
 {
     public interface ITokenService
     {
-        (string Token, DateTime Expiration) GenerateToken(UserAuth user);
+        (string Token, DateTime Expiration) GenerateToken(UserInfo user);
     }
 }

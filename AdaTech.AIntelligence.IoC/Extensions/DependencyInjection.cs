@@ -33,6 +33,7 @@ namespace AdaTech.AIntelligence.IoC.Extensions
         private static IServiceCollection ResolveDependenciesService(this IServiceCollection services)
         {
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IUserAuthService, UserAuthService>();
             services.AddScoped<MustHaveAToken>();
             services.AddScoped<ISeedUserInitial, SeedUserInitial>();
 
