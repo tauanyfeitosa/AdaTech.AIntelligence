@@ -56,8 +56,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         }
 
         [HttpPost("createUser")]
-        [Authorize(Roles = "Admin")]
-
+        [Authorize]
         public async Task<IActionResult> Register([FromBody] DTOUserLogin userInfo)
         {
             var succeeded = await _userAuthService.RegisterUserAsync(userInfo.Email, userInfo.Password);
