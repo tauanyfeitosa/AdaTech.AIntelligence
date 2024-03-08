@@ -7,6 +7,7 @@ using AdaTech.AIntelligence.DateLibrary.Context;
 using Microsoft.AspNetCore.Identity;
 using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Ioc.Filters;
+using AdaTech.AIntelligence.WebAPI.Utils.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -95,6 +96,7 @@ if (app.Environment.IsDevelopment())
 
 // add middlewares
 app.UseHttpsRedirection();
+app.UseMiddleware<MiddlewareException>();
 app.UseAuthentication();
 app.UseAuthorization();
 
