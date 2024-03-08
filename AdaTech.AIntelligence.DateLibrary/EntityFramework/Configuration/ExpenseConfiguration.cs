@@ -1,4 +1,4 @@
-﻿using AdaTech.AIntelligence.Entities;
+﻿using AdaTech.AIntelligence.Entities.Objects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
