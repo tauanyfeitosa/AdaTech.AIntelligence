@@ -1,6 +1,6 @@
 namespace AdaTech.AIntelligence.Tests
 {
-    public class UserServiceTests
+    public class UserAuthServiceTests
     {
         [Fact]
         public void Test1()
