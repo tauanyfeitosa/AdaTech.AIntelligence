@@ -1,5 +1,5 @@
 ﻿using AdaTech.AIntelligence.DateLibrary.EntityFramework.Configuration;
-using AdaTech.AIntelligence.Entities;
+using AdaTech.AIntelligence.Entities.Objects;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 namespace AdaTech.AIntelligence.DateLibrary.Context

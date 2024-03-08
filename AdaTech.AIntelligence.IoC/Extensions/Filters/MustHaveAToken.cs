@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace AdaTech.AIntelligence.WebAPI.Filters
+namespace AdaTech.AIntelligence.Ioc.Filters
 {
     public class MustHaveAToken : IAuthorizationFilter
     {

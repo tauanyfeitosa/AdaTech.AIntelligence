@@ -1,4 +1,4 @@
-﻿namespace AdaTech.AIntelligence.Entities
+﻿namespace AdaTech.AIntelligence.Entities.Objects
 {
     public class UserInfo : UserAuth
     {
