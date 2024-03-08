@@ -38,6 +38,7 @@ namespace AdaTech.AIntelligence.WebAPI.Utils.Middleware
                 InvalidCategoryException _ => StatusCodes.Status400BadRequest,
                 InvalidDescriptionException _ => StatusCodes.Status400BadRequest,
                 NotAnExpenseException _ => StatusCodes.Status400BadRequest,
+                NotFoundException _ => StatusCodes.Status404NotFound,
                 NotReadableImageException _ => StatusCodes.Status415UnsupportedMediaType,
                 ReadingAmountException _ => StatusCodes.Status404NotFound,
                 ReadingCategoryException _ => StatusCodes.Status404NotFound,
