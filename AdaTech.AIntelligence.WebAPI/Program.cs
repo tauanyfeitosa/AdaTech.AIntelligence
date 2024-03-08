@@ -1,24 +1,17 @@
-using AdaTech.AIntelligence.Service.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using AdaTech.AIntelligence.DateLibrary.Context;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using AdaTech.AIntelligence.IoC.Extensions;
 using AdaTech.AIntelligence.Entities.Objects;
-using AdaTech.AIntelligence.WebAPI.Utils.Middleware;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddServices(builder.Configuration);
-builder.Services.AddDbContext<ExpenseReportingDbContext>();
-builder.Services.AddIdentity<UserInfo, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-        .AddEntityFrameworkStores<ExpenseReportingDbContext>()
-        .AddDefaultUI()
-        .AddDefaultTokenProviders();
 
 builder.Services.AddAuthentication(
     config =>
@@ -87,7 +80,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseMiddleware<MiddlewareException>();
+app.ResolveDependenciesMiddleware();
 app.UseAuthentication();
 app.UseAuthorization();
 
