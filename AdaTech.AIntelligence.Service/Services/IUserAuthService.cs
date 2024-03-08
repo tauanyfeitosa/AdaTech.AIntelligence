@@ -1,8 +1,8 @@
 ﻿namespace AdaTech.AIntelligence.Service.Services
 {
-    public interface IUserService
+    public interface IUserAuthService
     {
-        Task<(bool Succeeded, string Role)> AuthenticateAsync(string email, string password);
+        Task<bool> AuthenticateAsync(string email, string password);
         Task<bool> RegisterUserAsync(string email, string password);
         Task LogoutAsync();
     }
