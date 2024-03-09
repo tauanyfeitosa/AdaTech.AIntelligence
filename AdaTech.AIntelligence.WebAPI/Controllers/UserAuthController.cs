@@ -26,28 +26,29 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         {
             var succeeded = await _userAuthService.AuthenticateAsync(userLoginInfo.Email, userLoginInfo.Password);
 
-            if (succeeded)
-            {
-                UserInfo user = new UserInfo()
-                {
-                    Email = userLoginInfo.Email,
-                    PasswordHash = userLoginInfo.Password,
-                };
+            return Ok(succeeded);
+            //if (succeeded)
+            //{
+            //    UserInfo user = new UserInfo()
+            //    {
+            //        Email = userLoginInfo.Email,
+            //        PasswordHash = userLoginInfo.Password,
+            //    };
 
-                var (Token, Expiration) = _tokenService.GenerateToken(user);
+            //    var (Token, Expiration) = _tokenService.GenerateToken(user);
 
-                _logger.LogInformation($"Usuário logado com sucesso: {userLoginInfo.Email}.");
-                return Ok(new DTOUserToken(Token, Expiration));
-            }
-            else
-            {
-                _logger.LogError($"Login de usuário sem sucesso: {userLoginInfo.Email}.");
-                return BadRequest("Login de usuário sem sucesso.");
-            }
+            //    _logger.LogInformation($"Usuário logado com sucesso: {userLoginInfo.Email}.");
+            //    return Ok(new DTOUserToken(Token, Expiration));
+            //}
+            //else
+            //{
+            //    _logger.LogError($"Login de usuário sem sucesso: {userLoginInfo.Email}.");
+            //    return BadRequest("Login de usuário sem sucesso.");
+            //}
         }
 
         [HttpPost("logout")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Logout()
         {
             await _userAuthService.LogoutAsync();
@@ -56,7 +57,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         }
 
         [HttpPost("createUser")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Register([FromBody] DTOUserLogin userInfo)
         {
             var succeeded = await _userAuthService.RegisterUserAsync(userInfo.Email, userInfo.Password);
