@@ -12,7 +12,7 @@ namespace AdaTech.AIntelligence.Service.DTOs.ModelRequest
     {
         [Required(ErrorMessage = "O campo Email é obrigatório!")]
         [EmailAddress(ErrorMessage = "O campo Email é inválido!")]
-        [EmailDomainAttribute("EmailSettings:Domain")]
+        [EmailDomain("EmailSettings:Domain")]
         public string Email { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }

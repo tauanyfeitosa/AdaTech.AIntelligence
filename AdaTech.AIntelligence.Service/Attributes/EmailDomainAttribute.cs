@@ -26,7 +26,7 @@ namespace AdaTech.AIntelligence.Service.Attributes
             }
             else
             {
-                return new ValidationResult($"Email must be from the domain {allowedDomain}.");
+                return new ValidationResult($"Email informado não corresponde ao domínio esperado.");
             }
         }
     }
