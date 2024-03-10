@@ -1,5 +1,6 @@
 ﻿using AdaTech.AIntelligence.Service.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
@@ -75,6 +76,85 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
                 }
             };
 
+            var contentRequest = new StringContent(JsonSerializer.Serialize(requestData), Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync("https://api.openai.com/v1/chat/completions", contentRequest);
+
+            return await ProcessResponse(response);
+        }
+        [HttpPost("montarObjetoSobreAImagemEnviada")]
+        public async Task<IActionResult> TesteDeRespostaDaImagem([FromBody] string prompt)
+        {
+            var apiKey = _configuration.GetValue<string>("ApiKey");
+
+            using var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+
+            var requestData = new
+            {
+                model = "gpt-4-vision-preview",
+                messages = new[]
+                {
+                    new
+                    {
+                        role = "system",
+                        content = new object[]
+                        {
+                            new { type = "text", text = "A resposta deve ser em português." },
+                        }
+                    },
+                    new
+                    {
+                        role = "system",
+                        content = new object[]
+                        {
+                            new { type = "text", text = "A imagem contém um comprovante fiscal? Continuar somente se a resposta for SIM, caso contrário, responder somente 'Imagem inválida'." },
+                        }
+                    },
+                    new
+                    {
+                        role = "system",
+                        content = new object[]
+                        {
+                            new { type = "text", text = "Responder em formato JSON" },
+                        }
+                    },
+                    new
+                    {
+                        role = "system",
+                        content = new object[]
+                        {
+                            new { type = "text", text = "Despesa: em que categoria está a despesa? entre: hospedagem, transporte, viagem, alimentação ou Outros." },
+                        }
+                    },
+                    new
+                    {
+                        role = "system",
+                        content = new object[]
+                        {
+                            new { type = "text", text = "Valor: qual o valor total da despesa?" },
+                        }
+                    },
+                    new
+                    {
+                        role = "system",
+                        content = new object[]
+                        {
+                            new { type = "text", text = "Descrição: descreva a despesa em no máximo 50 caracteres" },
+                        }
+                    },
+
+                    new
+                    {
+                        role = "user",
+                        content = new object[]
+                        {
+                            new { type = "text", text = prompt },
+                            new { type = "image_url", image_url = new { url = $"https://3.bp.blogspot.com/-XyNm0k6PDsU/WHFabVwMrlI/AAAAAAAAJ0o/-SF8xk8w2hstlvnjNp8-kybo5Zm3MnHtwCLcB/s1600/nota%2Bfiscal%2Bdotz.jpg" } }
+                        }
+                    }
+                },
+                max_tokens = 300
+            };
             var contentRequest = new StringContent(JsonSerializer.Serialize(requestData), Encoding.UTF8, "application/json");
             var response = await httpClient.PostAsync("https://api.openai.com/v1/chat/completions", contentRequest);
 
