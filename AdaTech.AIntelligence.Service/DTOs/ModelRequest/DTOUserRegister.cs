@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using AdaTech.AIntelligence.Service.Attributes;
 
 namespace AdaTech.AIntelligence.Service.DTOs.ModelRequest
@@ -16,8 +11,11 @@ namespace AdaTech.AIntelligence.Service.DTOs.ModelRequest
         public string Email { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
+        [DateAge(14)]
         public DateOnly DateBirth { get; set; }
+        [StrongPassword(8)]
         public string Password { get; set; }
+        [CPF]
         public string CPF { get; set; }
     }
 }
