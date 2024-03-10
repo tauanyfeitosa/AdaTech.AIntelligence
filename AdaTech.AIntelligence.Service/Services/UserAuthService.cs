@@ -1,9 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
 using AdaTech.AIntelligence.Entities.Objects;
-using AdaTech.AIntelligence.Entities.Enums;
-using AdaTech.AIntelligence.Service.DTOs;
-using System.Data;
+using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
 
 namespace AdaTech.AIntelligence.Service.Services
 {
@@ -75,8 +73,6 @@ namespace AdaTech.AIntelligence.Service.Services
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(userInfo, "Employee");
-
-                    //await _signInManager.SignInAsync(userInfo, isPersistent: false);
                 }
 
                 return result.Succeeded;

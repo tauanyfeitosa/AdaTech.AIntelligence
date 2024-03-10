@@ -1,6 +1,6 @@
 ﻿using AdaTech.AIntelligence.Entities.Enums;
 
-namespace AdaTech.AIntelligence.Service.DTOs
+namespace AdaTech.AIntelligence.Service.DTOs.ModelRequest
 {
     public class DTOUserLogin
     {
