@@ -8,6 +8,5 @@ namespace AdaTech.AIntelligence.Entities.Objects
         public string LastName { get; set; }
         public string CPF { get; set; }
         public DateTime DateBirth { get; set; }
-        public Role Role { get; set; }
     }
 }
