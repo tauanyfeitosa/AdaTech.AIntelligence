@@ -82,7 +82,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             return await ProcessResponse(response);
         }
         [HttpPost("montarObjetoSobreAImagemEnviada")]
-        public async Task<IActionResult> TesteDeRespostaDaImagem([FromBody] string prompt)
+        public async Task<IActionResult> TesteDeRespostaDaImagem([FromBody] string prompt, string url)
         {
             var apiKey = _configuration.GetValue<string>("ApiKey");
 
@@ -148,8 +148,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
                         role = "user",
                         content = new object[]
                         {
-                            new { type = "text", text = prompt },
-                            new { type = "image_url", image_url = new { url = $"https://3.bp.blogspot.com/-XyNm0k6PDsU/WHFabVwMrlI/AAAAAAAAJ0o/-SF8xk8w2hstlvnjNp8-kybo5Zm3MnHtwCLcB/s1600/nota%2Bfiscal%2Bdotz.jpg" } }
+                            new { type = "image_url", image_url = new { url = $"{url}" } }
                         }
                     }
                 },
@@ -160,7 +159,6 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
 
             return await ProcessResponse(response);
         }
-
 
         private async Task<IActionResult> ProcessResponse(HttpResponseMessage response)
         {
@@ -188,7 +186,6 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             Console.WriteLine(contentString);
             return Ok(contentString); 
         }
-
         private async Task<IActionResult> HandleErrorResponse(HttpResponseMessage response)
         {
             var errorContent = await response.Content.ReadAsStringAsync();
