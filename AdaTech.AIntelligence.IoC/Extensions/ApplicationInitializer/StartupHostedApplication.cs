@@ -23,7 +23,6 @@ namespace AdaTech.AIntelligence.IoC.Extensions.ApplicationInitializer
             using (var scope = _serviceProvider.CreateScope())
             {
                 var seedUserRoleInitial = scope.ServiceProvider.GetRequiredService<ISeedUserInitial>();
-                await seedUserRoleInitial.SeedUsersAsync();
                 await seedUserRoleInitial.SeedRolesAsync();
                 
             }

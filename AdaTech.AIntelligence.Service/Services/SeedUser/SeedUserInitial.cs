@@ -1,5 +1,4 @@
 ﻿using AdaTech.AIntelligence.Configuration;
-using AdaTech.AIntelligence.Entities.Enums;
 using AdaTech.AIntelligence.Entities.Objects;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
@@ -35,7 +34,6 @@ namespace AdaTech.AIntelligence.Service.Services.SeedUser
                     DateBirth = DateTime.Now.AddYears(-18),
                     Name = "FinancialAdmin",
                     LastName = "FinancialAdmin",
-                    Role = Role.FinancialAdmin,
                     IsSuperUser = true,
                 };
 
@@ -44,24 +42,8 @@ namespace AdaTech.AIntelligence.Service.Services.SeedUser
                 if (result.Succeeded)
                 {
                     _userManager.AddToRoleAsync(user, "Admin").Wait();
+                    _userManager.AddToRoleAsync(user, "Finance").Wait();
                 }
-            }
-        }
-
-        public async Task SeedUsersAsync()
-        {
-
-            if (!_roleManager.RoleExistsAsync("User").Result)
-            {
-                IdentityRole role = new IdentityRole();
-                role.Name = "User";
-                _ = await _roleManager.CreateAsync(role);
-            }
-            if (!_roleManager.RoleExistsAsync("Admin").Result)
-            {
-                IdentityRole role = new IdentityRole();
-                role.Name = "Admin";
-                _ = await _roleManager.CreateAsync(role);
             }
         }
     }

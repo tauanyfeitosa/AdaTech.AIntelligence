@@ -2,9 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AdaTech.AIntelligence.IoC.Extensions
+namespace AdaTech.AIntelligence.IoC.Extensions.Configurations
 {
-    
+
     internal static class ConfigureAppSettings
     {
         /// <summary>

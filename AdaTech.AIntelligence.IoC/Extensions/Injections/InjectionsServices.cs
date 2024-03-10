@@ -7,9 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using AdaTech.AIntelligence.DateLibrary.Roles;
+using Microsoft.AspNetCore.Identity;
 
 
-namespace AdaTech.AIntelligence.IoC
+namespace AdaTech.AIntelligence.IoC.Extensions.Injections
 {
     public static class InjectionsServices
     {

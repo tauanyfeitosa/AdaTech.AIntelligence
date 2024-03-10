@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Entities.Enums;
 using AdaTech.AIntelligence.Service.DTOs;
+using System.Data;
 
 namespace AdaTech.AIntelligence.Service.Services
 {
@@ -66,15 +67,18 @@ namespace AdaTech.AIntelligence.Service.Services
                     CPF = userRegister.CPF,
                     Email = userRegister.Email,
                     DateBirth = new DateTime(userRegister.DateBirth.Year, userRegister.DateBirth.Month, userRegister.DateBirth.Day, 0, 0, 0),
-                    Role = Role.Employee,
                     IsStaff = true,
                 };
 
                 var result = await _userManager.CreateAsync(userInfo, userRegister.Password);
 
-                /*if (result.Succeeded)
-                    await _signInManager.SignInAsync(userInfo, isPersistent: false);
-*/
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(userInfo, "Employee");
+
+                    //await _signInManager.SignInAsync(userInfo, isPersistent: false);
+                }
+
                 return result.Succeeded;
             }
             catch (Exception ex)
