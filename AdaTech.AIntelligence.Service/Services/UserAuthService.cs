@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
 using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Entities.Enums;
+using AdaTech.AIntelligence.Service.DTOs;
 
 namespace AdaTech.AIntelligence.Service.Services
 {
@@ -52,26 +54,32 @@ namespace AdaTech.AIntelligence.Service.Services
             }
         }
 
-        public async Task<bool> RegisterUserAsync(string email, string password)
+        public async Task<bool> RegisterUserAsync(DTOUserRegister userRegister)
         {
             try
             {
                 var userInfo = new UserInfo
                 {
-                    UserName = email,
-                    Email = email,
+                    UserName = userRegister.Name,
+                    Name = userRegister.Name,
+                    LastName = userRegister.LastName,
+                    CPF = userRegister.CPF,
+                    Email = userRegister.Email,
+                    DateBirth = new DateTime(userRegister.DateBirth.Year, userRegister.DateBirth.Month, userRegister.DateBirth.Day, 0, 0, 0),
+                    Role = Role.Employee,
+                    IsStaff = true,
                 };
 
-                var result = await _userManager.CreateAsync(userInfo, password);
+                var result = await _userManager.CreateAsync(userInfo, userRegister.Password);
 
-                if (result.Succeeded)
+                /*if (result.Succeeded)
                     await _signInManager.SignInAsync(userInfo, isPersistent: false);
-
+*/
                 return result.Succeeded;
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Tentativa de registro sem sucesso com email {email}: {ex}");
+                _logger.LogError($"Tentativa de registro sem sucesso com email {userRegister.Email}: {ex}");
                 throw new ArgumentException($"Tentativa de registro sem sucesso: {ex}");
             }
         }
