@@ -1,4 +1,6 @@
-﻿namespace AdaTech.AIntelligence.Service.DTOs
+﻿using AdaTech.AIntelligence.Entities.Enums;
+
+namespace AdaTech.AIntelligence.Service.DTOs
 {
     public class DTOUserLogin
     {

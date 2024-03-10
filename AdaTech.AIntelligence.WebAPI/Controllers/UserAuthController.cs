@@ -58,19 +58,19 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
 
         [HttpPost("createUser")]
         //[Authorize]
-        public async Task<IActionResult> Register([FromBody] DTOUserLogin userInfo)
+        public async Task<IActionResult> Register([FromBody] DTOUserRegister userRegister)
         {
-            var succeeded = await _userAuthService.RegisterUserAsync(userInfo.Email, userInfo.Password);
+            var succeeded = await _userAuthService.RegisterUserAsync(userRegister);
 
             if (succeeded)
             {
-                _logger.LogInformation($"Usuário criado com sucesso: {userInfo.Email}");
-                return Ok($"Usário {userInfo.Email} foi criado com sucesso!");
+                _logger.LogInformation($"Usuário criado com sucesso: {userRegister.Email}");
+                return Ok($"Usário {userRegister.Email} foi criado com sucesso!");
             }
             else
             {
-                _logger.LogError($"Login inválido: {userInfo.Email}.");
-                return BadRequest("Login inválido.");
+                _logger.LogError($"Registro sem sucesso: {userRegister.Email}.");
+                return BadRequest("Registro sem sucesso.");
             }
         }
     }

@@ -18,6 +18,7 @@ namespace AdaTech.AIntelligence.IoC
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<MustHaveAToken>();
             services.AddScoped<ISeedUserInitial, SeedUserInitial>();
+            services.AddScoped<IUserAuthService, UserAuthService>();
 
             return services;
         }
