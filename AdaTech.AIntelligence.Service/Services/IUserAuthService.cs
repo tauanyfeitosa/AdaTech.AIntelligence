@@ -1,5 +1,5 @@
 ﻿using AdaTech.AIntelligence.Entities.Objects;
-using AdaTech.AIntelligence.Service.DTOs;
+using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
 
 namespace AdaTech.AIntelligence.Service.Services
 {

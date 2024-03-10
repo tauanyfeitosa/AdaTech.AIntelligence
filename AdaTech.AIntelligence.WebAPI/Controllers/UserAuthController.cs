@@ -1,5 +1,5 @@
 ﻿using AdaTech.AIntelligence.Entities.Objects;
-using AdaTech.AIntelligence.Service.DTOs;
+using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
 using AdaTech.AIntelligence.Service.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
