@@ -1,6 +1,5 @@
 ﻿using AdaTech.AIntelligence.Service.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
@@ -21,36 +20,36 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             _tokenService = tokenService;
             _logger = logger;
         }
-
-        //[HttpPost("criarToken")]
-        //public IActionResult CriarToken(string user, string password)
-        //{
-        //    var token = _tokenService.GenerateToken(user, password);
-        //    var cookieOptions = new CookieOptions
-        //    {
-        //        HttpOnly = true,
-        //        Expires = System.DateTime.Now.AddHours(1)
-        //    };
-        //    Response.Cookies.Append("jwt", token, cookieOptions);
-        //    return Ok(token);
-        //}
-
-        //[HttpPost("deletarToken")]
-        //[ServiceFilter(typeof(MustHaveAToken))]
-        //public IActionResult DeletarToken()
-        //{
-        //    Response.Cookies.Delete("jwt");
-        //    return Ok("Token deletado");
-        //}
-
         [HttpPost("enviarImagemParaOChatGPT")]
-        public async Task<IActionResult> EnviarImagemParaOChatGPT([FromBody] string prompt)
+        public async Task<IActionResult> EnviarImagemParaOChatGPT(IFormFile image)
         {
+            if (image == null || image.Length == 0)
+            {
+                return BadRequest("Upload a valid image file.");
+            }
+
+            var allowedExtensions = new[] { ".jpg", ".png" };
+            var extension = Path.GetExtension(image.FileName).ToLowerInvariant();
+
+            if (!allowedExtensions.Contains(extension))
+            {
+                return BadRequest("Only .jpg and .png file formats are allowed.");
+            }
+
+            string base64Image;
+            using (var memoryStream = new MemoryStream())
+            {
+                await image.CopyToAsync(memoryStream);
+                byte[] imageBytes = memoryStream.ToArray();
+                base64Image = Convert.ToBase64String(imageBytes);
+            }
+
             var apiKey = _configuration.GetValue<string>("ApiKey");
 
             using var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
 
+            var imageContentType = extension == ".png" ? "image/png" : "image/jpeg";
             var requestData = new
             {
                 model = "gpt-4-vision-preview",
@@ -69,12 +68,13 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
                         role = "user",
                         content = new object[]
                         {
-                            new { type = "text", text = prompt },
-                            new { type = "image_url", image_url = new { url = $"https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Nfe.png/480px-Nfe.png" } }
+                            new { type = "text", text = "What’s in this image?" },
+                            new { type = "image_url", image_url = $"data:image/{extension.Substring(1)};base64,{base64Image}" }
                         }
                     }
                 }
             };
+
 
             var contentRequest = new StringContent(JsonSerializer.Serialize(requestData), Encoding.UTF8, "application/json");
             var response = await httpClient.PostAsync("https://api.openai.com/v1/chat/completions", contentRequest);
@@ -160,6 +160,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
 
             return await ProcessResponse(response);
         }
+
 
         private async Task<IActionResult> ProcessResponse(HttpResponseMessage response)
         {
