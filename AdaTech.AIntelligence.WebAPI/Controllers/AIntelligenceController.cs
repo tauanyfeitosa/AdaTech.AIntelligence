@@ -90,8 +90,10 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             using var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
 
+            var imagemInvalida = @"HTTP/1.1 400 Bad Request{"+"\"message\": \"Comprovante Inválido\"}";
             var requestData = new
             {
+
                 model = "gpt-4-vision-preview",
                 messages = new[]
                 {
@@ -108,7 +110,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
                         role = "system",
                         content = new object[]
                         {
-                            new { type = "text", text = "A imagem contém um comprovante fiscal? Continuar somente se a resposta for SIM, caso contrário, responder somente 'Imagem inválida'." },
+                            new { type = "text", text = $"A imagem contém um comprovante fiscal? Continuar somente se a resposta for SIM, caso contrário, responder {imagemInvalida}" },
                         }
                     },
                     new
