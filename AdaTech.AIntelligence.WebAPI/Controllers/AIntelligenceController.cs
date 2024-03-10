@@ -82,7 +82,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             return await ProcessResponse(response);
         }
         [HttpPost("montarObjetoSobreAImagemEnviada")]
-        public async Task<IActionResult> TesteDeRespostaDaImagem([FromBody] string prompt, string url)
+        public async Task<IActionResult> TesteDeRespostaDaImagem([FromQuery] string url)
         {
             var apiKey = _configuration.GetValue<string>("ApiKey");
 
