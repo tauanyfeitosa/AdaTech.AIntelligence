@@ -16,8 +16,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdaTech.AIntelligence.Infra
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{BC1515D0-CE51-4AFE-B29A-AE21AB01DCD3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdaTech.AIntelligence", "AdaTech.AIntelligence", "{F28DDB68-BAFA-4AC9-A239-4BA9B7380A17}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaTech.AIntelligence.Service", "AdaTech.AIntelligence.Service\AdaTech.AIntelligence.Service.csproj", "{F70FB5B2-3A6D-4E7A-ABC8-B106BD6501DB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaTech.AIntelligence.DateLibrary", "AdaTech.AIntelligence.DateLibrary\AdaTech.AIntelligence.DateLibrary.csproj", "{84517B57-A793-40CD-848F-29A563FB0694}"
