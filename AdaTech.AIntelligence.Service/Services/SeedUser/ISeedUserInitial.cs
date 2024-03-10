@@ -10,7 +10,6 @@ namespace AdaTech.AIntelligence.Service.Services.SeedUser
 {
     internal interface ISeedUserInitial
     {
-        Task SeedUsersAsync();
         Task SeedRolesAsync();
     }
 }

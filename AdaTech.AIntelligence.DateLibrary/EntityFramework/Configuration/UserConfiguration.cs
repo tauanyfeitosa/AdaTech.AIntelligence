@@ -19,7 +19,6 @@ namespace AdaTech.AIntelligence.DateLibrary.EntityFramework.Configuration
             builder.Property(u => u.IsSuperUser).IsRequired();
             builder.Property(u => u.UserName).IsRequired();
             builder.Property(u => u.PasswordHash).IsRequired();
-            builder.Property(u => u.Role).IsRequired();
         }
     }
 }
