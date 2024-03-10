@@ -2,7 +2,8 @@ using AdaTech.AIntelligence.IoC.Extensions.ApplicationInitializer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Runtime.CompilerServices;
-using AdaTech.AIntelligence.IoC;
+using AdaTech.AIntelligence.IoC.Extensions.Injections;
+using AdaTech.AIntelligence.IoC.Extensions.Configurations;
 
 [assembly: InternalsVisibleTo("AdaTech.AIntelligence.WebAPI")]
 namespace AdaTech.AIntelligence.IoC.Extensions
@@ -29,9 +30,6 @@ namespace AdaTech.AIntelligence.IoC.Extensions
 
             return services;
         }
-
-       
-   
 
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace AdaTech.AIntelligence.IoC
+namespace AdaTech.AIntelligence.IoC.Extensions.Injections
 {
     public static class InjectionsSwagger
     {

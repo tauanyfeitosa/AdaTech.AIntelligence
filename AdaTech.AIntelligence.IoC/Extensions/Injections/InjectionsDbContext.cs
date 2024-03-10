@@ -3,7 +3,7 @@ using AdaTech.AIntelligence.Entities.Objects;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AdaTech.AIntelligence.IoC
+namespace AdaTech.AIntelligence.IoC.Extensions.Injections
 {
     public static class InjectionsDbContext
     {
