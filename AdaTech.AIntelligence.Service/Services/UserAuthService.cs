@@ -47,7 +47,8 @@ namespace AdaTech.AIntelligence.Service.Services
             try
             {
                 await _signInManager.SignOutAsync();
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 _logger.LogError($"Tentativa de logout sem sucesso: {ex}");
             }
