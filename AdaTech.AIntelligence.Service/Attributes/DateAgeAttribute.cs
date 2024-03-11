@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("CPFAttributeTests")]
 namespace AdaTech.AIntelligence.Service.Attributes
 {
     public class DateAgeAttribute : ValidationAttribute
@@ -13,6 +15,11 @@ namespace AdaTech.AIntelligence.Service.Attributes
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
+            if (value == null || !(value is DateOnly))
+            {
+                return new ValidationResult("The value must be of type DateOnly.");
+            }
+
             if (value != null && value is DateOnly)
             {
                 DateOnly dateOfBirth = (DateOnly)value;
