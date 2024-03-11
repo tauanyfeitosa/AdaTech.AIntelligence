@@ -1,7 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("CPFAttributeTests")]
 namespace AdaTech.AIntelligence.Service.Attributes
 {
+    
     public class CPFAttribute : ValidationAttribute
     {
         private static int LenghtCPF = 11;
