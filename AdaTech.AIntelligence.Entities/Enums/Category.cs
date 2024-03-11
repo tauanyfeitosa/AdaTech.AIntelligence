@@ -2,10 +2,10 @@
 {
     public enum Category
     {
-        Lodging,
-        Transportation,
-        Travel,
-        Meals,
-        Others
+        Lodging = 1,
+        Transportation = 2,
+        Travel = 3,
+        Meals = 4,
+        Others = 5
     }
 }

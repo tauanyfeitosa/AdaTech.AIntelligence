@@ -1,3 +1,5 @@
+using AdaTech.AIntelligence.Entities.Enums;
+using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.Services;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
@@ -74,8 +76,15 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
 
             var response = await httpClient.PostAsync("https://api.openai.com/v1/chat/completions", contentRequest);
 
-            var resposta =  await response.ProcessResponse();
-
+            var resposta = await response.ProcessResponse();
+            string[] valores = resposta.Split(",");
+            var respostaObjeto = new Expense()
+            {
+                Category = (Category)int.Parse(valores[0]),
+                TotalValue = double.Parse(valores[1]),
+                Description = valores[1],
+                Status = ExpenseStatus.SUBMETIDO,
+            };
             return Ok(resposta);
         }
     }
