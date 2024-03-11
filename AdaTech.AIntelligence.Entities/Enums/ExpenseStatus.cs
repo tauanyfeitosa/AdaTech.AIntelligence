@@ -2,7 +2,7 @@
 {
     public enum ExpenseStatus
     {
-        Submitted,
-        Paid
+        SUBMETIDO = 1,
+        PAGO = 2
     }
 }

@@ -1,4 +1,5 @@
-﻿using AdaTech.AIntelligence.Service.Services;
+using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Service.Services;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
 using Microsoft.AspNetCore.Mvc;
