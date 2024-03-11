@@ -54,7 +54,18 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
         public async Task<IEnumerable<Expense>> GetAllSubmetido()
         {
             var allExpenses = await _repository.GetAll();
-            return allExpenses.Where(expense => expense.Status == ExpenseStatus.SUBMETIDO);
+            return allExpenses.Where(expense => expense.Status == ExpenseStatus.SUBMETIDO && expense.IsActive);
+        }
+
+        public async Task<IEnumerable<Expense>> GetAllActive()
+        {
+            var allExpenses = await _repository.GetAll();
+            return allExpenses.Where(expense => expense.IsActive);
+        }
+
+        public Task<IEnumerable<Expense>> GetAll()
+        {
+            return _repository.GetAll();
         }
     }
 }
