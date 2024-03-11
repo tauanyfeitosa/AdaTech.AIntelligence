@@ -7,5 +7,6 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense
         Task<bool> CreateExpense(string response);
         Task<bool> UpdateExpense(Expense expense);
         Task<Expense> GetOne(int idExpense);
+        Task<IEnumerable<Expense>> GetAllSubmetido();
     }
 }

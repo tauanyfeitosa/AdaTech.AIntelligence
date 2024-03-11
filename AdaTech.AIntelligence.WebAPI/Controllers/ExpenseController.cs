@@ -4,8 +4,10 @@ using AdaTech.AIntelligence.Service.Exceptions;
 using AdaTech.AIntelligence.Service.Services;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using System.Net.Http.Headers;
 
 namespace AdaTech.AIntelligence.WebAPI.Controllers
@@ -94,5 +96,42 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
 
             return Ok("Status da despesa atualizado com sucesso!");
         }
+
+        [HttpGet("VisualizarTodasDespesas")]
+        [Authorize(Roles = "Admin, Finance")]
+        public async Task<IActionResult> VisualizarTodasDespesas()
+        {
+            var success = await _expenseCRUDService.GetAll();
+
+            if (success.IsNullOrEmpty())
+                throw new NotFoundException();
+
+            return Ok(success);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin, Finance")]
+        public async Task<IActionResult> VisualizarTodasDespesaAtivas()
+        {
+            var success = await _expenseCRUDService.GetAllActive();
+
+            if (success.IsNullOrEmpty())
+                throw new NotFoundException();
+
+            return Ok(success);
+        }
+
+        [HttpGet("VisualizarTodasDespesasSubmetidas")]
+        [Authorize(Roles = "Finance")]
+        public async Task<IActionResult> VisualizarTodasDespesasSubmetidas()
+        {
+            var success = await _expenseCRUDService.GetAllSubmetido();
+
+            if (success.IsNullOrEmpty())
+                throw new NotFoundException();
+
+            return Ok(success);
+        }
+
     }
 }
