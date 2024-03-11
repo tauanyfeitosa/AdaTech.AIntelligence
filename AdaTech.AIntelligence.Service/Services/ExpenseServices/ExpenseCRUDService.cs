@@ -3,6 +3,8 @@ using AdaTech.AIntelligence.DateLibrary.Repository;
 using AdaTech.AIntelligence.Entities.Enums;
 using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
 {
@@ -47,6 +49,12 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
         public async Task<Expense> GetOne(int idExpense)
         {
             return await _repository.GetOne(idExpense);
+        }
+
+        public async Task<IEnumerable<Expense>> GetAllSubmetido()
+        {
+            var allExpenses = await _repository.GetAll();
+            return allExpenses.Where(expense => expense.Status == ExpenseStatus.SUBMETIDO);
         }
     }
 }
