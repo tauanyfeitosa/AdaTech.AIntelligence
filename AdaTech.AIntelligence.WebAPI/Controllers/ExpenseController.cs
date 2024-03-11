@@ -10,14 +10,14 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AIntelligenceController : ControllerBase
+    public class ExpenseController : ControllerBase
     {
-        private readonly ILogger<AIntelligenceController> _logger;
+        private readonly ILogger<ExpenseController> _logger;
         private readonly IConfiguration _configuration;
         private readonly IExpenseScriptGPT _expenseScriptGPT;
 
-        public AIntelligenceController(IConfiguration configuration, IWebHostEnvironment environment, 
-            ILogger<AIntelligenceController> logger, IExpenseScriptGPT expenseScriptGPT)
+        public ExpenseController(IConfiguration configuration, IWebHostEnvironment environment, 
+            ILogger<ExpenseController> logger, IExpenseScriptGPT expenseScriptGPT)
         {
             _configuration = configuration;
             _logger = logger;
