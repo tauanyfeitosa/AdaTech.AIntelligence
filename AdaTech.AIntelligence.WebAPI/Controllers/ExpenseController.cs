@@ -1,8 +1,10 @@
 using AdaTech.AIntelligence.Entities.Enums;
 using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Service.Exceptions;
 using AdaTech.AIntelligence.Service.Services;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
 
@@ -55,6 +57,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             return Ok("Despesa cadastrada com sucesso!");
 
         }
+
         [HttpPost("montarObjetoSobreAImagemEnviada")]
         public async Task<IActionResult> TesteDeRespostaDaImagem([FromQuery] string url)
         {
@@ -72,6 +75,24 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
                 return BadRequest("Erro ao criar despesa.");
 
             return Ok("Despesa cadastrada com sucesso!");
+        }
+
+        [HttpPatch("alterarStatusDaDespesa")]
+        public async Task<IActionResult> AlterarStatusDaDespesa([FromQuery] int idExpense)
+        {
+            var expense = await _expenseCRUDService.GetOne(idExpense);
+
+            if(expense.Status == ExpenseStatus.PAGO)
+                throw new NotAnExpenseException("Despesa não encontrada.");
+
+            expense.Status = ExpenseStatus.PAGO;
+
+            var success = await _expenseCRUDService.UpdateExpense(expense);
+
+            if (!success)
+                throw new Exception("Erro ao alterar o status da despesa.");
+
+            return Ok("Status da despesa atualizado com sucesso!");
         }
     }
 }

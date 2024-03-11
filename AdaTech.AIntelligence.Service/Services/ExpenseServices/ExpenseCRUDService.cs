@@ -38,5 +38,15 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
             }
 
         }
+
+        public async Task<bool> UpdateExpense(Expense expense)
+        {
+            return await _repository.Update(expense);
+        }
+
+        public async Task<Expense> GetOne(int idExpense)
+        {
+            return await _repository.GetOne(idExpense);
+        }
     }
 }
