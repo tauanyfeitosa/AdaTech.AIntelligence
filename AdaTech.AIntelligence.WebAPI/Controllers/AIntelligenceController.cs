@@ -1,5 +1,6 @@
 ﻿using AdaTech.AIntelligence.Service.Services;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices;
+using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http.Headers;
@@ -82,7 +83,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             var contentRequest = new StringContent(JsonSerializer.Serialize(requestData), Encoding.UTF8, "application/json");
             var response = await httpClient.PostAsync("https://api.openai.com/v1/chat/completions", contentRequest);
 
-            return await response.ProcessResponse();
+            return Ok(await response.ProcessResponse());
         }
         [HttpPost("montarObjetoSobreAImagemEnviada")]
         public async Task<IActionResult> TesteDeRespostaDaImagem([FromQuery] string url)
@@ -97,7 +98,9 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
 
             var response = await httpClient.PostAsync("https://api.openai.com/v1/chat/completions", contentRequest);
 
-            return await response.ProcessResponse();
+            var resposta =  await response.ProcessResponse();
+
+            return Ok(resposta);
         }
     }
 }

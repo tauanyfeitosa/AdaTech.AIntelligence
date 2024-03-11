@@ -10,11 +10,11 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
 {
     public static class ExpenseResponseGPTService
     {
-        public static async Task<IActionResult> ProcessResponse(this HttpResponseMessage response)
+        public static async Task<string> ProcessResponse(this HttpResponseMessage response)
         {
             if (!response.IsSuccessStatusCode)
             {
-                return await HandleErrorResponse(response);
+                return await response.Content.ReadAsStringAsync();
             }
 
             var jsonResponse = await response.Content.ReadAsStringAsync();
@@ -23,18 +23,18 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
 
             if (!root.TryGetProperty("choices", out var choices) || choices.GetArrayLength() == 0)
             {
-                return new BadRequestObjectResult("No choices found in the response.");
+                return "No choices found in the response.";
             }
 
             var firstChoice = choices[0];
             if (!firstChoice.TryGetProperty("message", out var message) || !message.TryGetProperty("content", out var content))
             {
-                return new BadRequestObjectResult("Content property not found in the first choice.");
+                return "Content property not found in the first choice.";
             }
 
             var contentString = content.GetString();
             Console.WriteLine(contentString);
-            return new OkObjectResult(contentString);
+            return contentString;
         }
         private static async Task<IActionResult> HandleErrorResponse(HttpResponseMessage response)
         {

@@ -10,6 +10,7 @@ using System.Text;
 using AdaTech.AIntelligence.DateLibrary.Roles;
 using Microsoft.AspNetCore.Identity;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices;
+using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
 
 
 namespace AdaTech.AIntelligence.IoC.Extensions.Injections
