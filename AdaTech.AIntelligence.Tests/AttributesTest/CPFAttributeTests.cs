@@ -5,10 +5,15 @@ namespace AdaTech.AIntelligence.Tests.AttributesTest
 {
     public class CPFAttributeTests
     {
-        private readonly CPFAttribute _sut = new CPFAttribute();
+        private readonly CPFAttribute _sut;
+
+        public CPFAttributeTests()
+        {
+            _sut = new CPFAttribute();
+        }
 
         [Fact]
-        public void CPFAttribute_WithValidCPF_ShouldReturnSuccess()
+        public void CPFAttribute_WithValidCPF_ShouldReturnTrue()
         {
             // Act
             var result = _sut.IsValid("71704834082");
@@ -18,7 +23,7 @@ namespace AdaTech.AIntelligence.Tests.AttributesTest
         }
 
         [Fact]
-        public void CPFAttribute_WithInvalidCPF_ShouldReturnError()
+        public void CPFAttribute_WithInvalidCPF_ShouldReturnFalse()
         {
 
             // Act
@@ -30,7 +35,7 @@ namespace AdaTech.AIntelligence.Tests.AttributesTest
         }
 
         [Fact]
-        public void CPFAttribute_WithNullCPF_ShouldReturnError()
+        public void CPFAttribute_WithNullCPF_ShouldReturnFalse()
         {
             // Act
             var result = _sut.IsValid(null);
@@ -40,7 +45,7 @@ namespace AdaTech.AIntelligence.Tests.AttributesTest
         }
 
         [Fact]
-        public void CPFAttribute_WithEmptyCPF_ShouldReturnError()
+        public void CPFAttribute_WithEmptyCPF_ShouldReturnFalse()
         {
 
             // Act
@@ -50,15 +55,37 @@ namespace AdaTech.AIntelligence.Tests.AttributesTest
             result.Should().BeFalse();
         }
 
-        [Fact]
-        public void CPFAttribute_WithInvalidCPFFormat_ShouldReturnError()
+        [Theory]
+        [InlineData("123")]
+        [InlineData("123456789012")]
+        public void CPFAttribute_WithInvalidCPFFormat_ShouldReturnFalse(string cpf)
         {
-
             // Act
-            var result = _sut.IsValid("123");
+            var result = _sut.IsValid(cpf);
 
             // Assert
             result.Should().BeFalse();
         }
+
+        [Fact]
+        public void CPFAttribute_WithValidCPFWithDashes_ShouldReturnTrue()
+        {
+            // Act
+            var result = _sut.IsValid("717.048.340-82");
+
+            // Assert  
+            result.Should().BeTrue();
+        }
+
+        [Fact]
+        public void CPFAttribute_WithInvalidCPFCharacter_ShouldReturnFalse()
+        {
+            // Act
+            var result = _sut.IsValid("1234567890a");
+
+            // Assert
+            result.Should().BeFalse();
+        }
+
     }
 }
