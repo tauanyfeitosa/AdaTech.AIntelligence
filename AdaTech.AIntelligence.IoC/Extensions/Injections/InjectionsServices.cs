@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using AdaTech.AIntelligence.DateLibrary.Roles;
 using Microsoft.AspNetCore.Identity;
+using AdaTech.AIntelligence.Service.Services.ExpenseServices;
 
 
 namespace AdaTech.AIntelligence.IoC.Extensions.Injections
@@ -21,6 +22,7 @@ namespace AdaTech.AIntelligence.IoC.Extensions.Injections
             services.AddScoped<MustHaveAToken>();
             services.AddScoped<ISeedUserInitial, SeedUserInitial>();
             services.AddScoped<IUserAuthService, UserAuthService>();
+            services.AddScoped<IExpenseScriptGPT, ExpenseScriptGPT>();
 
             return services;
         }

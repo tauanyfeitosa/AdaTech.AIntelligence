@@ -1,6 +1,7 @@
 ﻿using AdaTech.AIntelligence.Service.Services;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
@@ -11,15 +12,16 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
     [ApiController]
     public class AIntelligenceController : ControllerBase
     {
-        private readonly ITokenService _tokenService;
         private readonly ILogger<AIntelligenceController> _logger;
         private readonly IConfiguration _configuration;
+        private readonly IExpenseScriptGPT _expenseScriptGPT;
 
-        public AIntelligenceController(IConfiguration configuration, IWebHostEnvironment environment, ITokenService tokenService, ILogger<AIntelligenceController> logger)
+        public AIntelligenceController(IConfiguration configuration, IWebHostEnvironment environment, 
+            ILogger<AIntelligenceController> logger, IExpenseScriptGPT expenseScriptGPT)
         {
             _configuration = configuration;
-            _tokenService = tokenService;
             _logger = logger;
+            _expenseScriptGPT = expenseScriptGPT;
         }
         [HttpPost("enviarImagemParaOChatGPT")]
         public async Task<IActionResult> EnviarImagemParaOChatGPT(IFormFile image)
@@ -85,84 +87,17 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         [HttpPost("montarObjetoSobreAImagemEnviada")]
         public async Task<IActionResult> TesteDeRespostaDaImagem([FromQuery] string url)
         {
+
             var apiKey = _configuration.GetValue<string>("ApiKey");
 
             using var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
 
-            var imagemInvalida = @"HTTP/1.1 400 Bad Request{"+"\"message\": \"Comprovante Inválido\"}";
-            var requestData = new
-            {
+            var contentRequest = await _expenseScriptGPT.ExpenseScriptPrompt(url);
 
-                model = "gpt-4-vision-preview",
-                messages = new[]
-                {
-                    new
-                    {
-                        role = "system",
-                        content = new object[]
-                        {
-                            new { type = "text", text = "A resposta deve ser em português." },
-                        }
-                    },
-                    new
-                    {
-                        role = "system",
-                        content = new object[]
-                        {
-                            new { type = "text", text = $"A imagem contém um comprovante fiscal? Continuar somente se a resposta for SIM, caso contrário, responder {imagemInvalida}" },
-                        }
-                    },
-                    new
-                    {
-                        role = "system",
-                        content = new object[]
-                        {
-                            new { type = "text", text = "Responder em formato JSON" },
-                        }
-                    },
-                    new
-                    {
-                        role = "system",
-                        content = new object[]
-                        {
-                            new { type = "text", text = "Despesa: em que categoria está a despesa? entre: hospedagem, transporte, viagem, alimentação ou Outros." },
-                        }
-                    },
-                    new
-                    {
-                        role = "system",
-                        content = new object[]
-                        {
-                            new { type = "text", text = "Valor: qual o valor total da despesa?" },
-                        }
-                    },
-                    new
-                    {
-                        role = "system",
-                        content = new object[]
-                        {
-                            new { type = "text", text = "Descrição: descreva a despesa em no máximo 50 caracteres" },
-                        }
-                    },
-
-                    new
-                    {
-                        role = "user",
-                        content = new object[]
-                        {
-                            new { type = "image_url", image_url = new { url = $"{url}" } }
-                        }
-                    }
-                },
-                max_tokens = 300
-            };
-            var contentRequest = new StringContent(JsonSerializer.Serialize(requestData), Encoding.UTF8, "application/json");
             var response = await httpClient.PostAsync("https://api.openai.com/v1/chat/completions", contentRequest);
 
             return await response.ProcessResponse();
         }
-
-        
     }
 }
