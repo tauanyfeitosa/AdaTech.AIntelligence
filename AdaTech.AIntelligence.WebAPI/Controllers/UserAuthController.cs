@@ -1,5 +1,6 @@
 ﻿using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
+using AdaTech.AIntelligence.Service.Services;
 using AdaTech.AIntelligence.Service.Services.UserSystem;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +13,13 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
     {
         private readonly IUserAuthService _userAuthService;
         private readonly ILogger<UserAuthController> _logger;
+        private readonly ITokenService _tokenService;
 
-        public UserAuthController(IUserAuthService userService, ILogger<UserAuthController> logger)
+        public UserAuthController(IUserAuthService userService, ILogger<UserAuthController> logger, ITokenService tokenService)
         {
             _userAuthService = userService;
             _logger = logger;
+            _tokenService = tokenService;
         }
 
         [HttpPost("login")]
@@ -25,24 +28,6 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             var succeeded = await _userAuthService.AuthenticateAsync(userLoginInfo.Email, userLoginInfo.Password);
 
             return Ok(succeeded);
-            //if (succeeded)
-            //{
-            //    UserInfo user = new UserInfo()
-            //    {
-            //        Email = userLoginInfo.Email,
-            //        PasswordHash = userLoginInfo.Password,
-            //    };
-
-            //    var (Token, Expiration) = _tokenService.GenerateToken(user);
-
-            //    _logger.LogInformation($"Usuário logado com sucesso: {userLoginInfo.Email}.");
-            //    return Ok(new DTOUserToken(Token, Expiration));
-            //}
-            //else
-            //{
-            //    _logger.LogError($"Login de usuário sem sucesso: {userLoginInfo.Email}.");
-            //    return BadRequest("Login de usuário sem sucesso.");
-            //}
         }
 
         [HttpPost("logout")]

@@ -1,5 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AdaTech.AIntelligence.IoC.Extensions.Filters;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 namespace AdaTech.AIntelligence.IoC.Extensions.Injections
 {
@@ -7,36 +11,14 @@ namespace AdaTech.AIntelligence.IoC.Extensions.Injections
     {
         public static IServiceCollection AddCustomSwagger(this IServiceCollection services)
         {
-            services.AddSwaggerGen(
-            //c =>
-            //{
-            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "AIntelligenceAPI", Version = "v1" });
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Artificial Intelligence", Version = "v1" });
 
-            //    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
-            //    {
-            //        Name = "Authorization",
-            //        Type = SecuritySchemeType.ApiKey,
-            //        Scheme = "Bearer",
-            //        BearerFormat = "JWT",
-            //        In = ParameterLocation.Header,
-            //        Description = "JWT Authorization header using the Bearer scheme",
-            //    });
-            //    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-            //    {
-            //        {
-            //              new OpenApiSecurityScheme
-            //              {
-            //                  Reference = new OpenApiReference
-            //                  {
-            //                      Type = ReferenceType.SecurityScheme,
-            //                      Id = "Bearer"
-            //                  }
-            //              },
-            //             new string[] {}
-            //        }
-            //    });
-            //}
-            );
+
+                c.OperationFilter<SecurityRequirementsOperationFilter>();
+            });
+
             return services;
         }
     }

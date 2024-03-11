@@ -84,5 +84,18 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
                 throw new ArgumentException($"Tentativa de registro sem sucesso: {ex}");
             }
         }
+
+        public async Task<UserInfo> GetUserByEmailAsync(string email)
+        {
+            try
+            {
+                return await _userManager.FindByEmailAsync(email);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Tentativa de buscar usuário sem sucesso: {ex}");
+                throw new ArgumentException($"Tentativa de buscar usuário sem sucesso: {ex}");
+            }
+        }
     }
 }
