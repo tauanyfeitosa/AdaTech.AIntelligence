@@ -1,7 +1,7 @@
-﻿using AdaTech.AIntelligence.Service.Services;
+﻿using AdaTech.AIntelligence.IoC.Extensions.Filters;
+using AdaTech.AIntelligence.Service.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System.Net.Http.Headers;
 
 namespace AdaTech.AIntelligence.WebAPI.Controllers
 {
@@ -18,7 +18,8 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             _clientFactory = clientFactory;
         }
 
-
+        [Authorize]
+        [TypeFilter(typeof(AcessAdminFilter))]
         [HttpGet("check")]
         public async Task<IActionResult> CheckGptConnection()
         {
