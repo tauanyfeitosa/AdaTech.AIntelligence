@@ -50,6 +50,10 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
 
             var resposta = await response.ProcessResponse();
 
+            if (resposta.Contains("message"))
+
+                return BadRequest(resposta);
+
             var success = await _expenseCRUDService.CreateExpense(resposta);
 
             if (!success)
@@ -69,6 +73,10 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             var response = await _httpClient.PostAsync(_url, contentRequest);
 
             var resposta = await response.ProcessResponse();
+
+            if (resposta.Contains("message"))
+
+                return BadRequest(resposta);
 
             var success = await _expenseCRUDService.CreateExpense(resposta);
 
