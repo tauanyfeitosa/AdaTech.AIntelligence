@@ -21,6 +21,7 @@ namespace AdaTech.AIntelligence.IoC.Extensions.Injections
             services.AddScoped<IUserAuthService, UserAuthService>();
             services.AddScoped<IExpenseScriptGPT, ExpenseScriptGPT>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IExpenseCRUDService, ExpenseCRUDService>();
             services.AddHttpClient();
 
             return services;
