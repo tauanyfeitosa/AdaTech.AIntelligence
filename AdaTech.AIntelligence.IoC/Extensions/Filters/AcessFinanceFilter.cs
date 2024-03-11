@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace AdaTech.AIntelligence.IoC.Extensions.Filters
 {
-    internal class AcessFinanceFilter
+    public class AcessFinanceFilter : IAuthorizationFilter
     {
+        public void OnAuthorization(AuthorizationFilterContext context)
+        {
+            var user = context.HttpContext.User;
+
+            var isFinanceUser = user.IsInRole("Finance");
+
+            if (!isFinanceUser)
+            {
+                throw new UnauthorizedAccessException("Acesso negado");
+            }
+        }
     }
+
 }

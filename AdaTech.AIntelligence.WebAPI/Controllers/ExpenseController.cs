@@ -1,11 +1,10 @@
 using AdaTech.AIntelligence.Entities.Enums;
-using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.IoC.Extensions.Filters;
 using AdaTech.AIntelligence.Service.Exceptions;
 using AdaTech.AIntelligence.Service.Services;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.Net.Http.Headers;
@@ -98,7 +97,8 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         }
 
         [HttpGet("VisualizarTodasDespesas")]
-        [Authorize(Roles = "Admin, Finance")]
+        [Authorize(Roles = "Admin")]
+        [ServiceFilter(typeof(AcessFinanceFilter))]
         public async Task<IActionResult> VisualizarTodasDespesas()
         {
             var success = await _expenseCRUDService.GetAll();
@@ -109,8 +109,9 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             return Ok(success);
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Admin, Finance")]
+        [HttpGet("VisualizarTodasDespesaAtivas")]
+        [Authorize(Roles = "Admin")]
+        [ServiceFilter(typeof(AcessFinanceFilter))]
         public async Task<IActionResult> VisualizarTodasDespesaAtivas()
         {
             var success = await _expenseCRUDService.GetAllActive();
