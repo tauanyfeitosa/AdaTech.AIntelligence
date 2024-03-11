@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
 
-namespace AdaTech.AIntelligence.Service.Services
+namespace AdaTech.AIntelligence.Service.Services.UserSystem
 {
     public class UserAuthService : IUserAuthService
     {

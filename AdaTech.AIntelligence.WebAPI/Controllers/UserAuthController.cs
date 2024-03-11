@@ -1,6 +1,6 @@
 ﻿using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
-using AdaTech.AIntelligence.Service.Services;
+using AdaTech.AIntelligence.Service.Services.UserSystem;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,13 +11,11 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
     public class UserAuthController : Controller
     {
         private readonly IUserAuthService _userAuthService;
-        private readonly ITokenService _tokenService;
         private readonly ILogger<UserAuthController> _logger;
 
-        public UserAuthController(IUserAuthService userService, ITokenService tokenService, ILogger<UserAuthController> logger)
+        public UserAuthController(IUserAuthService userService, ILogger<UserAuthController> logger)
         {
             _userAuthService = userService;
-            _tokenService = tokenService;
             _logger = logger;
         }
 
