@@ -2,6 +2,6 @@
 {
     public interface IExpenseScriptGPT
     {
-        Task<StringContent> ExpenseScriptPrompt(string imagem);
+        Task<StringContent> ExpenseScriptPrompt(string imagem, object url);
     }
 }

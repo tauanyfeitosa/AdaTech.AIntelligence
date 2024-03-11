@@ -6,9 +6,8 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
 {
     public class ExpenseScriptGPT : IExpenseScriptGPT
     {
-        public Task<StringContent> ExpenseScriptPrompt(string imagem)
+        public Task<StringContent> ExpenseScriptPrompt(string imagem, object url)
         {
-
             var imagemInvalida = @"HTTP/1.1 400 Bad Request{" + "\"message\": \"Comprovante Inválido\"}";
             var requestData = new
             {
@@ -65,20 +64,27 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
                         }
                     },
 
-                    new
-                    {
-                        role = "user",
-                        content = new object[]
-                        {
-                            new { type = "image_url", image_url = new { url = $"{imagem}" } }
-                        }
-                    }
+                    url
                 },
                 max_tokens = 300
             };
             var contentRequest = new StringContent(JsonSerializer.Serialize(requestData), Encoding.UTF8, "application/json");
 
             return Task.FromResult((contentRequest));
+        }
+
+        public static bool IsBase64String(string base64String)
+        {
+            try
+            {
+                byte[] bytes = Convert.FromBase64String(base64String);
+
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
         }
     }
 }
