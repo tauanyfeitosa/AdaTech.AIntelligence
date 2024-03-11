@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AdaTech.AIntelligence.Configuration\AdaTech.AIntelligence.Configuration.csproj" />
+    <ProjectReference Include="..\AdaTech.AIntelligence.DateLibrary\AdaTech.AIntelligence.DateLibrary.csproj" />
     <ProjectReference Include="..\AdaTech.AIntelligence.Entities\AdaTech.AIntelligence.Entities.csproj" />
   </ItemGroup>
 
