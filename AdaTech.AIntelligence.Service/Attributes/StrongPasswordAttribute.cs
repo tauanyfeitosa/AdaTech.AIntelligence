@@ -26,7 +26,7 @@ namespace AdaTech.AIntelligence.Service.Attributes
             }
             if(!HasRequiredCombinations(password)) 
             {
-                return new ValidationResult("A senha deve conter menos 3 das seguintes combinações: letra maiúscula, letra minúscula, caractere especial ou número.");
+                return new ValidationResult("A senha deve conter ao menos 3 das seguintes combinações: letra maiúscula, letra minúscula, caractere especial ou número.");
             }
 
             return ValidationResult.Success;
