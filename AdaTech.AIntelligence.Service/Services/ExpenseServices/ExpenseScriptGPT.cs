@@ -36,7 +36,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
                         role = "system",
                         content = new object[]
                         {
-                            new { type = "text", text = "Responder em formato JSON" },
+                            new { type = "text", text = "Responder em formato CSV" },
                         }
                     },
                     new
@@ -44,7 +44,15 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
                         role = "system",
                         content = new object[]
                         {
-                            new { type = "text", text = "Despesa: em que categoria está a despesa? entre: hospedagem, transporte, viagem, alimentação ou Outros." },
+                            new { type = "text", text = "categoria da despesa entre: hospedagem = 1, transporte = 2, viagem = 3, alimentação = 4 ou Outros = 5." },
+                        } 
+                    },
+                    new
+                    {
+                        role = "system",
+                        content = new object[]
+                        {
+                            new { type = "text", text = "se a imagem contiver itens alimentícios, a categoria deverá ser 'alimentação'" },
                         }
                     },
                     new
@@ -52,7 +60,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
                         role = "system",
                         content = new object[]
                         {
-                            new { type = "text", text = "Valor: qual o valor total da despesa?" },
+                            new { type = "text", text = "valor total da despesa" },
                         }
                     },
                     new
@@ -60,7 +68,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
                         role = "system",
                         content = new object[]
                         {
-                            new { type = "text", text = "Descrição: descreva a despesa em no máximo 50 caracteres" },
+                            new { type = "text", text = "descrever a despesa em no máximo 50 caracteres" },
                         }
                     },
 
