@@ -5,6 +5,13 @@ namespace AdaTech.AIntelligence.Tests.AttributesTest
 {
     public class DateAgeAttributeTests
     {
+        private readonly DateAgeAttribute _sut;
+
+        public DateAgeAttributeTests()
+        {
+            _sut = new DateAgeAttribute(18);
+        }
+
         [Fact]
         public void IsValid_Should_Return_True_When_Age_Is_Equal_To_MinimumAge()
         {
@@ -55,6 +62,15 @@ namespace AdaTech.AIntelligence.Tests.AttributesTest
             var validationResult = sut.IsValid(value);
             // Assert
             validationResult.Should().BeFalse();
+        }
+
+        [Fact]
+        public void teste()
+        {
+            
+            var dateOfBirth = new DateOnly(DateTime.Today.Year - 25, DateTime.Today.Month, DateTime.Today.Day + 10);
+
+           // int age = _sut.CalculateAge(dateOfBirth);
         }
     }
 }

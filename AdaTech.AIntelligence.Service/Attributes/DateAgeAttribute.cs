@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("CPFAttributeTests")]
+[assembly: InternalsVisibleTo("DateAgeAttributeTests")]
 namespace AdaTech.AIntelligence.Service.Attributes
 {
     public class DateAgeAttribute : ValidationAttribute
@@ -20,6 +20,7 @@ namespace AdaTech.AIntelligence.Service.Attributes
                 return new ValidationResult("The value must be of type DateOnly.");
             }
 
+
             if (value != null && value is DateOnly)
             {
                 DateOnly dateOfBirth = (DateOnly)value;
@@ -34,7 +35,7 @@ namespace AdaTech.AIntelligence.Service.Attributes
             return ValidationResult.Success;
         }
 
-        private int CalculateAge(DateOnly dateOfBirth)
+        protected int CalculateAge(DateOnly dateOfBirth)
         {
             DateOnly now = DateOnly.FromDateTime(DateTime.Today);
             int age = now.Year - dateOfBirth.Year;
