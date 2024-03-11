@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using AdaTech.AIntelligence.Service.Services;
+using AdaTech.AIntelligence.DateLibrary.Repository;
+using AdaTech.AIntelligence.Entities.Objects;
 
 
 namespace AdaTech.AIntelligence.IoC.Extensions.Injections
@@ -22,6 +24,7 @@ namespace AdaTech.AIntelligence.IoC.Extensions.Injections
             services.AddScoped<IExpenseScriptGPT, ExpenseScriptGPT>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IExpenseCRUDService, ExpenseCRUDService>();
+            services.AddScoped(typeof(IAIntelligenceRepository<>), typeof(AIntelligenceRepository<>));
             services.AddHttpClient();
 
             return services;

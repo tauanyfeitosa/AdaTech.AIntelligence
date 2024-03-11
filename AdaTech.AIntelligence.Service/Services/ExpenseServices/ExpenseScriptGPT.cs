@@ -36,7 +36,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
                         role = "system",
                         content = new object[]
                         {
-                            new { type = "text", text = "Responder em formato CSV" },
+                            new { type = "text", text = "Responder em formato CSV sem cabeçalho" },
                         }
                     },
                     new
