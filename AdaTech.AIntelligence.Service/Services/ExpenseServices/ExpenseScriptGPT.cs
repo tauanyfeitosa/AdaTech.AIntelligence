@@ -36,7 +36,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
                         role = "system",
                         content = new object[]
                         {
-                            new { type = "text", text = "Responder em formato CSV" },
+                            new { type = "text", text = "Responder em formato CSV sem cabeçalho" },
                         }
                     },
                     new
@@ -44,16 +44,8 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
                         role = "system",
                         content = new object[]
                         {
-                            new { type = "text", text = "categoria da despesa entre: hospedagem = 1, transporte = 2, viagem = 3, alimentação = 4 ou Outros = 5." },
+                            new { type = "text", text = "categoria da despesa entre: hospedagem = 1, transporte = 2, viagem = 3, alimentação = 4 ou Outros = 5. Se a imagem contiver itens comestíveis, a categoria deverá ser alimentação" },
                         } 
-                    },
-                    new
-                    {
-                        role = "system",
-                        content = new object[]
-                        {
-                            new { type = "text", text = "se a imagem contiver itens alimentícios, a categoria deverá ser 'alimentação'" },
-                        }
                     },
                     new
                     {

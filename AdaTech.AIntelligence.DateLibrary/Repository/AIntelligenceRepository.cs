@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AdaTech.AIntelligence.DateLibrary.Repository
 {
-    public class AIntelligenceRepository<T> : IAInteligenceRepository<T> where T : class
+    public class AIntelligenceRepository<T> : IAIntelligenceRepository<T> where T : class
     {
         private readonly ExpenseReportingDbContext _context;
 

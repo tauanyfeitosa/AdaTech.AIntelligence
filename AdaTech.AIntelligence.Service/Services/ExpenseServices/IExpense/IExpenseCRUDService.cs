@@ -4,6 +4,6 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense
 {
     public interface IExpenseCRUDService
     {
-        Task<Expense> CreateExpense(string response);
+        Task<bool> CreateExpense(string response);
     }
 }
