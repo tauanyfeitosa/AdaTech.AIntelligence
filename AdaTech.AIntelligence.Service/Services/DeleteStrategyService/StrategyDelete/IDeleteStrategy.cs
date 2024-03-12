@@ -2,7 +2,7 @@
 using AdaTech.AIntelligence.Entities.Objects;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService
+namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyDelete
 {
     public interface IDeleteStrategy<T> where T : class
     {

@@ -3,7 +3,7 @@ using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.Exceptions;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService
+namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyDelete
 {
     public class HardDeleteStrategy<T> : IDeleteStrategy<T> where T : class
     {
