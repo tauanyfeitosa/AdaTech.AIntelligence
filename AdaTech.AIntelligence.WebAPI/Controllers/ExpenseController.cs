@@ -1,5 +1,6 @@
 using AdaTech.AIntelligence.Entities.Enums;
 using AdaTech.AIntelligence.IoC.Extensions.Filters;
+using AdaTech.AIntelligence.Service.Attributes;
 using AdaTech.AIntelligence.Service.Exceptions;
 using AdaTech.AIntelligence.Service.Services;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices;
@@ -13,6 +14,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [SwaggerDisplayName("Report Expense")]
     public class ExpenseController : ControllerBase
     {
         private readonly ILogger<ExpenseController> _logger;

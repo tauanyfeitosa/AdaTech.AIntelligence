@@ -1,4 +1,5 @@
 ﻿using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Service.Attributes;
 using AdaTech.AIntelligence.Service.DTOs.Interfaces;
 using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
 using AdaTech.AIntelligence.Service.Services;
@@ -10,6 +11,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [SwaggerDisplayName("User Authentication")]
     public class UserAuthController : Controller
     {
         private readonly IUserAuthService _userAuthService;
@@ -32,7 +34,6 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         }
 
         [HttpPost("logout")]
-        //[Authorize]
         public async Task<IActionResult> Logout()
         {
             await _userAuthService.LogoutAsync();

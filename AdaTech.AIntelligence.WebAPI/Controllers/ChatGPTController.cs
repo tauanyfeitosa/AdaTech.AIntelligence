@@ -1,4 +1,5 @@
 ﻿using AdaTech.AIntelligence.IoC.Extensions.Filters;
+using AdaTech.AIntelligence.Service.Attributes;
 using AdaTech.AIntelligence.Service.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [SwaggerDisplayName("Chat GPT - Vision")]
     public class ChatGPTController : ControllerBase
     {
         private readonly IConfiguration _configuration;
