@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using AdaTech.AIntelligence.Entities.Enums;
 using AdaTech.AIntelligence.Service.Attributes;
 
 namespace AdaTech.AIntelligence.Service.DTOs.ModelRequest
