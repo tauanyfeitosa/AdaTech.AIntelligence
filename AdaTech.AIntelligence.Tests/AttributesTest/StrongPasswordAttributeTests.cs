@@ -131,7 +131,7 @@ namespace AdaTech.AIntelligence.Service.Attributes.Tests
         {
             // Arrange
             var attribute = new StrongPasswordAttribute(8);
-            var password = "password$1"; 
+            var password = "passwd$1"; 
             var validationContext = new ValidationContext(new object());
 
             // Act
