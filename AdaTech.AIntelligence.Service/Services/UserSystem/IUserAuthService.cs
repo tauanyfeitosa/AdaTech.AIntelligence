@@ -1,12 +1,12 @@
-﻿using AdaTech.AIntelligence.Entities.Objects;
-using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
+﻿using AdaTech.AIntelligence.Service.DTOs.Interfaces;
 
 namespace AdaTech.AIntelligence.Service.Services.UserSystem
 {
     public interface IUserAuthService
     {
         Task<bool> AuthenticateAsync(string email, string password);
-        Task<bool> RegisterUserAsync(DTOUserRegister userRegister);
+        Task<bool> RegisterUserAsync(IUserRegister userRegister);
         Task LogoutAsync();
+        Task<string> DeleteAsync(int id, bool isHardDelete);
     }
 }

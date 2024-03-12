@@ -20,10 +20,8 @@ namespace AdaTech.AIntelligence.IoC.Extensions
         {
             services.ResolveDependenciesService()
                     .ResolveDependenciesDbContext()
-                    .ResolveDependencieTokens()
                     .AddCustomConfiguration(configuration)
                     .AddCustomSwagger();
-            //.AddSerilog(LoggingConfiguration.ConfigureSerilog(configuration));
 
 
             services.AddHostedService<StartupHostedApplication>();

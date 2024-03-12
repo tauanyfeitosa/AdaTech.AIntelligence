@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using static System.Net.Mime.MediaTypeNames;
-using System.Linq;
 
 namespace AdaTech.AIntelligence.Service.Services
 {
@@ -30,6 +28,46 @@ namespace AdaTech.AIntelligence.Service.Services
             }
 
             return base64Image;
+        }
+
+        public static async Task<(object url, string base64)> DescriptionImage(this IFormFile image)
+        {
+            var extension = Path.GetExtension(image.FileName).ToLowerInvariant();
+
+            var base64Image = await image.GetImage(extension);
+
+            var urlImage = new
+            {
+                role = "user",
+                content = new object[]
+                        {
+                            new { type = "text", text = "What’s in this image?" },
+                            new { type = "image_url", image_url = $"data:image/{extension.Substring(1)};base64,{base64Image}" }
+                        }
+            };
+
+            return (urlImage, base64Image);
+        }
+
+        public static async Task<object> DescriptionImage(this string url)
+        {
+            var urlObject = new
+            {
+                role = "user",
+                content = new object[]
+                        {
+                            new 
+                            { 
+                                type = "image_url", image_url = new 
+                                { 
+                                    url = $"{url}",
+                                    detail="low"
+                                }
+                            }
+                        }
+            };
+
+            return urlObject;
         }
     }
 }

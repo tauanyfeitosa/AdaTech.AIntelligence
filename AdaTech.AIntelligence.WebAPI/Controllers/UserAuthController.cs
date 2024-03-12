@@ -1,5 +1,8 @@
 ﻿using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Service.Attributes;
+using AdaTech.AIntelligence.Service.DTOs.Interfaces;
 using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
+using AdaTech.AIntelligence.Service.Services;
 using AdaTech.AIntelligence.Service.Services.UserSystem;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,15 +11,18 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [SwaggerDisplayName("User Authentication")]
     public class UserAuthController : Controller
     {
         private readonly IUserAuthService _userAuthService;
         private readonly ILogger<UserAuthController> _logger;
+        private readonly ITokenService _tokenService;
 
-        public UserAuthController(IUserAuthService userService, ILogger<UserAuthController> logger)
+        public UserAuthController(IUserAuthService userService, ILogger<UserAuthController> logger, ITokenService tokenService)
         {
             _userAuthService = userService;
             _logger = logger;
+            _tokenService = tokenService;
         }
 
         [HttpPost("login")]
@@ -25,28 +31,9 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             var succeeded = await _userAuthService.AuthenticateAsync(userLoginInfo.Email, userLoginInfo.Password);
 
             return Ok(succeeded);
-            //if (succeeded)
-            //{
-            //    UserInfo user = new UserInfo()
-            //    {
-            //        Email = userLoginInfo.Email,
-            //        PasswordHash = userLoginInfo.Password,
-            //    };
-
-            //    var (Token, Expiration) = _tokenService.GenerateToken(user);
-
-            //    _logger.LogInformation($"Usuário logado com sucesso: {userLoginInfo.Email}.");
-            //    return Ok(new DTOUserToken(Token, Expiration));
-            //}
-            //else
-            //{
-            //    _logger.LogError($"Login de usuário sem sucesso: {userLoginInfo.Email}.");
-            //    return BadRequest("Login de usuário sem sucesso.");
-            //}
         }
 
         [HttpPost("logout")]
-        //[Authorize]
         public async Task<IActionResult> Logout()
         {
             await _userAuthService.LogoutAsync();
@@ -55,7 +42,6 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         }
 
         [HttpPost("createUser")]
-        //[Authorize]
         public async Task<IActionResult> Register([FromBody] DTOUserRegister userRegister)
         {
             var succeeded = await _userAuthService.RegisterUserAsync(userRegister);
@@ -70,6 +56,32 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
                 _logger.LogError($"Registro sem sucesso: {userRegister.Email}.");
                 return BadRequest("Registro sem sucesso.");
             }
+        }
+
+        [HttpPost("create-super-user")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> RegisterSuperUser([FromBody] DTOSuperUserRegister dTOSuperUserRegister)
+        {
+            var succeeded = await _userAuthService.RegisterUserAsync(dTOSuperUserRegister);
+
+            if (succeeded)
+            {
+                _logger.LogInformation($"Usuário criado com sucesso: {dTOSuperUserRegister.Email}");
+                return Ok($"Usário {dTOSuperUserRegister.Email} foi criado com sucesso!");
+            }
+            else
+            {
+                _logger.LogError($"Registro sem sucesso: {dTOSuperUserRegister.Email}.");
+                return BadRequest("Registro sem sucesso.");
+            }
+        }
+    
+
+        [HttpDelete("delete")]
+        public async Task<IActionResult> Delete(int id, [FromQuery] bool isHardDelete = false)
+        {
+            var result = await _userAuthService.DeleteAsync(id, isHardDelete);
+            return Ok(result);
         }
     }
 }

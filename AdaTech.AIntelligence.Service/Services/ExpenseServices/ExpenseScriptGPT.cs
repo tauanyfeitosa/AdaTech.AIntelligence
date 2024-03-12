@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.Text.Json;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
 
@@ -36,7 +36,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
                         role = "system",
                         content = new object[]
                         {
-                            new { type = "text", text = "Responder em formato CSV" },
+                            new { type = "text", text = "Responder em formato CSV sem cabeçalho" },
                         }
                     },
                     new
@@ -44,15 +44,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
                         role = "system",
                         content = new object[]
                         {
-                            new { type = "text", text = "categoria da despesa entre: hospedagem = 1, transporte = 2, viagem = 3, alimentação = 4 ou Outros = 5. responder somente com o numero relacionado" },
-                        } 
-                    },
-                    new
-                    {
-                        role = "system",
-                        content = new object[]
-                        {
-                            new { type = "text", text = "se a imagem contiver itens alimentícios, a categoria deverá ser 'alimentação'" },
+                            new { type = "text", text = "categoria da despesa entre: hospedagem = 1, transporte = 2, viagem = 3, alimentação = 4 ou Outros = 5. Se a imagem contiver somente itens comestíveis, a categoria deverá ser alimentação, se for misto, a categoria é Outros" },
                         }
                     },
                     new
@@ -68,13 +60,13 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
                         role = "system",
                         content = new object[]
                         {
-                            new { type = "text", text = "descrever a despesa em no máximo 20 caracteres" },
+                            new { type = "text", text = "elabore a descricao da despesa em no máximo 30 caracteres, tente aproveitar o maximo de caracteres possivel, se houver somente 1 item na nota, descreva o item" },
                         }
                     },
 
                     url
                 },
-                max_tokens = 50
+                max_tokens = 50,
             };
             var contentRequest = new StringContent(JsonSerializer.Serialize(requestData), Encoding.UTF8, "application/json");
 
