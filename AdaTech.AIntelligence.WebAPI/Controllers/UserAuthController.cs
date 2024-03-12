@@ -1,4 +1,5 @@
 ﻿using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Service.DTOs.Interfaces;
 using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
 using AdaTech.AIntelligence.Service.Services;
 using AdaTech.AIntelligence.Service.Services.UserSystem;
@@ -40,7 +41,6 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         }
 
         [HttpPost("createUser")]
-        //[Authorize]
         public async Task<IActionResult> Register([FromBody] DTOUserRegister userRegister)
         {
             var succeeded = await _userAuthService.RegisterUserAsync(userRegister);
@@ -56,6 +56,25 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
                 return BadRequest("Registro sem sucesso.");
             }
         }
+
+        [HttpPost("create-super-user")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> RegisterSuperUser([FromBody] DTOSuperUserRegister dTOSuperUserRegister)
+        {
+            var succeeded = await _userAuthService.RegisterUserAsync(dTOSuperUserRegister);
+
+            if (succeeded)
+            {
+                _logger.LogInformation($"Usuário criado com sucesso: {dTOSuperUserRegister.Email}");
+                return Ok($"Usário {dTOSuperUserRegister.Email} foi criado com sucesso!");
+            }
+            else
+            {
+                _logger.LogError($"Registro sem sucesso: {dTOSuperUserRegister.Email}.");
+                return BadRequest("Registro sem sucesso.");
+            }
+        }
+    
 
         [HttpDelete("delete")]
         public async Task<IActionResult> Delete(int id, [FromQuery] bool isHardDelete = false)
