@@ -1,4 +1,4 @@
-﻿using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Entities.Objects;
 
 namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense
 {
@@ -10,5 +10,6 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense
         Task<IEnumerable<Expense>> GetAllSubmetido();
         Task<IEnumerable<Expense>> GetAllActive();
         Task<IEnumerable<Expense>> GetAll();
+        Task<string> DeleteAsync(int id, bool isHardDelete);
     }
 }

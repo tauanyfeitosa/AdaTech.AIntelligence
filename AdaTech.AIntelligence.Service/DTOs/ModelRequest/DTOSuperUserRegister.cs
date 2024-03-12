@@ -1,15 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using AdaTech.AIntelligence.Entities.Enums;
 using AdaTech.AIntelligence.Service.Attributes;
 using AdaTech.AIntelligence.Service.DTOs.Interfaces;
 
 namespace AdaTech.AIntelligence.Service.DTOs.ModelRequest
 {
-    public class DTOUserRegister : IUserRegister
+    public class DTOSuperUserRegister : IUserRegister
     {
-        [Required(ErrorMessage = "O campo Email é obrigatório!")]
+        [Required(ErrorMessage = "O campo email é obrigatório!")]
         [EmailAddress(ErrorMessage = "O campo Email é inválido!")]
-        [EmailDomain("EmailSettings:Domain")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "O campo nome é obrigatório!")]
@@ -22,7 +22,7 @@ namespace AdaTech.AIntelligence.Service.DTOs.ModelRequest
 
         [Required(ErrorMessage = "O campo data de nascimento é obrigatório!")]
         [JsonPropertyName("Data_Nascimento")]
-        [DateAge(14)]
+        [DateAge(18)]
         public DateOnly DateBirth { get; set; }
 
         [Required(ErrorMessage = "O campo senha é obrigatório!")]
@@ -33,5 +33,9 @@ namespace AdaTech.AIntelligence.Service.DTOs.ModelRequest
         [CPF]
         [Required(ErrorMessage = "O campo CPF é obrigatório!")]
         public string CPF { get; set; }
+
+        [Required(ErrorMessage = "O campo permissões é obrigatório!")]
+        [JsonPropertyName("Permissões")]
+        public List<Roles> Roles { get; set; }
     }
 }
