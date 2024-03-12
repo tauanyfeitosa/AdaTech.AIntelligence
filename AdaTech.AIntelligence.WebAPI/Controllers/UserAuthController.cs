@@ -1,8 +1,7 @@
-﻿using AdaTech.AIntelligence.Entities.Objects;
-using AdaTech.AIntelligence.Service.Attributes;
-using AdaTech.AIntelligence.Service.DTOs.Interfaces;
+﻿using AdaTech.AIntelligence.Service.Attributes;
 using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
 using AdaTech.AIntelligence.Service.Services;
+using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
 using AdaTech.AIntelligence.Service.Services.UserSystem;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,12 +16,14 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         private readonly IUserAuthService _userAuthService;
         private readonly ILogger<UserAuthController> _logger;
         private readonly ITokenService _tokenService;
+        private readonly IExpenseCRUDService _expenseCRUDService;
 
-        public UserAuthController(IUserAuthService userService, ILogger<UserAuthController> logger, ITokenService tokenService)
+        public UserAuthController(IUserAuthService userService, ILogger<UserAuthController> logger, ITokenService tokenService, IExpenseCRUDService expenseCRUDService)
         {
             _userAuthService = userService;
             _logger = logger;
             _tokenService = tokenService;
+            _expenseCRUDService = expenseCRUDService;
         }
 
         [HttpPost("login")]
@@ -80,7 +81,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         [HttpDelete("delete")]
         public async Task<IActionResult> Delete(int id, [FromQuery] bool isHardDelete = false)
         {
-            var result = await _userAuthService.DeleteAsync(id, isHardDelete);
+            var result = await _expenseCRUDService.DeleteAsync(id, isHardDelete);
             return Ok(result);
         }
     }

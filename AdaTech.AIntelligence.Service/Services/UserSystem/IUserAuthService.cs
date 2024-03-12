@@ -7,6 +7,5 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
         Task<bool> AuthenticateAsync(string email, string password);
         Task<bool> RegisterUserAsync(IUserRegister userRegister);
         Task LogoutAsync();
-        Task<string> DeleteAsync(int id, bool isHardDelete);
     }
 }
