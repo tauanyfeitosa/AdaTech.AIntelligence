@@ -1,4 +1,5 @@
 ﻿using AdaTech.AIntelligence.Configuration;
+using AdaTech.AIntelligence.Entities.Enums;
 using AdaTech.AIntelligence.Entities.Objects;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
@@ -35,6 +36,7 @@ namespace AdaTech.AIntelligence.Service.Services.SeedUser
                     Name = "FinancialAdmin",
                     LastName = "FinancialAdmin",
                     IsSuperUser = true,
+                    PromoteStatus = PromoteStatus.Promoted
                 };
 
                 IdentityResult result = await _userManager.CreateAsync(user, _userCredentialsSettings.Password);
