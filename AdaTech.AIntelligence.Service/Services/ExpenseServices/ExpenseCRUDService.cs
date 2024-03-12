@@ -2,6 +2,7 @@
 using AdaTech.AIntelligence.DateLibrary.Repository;
 using AdaTech.AIntelligence.Entities.Enums;
 using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Service.Exceptions;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
@@ -48,7 +49,12 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
 
         public async Task<Expense> GetOne(int idExpense)
         {
-            return await _repository.GetOne(idExpense);
+            var expense = await _repository.GetOne(idExpense);
+
+            if (expense != null && expense.IsActive)
+                return expense;
+
+            throw new NotFoundException("Não foi localizada uma nota ativa com o ID fornecido. Tente novamente.");
         }
 
         public async Task<IEnumerable<Expense>> GetAllSubmetido()
