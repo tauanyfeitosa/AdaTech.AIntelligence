@@ -1,16 +1,20 @@
 ﻿using AdaTech.AIntelligence.DateLibrary.Repository;
+using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.Exceptions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService
 {
     public class HardDeleteStrategy<T> : IDeleteStrategy<T> where T : class
     {
-        public async Task<string> DeleteAsync(IAIntelligenceRepository<T> repository, ILogger logger, DbContext context, int id)
+        public async Task<string> DeleteAsync(IAIntelligenceRepository<T> repository, int id, IdentityDbContext<UserInfo>? context = null)
         {
             var entity = await repository.GetOne(id);
-            if (entity == null)
+            if (context is not null)
+            {
+                context.Remove(entity);
+            }
+            else if (entity == null)
             {
                 throw new NotFoundException($"{typeof(T).Name} não encontrado para exclusão. Experimente buscar por outro ID!");
             }
