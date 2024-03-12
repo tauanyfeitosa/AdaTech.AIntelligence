@@ -5,6 +5,7 @@ using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
 using AdaTech.AIntelligence.Service.Services.DeleteStrategyService;
 using AdaTech.AIntelligence.DateLibrary.Repository;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using AdaTech.AIntelligence.Service.DTOs.Interfaces;
 
 namespace AdaTech.AIntelligence.Service.Services.UserSystem
 {
@@ -20,7 +21,7 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
 
         public UserAuthService(SignInManager<UserInfo> signInManager,
             UserManager<UserInfo> userManager,
-            ILogger<UserAuthService> logger, IdentityDbContext<UserInfo> context, 
+            ILogger<UserAuthService> logger, IdentityDbContext<UserInfo> context,
             IAIntelligenceRepository<Expense> repository)
         {
             _signInManager = signInManager;
@@ -64,29 +65,30 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
             }
         }
 
-        public async Task<bool> RegisterUserAsync(DTOUserRegister userRegister)
+        public async Task<bool> RegisterUserAsync(IUserRegister userRegister)
         {
             try
             {
-                var userInfo = new UserInfo
-                {
-                    UserName = userRegister.Name,
-                    Name = userRegister.Name,
-                    LastName = userRegister.LastName,
-                    CPF = userRegister.CPF,
-                    Email = userRegister.Email,
-                    DateBirth = new DateTime(userRegister.DateBirth.Year, userRegister.DateBirth.Month, userRegister.DateBirth.Day, 0, 0, 0),
-                    IsStaff = true,
-                };
+                var userInfo = await userRegister.RegisterUserAsync();
 
                 var result = await _userManager.CreateAsync(userInfo, userRegister.Password);
 
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(userInfo, "Employee");
+                    if (userRegister is DTOSuperUserRegister superUserRegister)
+                    {
+                        foreach (var item in superUserRegister.Roles)
+                        {
+                            await _userManager.AddToRoleAsync(userInfo, item.ToString());
+                        }
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(userInfo, "Employee");
+                    }
                 }
-
                 return result.Succeeded;
+
             }
             catch (Exception ex)
             {
@@ -94,6 +96,7 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
                 throw new ArgumentException($"Tentativa de registro sem sucesso: {ex}");
             }
         }
+
 
         public async Task<UserInfo> GetUserByEmailAsync(string email)
         {
