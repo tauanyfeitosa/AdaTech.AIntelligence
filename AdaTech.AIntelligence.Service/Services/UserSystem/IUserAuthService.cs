@@ -1,5 +1,4 @@
-﻿using AdaTech.AIntelligence.Entities.Objects;
-using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
+﻿using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
 
 namespace AdaTech.AIntelligence.Service.Services.UserSystem
 {
@@ -8,7 +7,6 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
         Task<bool> AuthenticateAsync(string email, string password);
         Task<bool> RegisterUserAsync(DTOUserRegister userRegister);
         Task LogoutAsync();
-
-        Task<UserInfo> GetUserByEmailAsync(string email);
+        Task<string> DeleteAsync(int id, bool isHardDelete);
     }
 }
