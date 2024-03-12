@@ -56,7 +56,14 @@ namespace AdaTech.AIntelligence.Service.Services
                 role = "user",
                 content = new object[]
                         {
-                            new { type = "image_url", image_url = new { url = $"{url}" } }
+                            new 
+                            { 
+                                type = "image_url", image_url = new 
+                                { 
+                                    url = $"{url}",
+                                    detail="low"
+                                }
+                            }
                         }
             };
 
