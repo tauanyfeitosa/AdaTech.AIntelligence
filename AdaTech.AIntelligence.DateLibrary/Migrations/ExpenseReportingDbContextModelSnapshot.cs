@@ -48,7 +48,7 @@ namespace AdaTech.AIntelligence.DateLibrary.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Expenses");
+                    b.ToTable("Expenses", (string)null);
                 });
 
             modelBuilder.Entity("AdaTech.AIntelligence.Entities.Objects.UserInfo", b =>

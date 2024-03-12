@@ -11,6 +11,6 @@ namespace AdaTech.AIntelligence.Entities.Objects
         public string? Description { get; set; }
         public bool IsActive { get; set; }
         public Image Image { get; set; }
-        public int ImageId {  get; set; }
+        public int ImageId { get; set; }
     }
 }
