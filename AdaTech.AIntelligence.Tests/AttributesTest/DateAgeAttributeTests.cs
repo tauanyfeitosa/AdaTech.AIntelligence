@@ -1,5 +1,7 @@
 ﻿using AdaTech.AIntelligence.Service.Attributes;
 using FluentAssertions;
+using Microsoft.AspNetCore.Routing;
+using NSubstitute;
 
 namespace AdaTech.AIntelligence.Tests.AttributesTest
 {
@@ -65,12 +67,31 @@ namespace AdaTech.AIntelligence.Tests.AttributesTest
         }
 
         [Fact]
-        public void teste()
+        public void CalculateAge_ShouldCalculateAgeCorrectly()
         {
-            
-            var dateOfBirth = new DateOnly(DateTime.Today.Year - 25, DateTime.Today.Month, DateTime.Today.Day + 10);
+            // Arrange
+            var attribute = new DateAgeAttribute(18);
+            var dateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddYears(-20));
 
-           // int age = _sut.CalculateAge(dateOfBirth);
+            // Act
+            var age = attribute.CalculateAge(dateOfBirth);
+
+            // Assert
+            age.Should().Be(20);
+        }
+
+        [Fact]
+        public void CalculateAge_WhenBirthdayHasNotOccurredThisYear_ShouldSubtractOneFromAge()
+        {
+            // Arrange
+            var attribute = new DateAgeAttribute(18);
+            var dateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddYears(-20).AddDays(1));
+
+            // Act
+            var age = attribute.CalculateAge(dateOfBirth);
+
+            // Assert
+            age.Should().Be(19);
         }
     }
 }

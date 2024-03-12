@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("AdaTech.AIntelligence.Tests")]
 namespace AdaTech.AIntelligence.Service.Attributes
 {
     public class StrongPasswordAttribute : ValidationAttribute
@@ -32,7 +34,7 @@ namespace AdaTech.AIntelligence.Service.Attributes
             return ValidationResult.Success;
         }
 
-        private bool HasRequiredCombinations(string password)
+        internal bool HasRequiredCombinations(string password)
         {
             var hasUpperCase = Regex.IsMatch(password, "[A-Z]");
             var hasLowerCase = Regex.IsMatch(password, "[a-z]");

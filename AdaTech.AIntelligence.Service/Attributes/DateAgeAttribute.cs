@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("DateAgeAttributeTests")]
+[assembly: InternalsVisibleTo("AdaTech.AIntelligence.Tests")]
 namespace AdaTech.AIntelligence.Service.Attributes
 {
     public class DateAgeAttribute : ValidationAttribute
@@ -35,7 +35,7 @@ namespace AdaTech.AIntelligence.Service.Attributes
             return ValidationResult.Success;
         }
 
-        protected int CalculateAge(DateOnly dateOfBirth)
+        internal int CalculateAge(DateOnly dateOfBirth)
         {
             DateOnly now = DateOnly.FromDateTime(DateTime.Today);
             int age = now.Year - dateOfBirth.Year;

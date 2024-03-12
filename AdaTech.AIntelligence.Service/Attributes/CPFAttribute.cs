@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("CPFAttributeTests")]
+[assembly: InternalsVisibleTo("AdaTech.AIntelligence.Tests")]
 namespace AdaTech.AIntelligence.Service.Attributes
 {
     
