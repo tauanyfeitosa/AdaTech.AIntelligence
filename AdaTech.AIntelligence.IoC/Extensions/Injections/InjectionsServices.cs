@@ -7,8 +7,9 @@ using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
 using AdaTech.AIntelligence.Service.Services.UserSystem;
 using AdaTech.AIntelligence.Service.Services;
 using AdaTech.AIntelligence.DateLibrary.Repository;
-using AdaTech.AIntelligence.Service.Services.DeleteStrategyService;
 using AdaTech.AIntelligence.Service.Services.SeedUser.SeedManagerInitial;
+using AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyDelete;
+using AdaTech.AIntelligence.Service.Services.DeleteStrategyService;
 
 
 namespace AdaTech.AIntelligence.IoC.Extensions.Injections
@@ -24,6 +25,7 @@ namespace AdaTech.AIntelligence.IoC.Extensions.Injections
             services.AddScoped<IExpenseCRUDService, ExpenseCRUDService>();
             services.AddScoped<RoleManagerService, RoleManagerService>();
             services.AddScoped<UserManagerService, UserManagerService>();
+            services.AddScoped<DeleteService, DeleteService>();
             services.AddScoped(typeof(IDeleteStrategy<>), typeof(HardDeleteStrategy<>));
             services.AddScoped(typeof(IDeleteStrategy<>), typeof(SoftDeleteStrategy<>));
             services.AddScoped(typeof(IAIntelligenceRepository<>), typeof(AIntelligenceRepository<>));

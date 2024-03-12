@@ -10,11 +10,12 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
     public class ExpenseCRUDService : IExpenseCRUDService
     {
         private readonly IAIntelligenceRepository<Expense> _repository;
-        private IDeleteStrategy<Expense> _deleteStrategy { get; set; }
+        private DeleteService _deleteService;
 
-        public ExpenseCRUDService(IAIntelligenceRepository<Expense> repository)
+        public ExpenseCRUDService(IAIntelligenceRepository<Expense> repository, DeleteService deleteService)
         {
             _repository = repository;
+            _deleteService = deleteService;
         }
 
         public async Task<bool> CreateExpense(string response)
@@ -77,15 +78,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
 
         public async Task<string> DeleteAsync(int id, bool isHardDelete)
         {
-            if (isHardDelete)
-                _deleteStrategy = new HardDeleteStrategy<Expense>();
-            else
-                _deleteStrategy = new SoftDeleteStrategy<Expense>();
-
-
-            string result = await _deleteStrategy.DeleteAsync(_repository, id);
-
-            return result;
+            return await _deleteService.DeleteAsync(id, isHardDelete);
         }
     }
 }
