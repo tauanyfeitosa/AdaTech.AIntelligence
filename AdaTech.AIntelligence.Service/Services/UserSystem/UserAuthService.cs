@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
+using AdaTech.AIntelligence.Entities.Enums;
 
 namespace AdaTech.AIntelligence.Service.Services.UserSystem
 {
@@ -67,6 +68,7 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
                     Email = userRegister.Email,
                     DateBirth = new DateTime(userRegister.DateBirth.Year, userRegister.DateBirth.Month, userRegister.DateBirth.Day, 0, 0, 0),
                     IsStaff = true,
+                    PromoteStatus = PromoteStatus.None
                 };
 
                 var result = await _userManager.CreateAsync(userInfo, userRegister.Password);
