@@ -1,4 +1,4 @@
-﻿using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Entities.Objects;
 
 namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense
 {
