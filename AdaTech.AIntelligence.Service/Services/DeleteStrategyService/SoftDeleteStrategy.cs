@@ -16,7 +16,7 @@ namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService
 
             var propertyInfo = entity.GetType().GetProperty("IsActive");
 
-            if (propertyInfo == null || !propertyInfo.CanWrite)
+            if (propertyInfo == null || !propertyInfo.CanWrite || !(bool)propertyInfo.GetValue(entity))
                 throw new InvalidOperationException("A propriedade 'IsActive' não foi encontrada ou não pode ser escrita. Falha na operação.");
 
             propertyInfo.SetValue(entity, false, null);
