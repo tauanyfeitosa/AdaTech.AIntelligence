@@ -1,11 +1,11 @@
 ﻿using AdaTech.AIntelligence.DateLibrary.Repository;
 using AdaTech.AIntelligence.Entities.Objects;
-using AdaTech.AIntelligence.Service.Services.DeleteStrategyService;
+using AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyDelete;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace AdaTech.AIntelligence.Service.Services
+namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService
 {
-    public class GenericDeleteService<T> where T: class 
+    public class GenericDeleteService<T> where T : class
     {
         public async Task<string> DeleteAsync(IAIntelligenceRepository<T> repository, IdentityDbContext<UserInfo>? context, int id, bool hardDelete)
         {
