@@ -5,12 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
 using AdaTech.AIntelligence.Service.Services.UserSystem;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using AdaTech.AIntelligence.Service.Services;
 using AdaTech.AIntelligence.DateLibrary.Repository;
-using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Service.Services.DeleteStrategyService;
 
 
 namespace AdaTech.AIntelligence.IoC.Extensions.Injections
@@ -24,6 +21,8 @@ namespace AdaTech.AIntelligence.IoC.Extensions.Injections
             services.AddScoped<IExpenseScriptGPT, ExpenseScriptGPT>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IExpenseCRUDService, ExpenseCRUDService>();
+            services.AddScoped(typeof(IDeleteStrategy<>), typeof(HardDeleteStrategy<>));
+            services.AddScoped(typeof(IDeleteStrategy<>), typeof(SoftDeleteStrategy<>));
             services.AddScoped(typeof(IAIntelligenceRepository<>), typeof(AIntelligenceRepository<>));
             services.AddHttpClient();
 

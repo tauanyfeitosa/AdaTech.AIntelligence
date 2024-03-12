@@ -98,26 +98,26 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
 
         [HttpGet("VisualizarTodasDespesas")]
         [Authorize(Roles = "Admin")]
-        [ServiceFilter(typeof(AcessFinanceFilter))]
+        [TypeFilter(typeof(AcessFinanceFilter))]
         public async Task<IActionResult> VisualizarTodasDespesas()
         {
             var success = await _expenseCRUDService.GetAll();
 
             if (success.IsNullOrEmpty())
-                throw new NotFoundException();
+                throw new NotFoundException("Não existem despesas.");
 
             return Ok(success);
         }
 
         [HttpGet("VisualizarTodasDespesaAtivas")]
         [Authorize(Roles = "Admin")]
-        [ServiceFilter(typeof(AcessFinanceFilter))]
+        [TypeFilter(typeof(AcessFinanceFilter))]
         public async Task<IActionResult> VisualizarTodasDespesaAtivas()
         {
             var success = await _expenseCRUDService.GetAllActive();
 
             if (success.IsNullOrEmpty())
-                throw new NotFoundException();
+                throw new NotFoundException("Não existem despesas ativas.");
 
             return Ok(success);
         }
@@ -134,5 +134,12 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             return Ok(success);
         }
 
+
+        [HttpDelete("delete")]
+        public async Task<IActionResult> Delete(int id, [FromQuery] bool isHardDelete = false)
+        {
+            var result = await _expenseCRUDService.DeleteAsync(id, isHardDelete);
+            return Ok(result);
+        }
     }
 }

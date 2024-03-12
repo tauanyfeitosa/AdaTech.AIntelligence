@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Identity;
 using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
+using AdaTech.AIntelligence.Service.Services.DeleteStrategyService;
+using AdaTech.AIntelligence.DateLibrary.Repository;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace AdaTech.AIntelligence.Service.Services.UserSystem
 {
@@ -10,14 +13,21 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
         private readonly UserManager<UserInfo> _userManager;
         private readonly SignInManager<UserInfo> _signInManager;
         private readonly ILogger<UserAuthService> _logger;
+        private readonly IdentityDbContext<UserInfo> _context;
+        private readonly IAIntelligenceRepository<Expense> _repository;
+        private IDeleteStrategy<Expense> _deleteStrategy { get; set; }
+
 
         public UserAuthService(SignInManager<UserInfo> signInManager,
             UserManager<UserInfo> userManager,
-            ILogger<UserAuthService> logger)
+            ILogger<UserAuthService> logger, IdentityDbContext<UserInfo> context, 
+            IAIntelligenceRepository<Expense> repository)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
+            _context = context;
+            _repository = repository;
         }
 
         public async Task<bool> AuthenticateAsync(string email, string password)
@@ -96,6 +106,19 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
                 _logger.LogError($"Tentativa de buscar usuário sem sucesso: {ex}");
                 throw new ArgumentException($"Tentativa de buscar usuário sem sucesso: {ex}");
             }
+        }
+
+        public async Task<string> DeleteAsync(int id, bool isHardDelete)
+        {
+            if (isHardDelete)
+                _deleteStrategy = new HardDeleteStrategy<Expense>();
+            else
+                _deleteStrategy = new SoftDeleteStrategy<Expense>();
+
+
+            string result = await _deleteStrategy.DeleteAsync(_repository, id, _context);
+
+            return result;
         }
     }
 }

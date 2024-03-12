@@ -56,5 +56,12 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
                 return BadRequest("Registro sem sucesso.");
             }
         }
+
+        [HttpDelete("delete")]
+        public async Task<IActionResult> Delete(int id, [FromQuery] bool isHardDelete = false)
+        {
+            var result = await _userAuthService.DeleteAsync(id, isHardDelete);
+            return Ok(result);
+        }
     }
 }
