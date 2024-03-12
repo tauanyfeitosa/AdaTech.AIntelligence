@@ -1,4 +1,4 @@
-﻿using AdaTech.AIntelligence.Service.Attributes;
+using AdaTech.AIntelligence.Service.Attributes;
 using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
 using AdaTech.AIntelligence.Service.Services;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
@@ -15,15 +15,11 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
     {
         private readonly IUserAuthService _userAuthService;
         private readonly ILogger<UserAuthController> _logger;
-        private readonly ITokenService _tokenService;
-        private readonly IExpenseCRUDService _expenseCRUDService;
 
-        public UserAuthController(IUserAuthService userService, ILogger<UserAuthController> logger, ITokenService tokenService, IExpenseCRUDService expenseCRUDService)
+        public UserAuthController(IUserAuthService userService, ILogger<UserAuthController> logger)
         {
             _userAuthService = userService;
             _logger = logger;
-            _tokenService = tokenService;
-            _expenseCRUDService = expenseCRUDService;
         }
 
         [HttpPost("login")]
@@ -75,14 +71,6 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
                 _logger.LogError($"Registro sem sucesso: {dTOSuperUserRegister.Email}.");
                 return BadRequest("Registro sem sucesso.");
             }
-        }
-    
-
-        [HttpDelete("delete")]
-        public async Task<IActionResult> Delete(int id, [FromQuery] bool isHardDelete = false)
-        {
-            var result = await _expenseCRUDService.DeleteAsync(id, isHardDelete);
-            return Ok(result);
         }
     }
 }
