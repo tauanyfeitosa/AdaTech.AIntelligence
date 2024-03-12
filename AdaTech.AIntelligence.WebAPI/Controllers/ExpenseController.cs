@@ -91,10 +91,10 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         {
             var expense = await _expenseCRUDService.GetOne(idExpense);
 
-            if(expense.Status == ExpenseStatus.PAGO)
+            if(expense.Status == ExpenseStatus.PAID)
                 throw new NotAnExpenseException("Despesa n�o encontrada.");
 
-            expense.Status = ExpenseStatus.PAGO;
+            expense.Status = ExpenseStatus.PAID;
 
             var success = await _expenseCRUDService.UpdateExpense(expense);
 
@@ -134,7 +134,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         [Authorize(Roles = "Finance")]
         public async Task<IActionResult> VisualizarTodasDespesasSubmetidas()
         {
-            var success = await _expenseCRUDService.GetAllSubmetido();
+            var success = await _expenseCRUDService.GetAllSubmitted();
 
             if (success.IsNullOrEmpty())
                 throw new NotFoundException();

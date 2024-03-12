@@ -1,5 +1,4 @@
 ﻿using AdaTech.AIntelligence.Service.DTOs.Interfaces;
-using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
 
 namespace AdaTech.AIntelligence.Service.Services.UserSystem
 {

@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
 {
@@ -35,11 +30,6 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
             var contentString = content.GetString();
             Console.WriteLine(contentString);
             return contentString;
-        }
-        private static async Task<IActionResult> HandleErrorResponse(HttpResponseMessage response)
-        {
-            var errorContent = await response.Content.ReadAsStringAsync();
-            return new BadRequestObjectResult( $"Error: {response.StatusCode} {errorContent}");
         }
     }
 }

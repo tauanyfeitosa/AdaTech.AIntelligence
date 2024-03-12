@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 
 namespace AdaTech.AIntelligence.Service.Services
 {

@@ -27,7 +27,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
                     Category = (Category)int.Parse(valores[0]),
                     TotalValue = double.Parse(valores[1].Replace(".", ",")),
                     Description = valores[2],
-                    Status = ExpenseStatus.SUBMETIDO,
+                    Status = ExpenseStatus.SUBMITTED,
                     IsActive = true
                 };
 
@@ -58,10 +58,10 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
             throw new NotFoundException("Não foi localizada uma nota ativa com o ID fornecido. Tente novamente.");
         }
 
-        public async Task<IEnumerable<Expense>> GetAllSubmetido()
+        public async Task<IEnumerable<Expense>> GetAllSubmitted()
         {
             var allExpenses = await _repository.GetAll();
-            return allExpenses.Where(expense => expense.Status == ExpenseStatus.SUBMETIDO && expense.IsActive);
+            return allExpenses.Where(expense => expense.Status == ExpenseStatus.SUBMITTED && expense.IsActive);
         }
 
         public async Task<IEnumerable<Expense>> GetAllActive()

@@ -1,6 +1,5 @@
 ﻿using AdaTech.AIntelligence.DateLibrary.Context;
 using AdaTech.AIntelligence.Entities.Objects;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

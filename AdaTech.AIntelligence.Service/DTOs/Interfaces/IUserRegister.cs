@@ -1,11 +1,4 @@
-﻿using AdaTech.AIntelligence.Service.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdaTech.AIntelligence.Service.DTOs.Interfaces
+﻿namespace AdaTech.AIntelligence.Service.DTOs.Interfaces
 {
     public interface IUserRegister 
     {
