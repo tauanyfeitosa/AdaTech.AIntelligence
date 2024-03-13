@@ -21,6 +21,10 @@ namespace AdaTech.AIntelligence.IoC.Extensions.Injections
 
                 c.OperationFilter<SecurityRequirementsOperationFilter>();
 
+                var xmlFile = $"AdaTech.AIntelligence.WebAPI.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+
                 c.TagActionsBy(api =>
                 {
                     if (api.GroupName != null)
