@@ -86,7 +86,7 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
 
                     var token = await _userManager.GenerateEmailConfirmationTokenAsync(userInfo);
 
-                    var confirmationLink = $"{_appSettings.GetValue<string>("ServerSMTP:BaseUrl")}/userId={userInfo.Id}/token={Uri.EscapeDataString(token)}";
+                    var confirmationLink = $"{_appSettings.GetValue<string>("ServerSMTP:BaseUrl")}/{userInfo.Id}/{Uri.EscapeDataString(token)}";
 
                     var emailBody = $"Por favor, clique no link a seguir para confirmar seu endereço de e-mail: <a href='{confirmationLink}'>Confirmar E-mail</a>";
 

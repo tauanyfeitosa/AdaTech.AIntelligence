@@ -65,8 +65,8 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             }
         }
 
-        [HttpGet("confirm-email")]
-        public async Task<IActionResult> ConfirmEmail([FromQuery] string userId, [FromQuery] string token)
+        [HttpGet("confirm-email/{userId}/{token}")]
+        public async Task<IActionResult> ConfirmEmail([FromRoute] string userId, [FromRoute] string token)
         {
             string tokenDecoded = WebUtility.UrlDecode(token);
             var user = await _userManager.FindByIdAsync(userId);
@@ -74,7 +74,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             {
                 if (user != null)
                 {
-                    var result = await _userManager.ConfirmEmailAsync(user, token);
+                    var result = await _userManager.ConfirmEmailAsync(user, tokenDecoded);
                     if (result.Succeeded)
                     {
                         return Ok("Email confirmado com sucesso!");
