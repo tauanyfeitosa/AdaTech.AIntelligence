@@ -20,8 +20,11 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             _clientFactory = clientFactory;
         }
 
-        [Authorize]
-        [TypeFilter(typeof(AcessAdminFilter))]
+        /// <summary>
+        /// Check if the GPT connection is working
+        /// </summary>
+        /// <returns></returns>
+        [Authorize(Roles = "Admin")]
         [HttpGet("check")]
         public async Task<IActionResult> CheckGptConnection()
         {

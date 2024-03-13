@@ -22,6 +22,11 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Login to the system
+        /// </summary>
+        /// <param name="userLoginInfo"></param>
+        /// <returns></returns>
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] DTOUserLogin userLoginInfo)
         {
@@ -30,6 +35,11 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             return Ok(succeeded);
         }
 
+        /// <summary>
+        /// Logout from the system
+        /// </summary>
+        /// <returns></returns>
+        [Authorize]
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {
@@ -38,6 +48,11 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Register a new user withouth roles
+        /// </summary>
+        /// <param name="userRegister"></param>
+        /// <returns></returns>
         [HttpPost("createUser")]
         public async Task<IActionResult> Register([FromBody] DTOUserRegister userRegister)
         {
@@ -55,6 +70,11 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Register a new super user
+        /// </summary>
+        /// <param name="dTOSuperUserRegister"></param>
+        /// <returns></returns>
         [HttpPost("create-super-user")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> RegisterSuperUser([FromBody] DTOSuperUserRegister dTOSuperUserRegister)
