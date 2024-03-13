@@ -1,6 +1,6 @@
 ﻿using AdaTech.AIntelligence.IoC.Extensions.Filters;
 using AdaTech.AIntelligence.Service.Attributes;
-using AdaTech.AIntelligence.Service.Services;
+using AdaTech.AIntelligence.Service.Services.ExpenseServices.ChatGPTServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
