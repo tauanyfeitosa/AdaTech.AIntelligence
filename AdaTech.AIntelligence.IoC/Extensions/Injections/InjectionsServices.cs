@@ -11,6 +11,8 @@ using AdaTech.AIntelligence.Service.Services.SeedUser.SeedManagerInitial;
 using AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyDelete;
 using AdaTech.AIntelligence.Service.Services.DeleteStrategyService;
 using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Service.Services.EmailService;
+using System.Net.Mail;
 
 
 namespace AdaTech.AIntelligence.IoC.Extensions.Injections
@@ -29,6 +31,8 @@ namespace AdaTech.AIntelligence.IoC.Extensions.Injections
             services.AddScoped(typeof(IDeleteStrategy<>), typeof(HardDeleteStrategy<>));
             services.AddScoped(typeof(IDeleteStrategy<>), typeof(SoftDeleteStrategy<>));
             services.AddScoped(typeof(IAIntelligenceRepository<>), typeof(AIntelligenceRepository<>));
+            services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<SmtpClient, SmtpClient>();
             services.AddHttpClient();
 
             return services;

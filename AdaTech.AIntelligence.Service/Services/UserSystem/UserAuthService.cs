@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
 using AdaTech.AIntelligence.Service.DTOs.Interfaces;
+using Microsoft.Extensions.Configuration;
 
 namespace AdaTech.AIntelligence.Service.Services.UserSystem
 {
@@ -11,15 +12,20 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
         private readonly UserManager<UserInfo> _userManager;
         private readonly SignInManager<UserInfo> _signInManager;
         private readonly ILogger<UserAuthService> _logger;
+        private readonly EmailService.IEmailService _emailService;
+        private readonly IConfiguration _appSettings;
 
 
         public UserAuthService(SignInManager<UserInfo> signInManager,
             UserManager<UserInfo> userManager,
-            ILogger<UserAuthService> logger)
+            ILogger<UserAuthService> logger,
+            EmailService.IEmailService emailService, IConfiguration appSettings)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
+            _emailService = emailService;
+            _appSettings = appSettings;
         }
 
         public async Task<bool> AuthenticateAsync(string email, string password)
@@ -77,6 +83,14 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
                     {
                         await _userManager.AddToRoleAsync(userInfo, "Employee");
                     }
+
+                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(userInfo);
+
+                    var confirmationLink = $"{_appSettings.GetValue<string>("ServerSMTP:BaseUrl")}/{userInfo.Id}/{Uri.EscapeDataString(token)}";
+
+                    var emailBody = $"Por favor, clique no link a seguir para confirmar seu endereço de e-mail: <a href='{confirmationLink}'>Confirmar E-mail</a>";
+
+                    await _emailService.SendEmailAsync(userInfo.Email, "Confirmação de E-mail", emailBody);
                 }
                 return result.Succeeded;
 
@@ -85,20 +99,6 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
             {
                 _logger.LogError($"Tentativa de registro sem sucesso com email {userRegister.Email}: {ex}");
                 throw new ArgumentException($"Tentativa de registro sem sucesso: {ex}");
-            }
-        }
-
-
-        public async Task<UserInfo> GetUserByEmailAsync(string email)
-        {
-            try
-            {
-                return await _userManager.FindByEmailAsync(email);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Tentativa de buscar usuário sem sucesso: {ex}");
-                throw new ArgumentException($"Tentativa de buscar usuário sem sucesso: {ex}");
             }
         }
     }
