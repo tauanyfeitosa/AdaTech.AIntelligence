@@ -1,19 +1,29 @@
 ﻿using System.Net.Http.Headers;
 using System.Text.Json;
 
-namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.ChatGPTServices
+namespace AdaTech.AIntelligence.OCR.Services.ChatGPT
 {
+    /// <summary>
+    /// Class to handle the chat GPT service.
+    /// </summary>
     public static class ChatGPTService
     {
+        /// <summary>
+        /// Extension method to generate a response from the chat GPT.
+        /// </summary>
+        /// <param name="apiKey"></param>
+        /// <param name="clientFactory"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public static async Task<string> GenerateResponse(this string apiKey, IHttpClientFactory clientFactory)
         {
             using var httpClient = clientFactory.CreateClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
 
             HttpResponseMessage response;
-            
+
             response = await httpClient.GetAsync("https://api.openai.com/v1/engines");
-            
+
             if (response.IsSuccessStatusCode)
             {
                 return "Conexão com o chat GPT bem-sucedida!";
@@ -22,6 +32,11 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.ChatGPTServices
             throw new Exception("Erro ao conectar-se ao chat GPT.");
         }
 
+        /// <summary>
+        /// Extension method to process the response from the chat GPT.
+        /// </summary>
+        /// <param name="response"></param>
+        /// <returns></returns>
         public static async Task<string> ProcessResponse(this HttpResponseMessage response)
         {
             var jsonResponse = await response.Content.ReadAsStringAsync();
@@ -34,6 +49,11 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.ChatGPTServices
             return ParseResponseContent(jsonResponse);
         }
 
+        /// <summary>
+        /// Method to parse the response content from the chat GPT.
+        /// </summary>
+        /// <param name="jsonResponse"></param>
+        /// <returns></returns>
         private static string ParseResponseContent(string jsonResponse)
         {
             using var doc = JsonDocument.Parse(jsonResponse);
