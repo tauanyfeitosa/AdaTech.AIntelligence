@@ -10,17 +10,14 @@ namespace AdaTech.AIntelligence.DateLibrary.EntityFramework.Configuration
         {
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id).ValueGeneratedOnAdd().UseIdentityColumn();
+            builder.Property(e => e.TotalValue).IsRequired();
             builder.Property(e => e.Status).IsRequired();
             builder.Property(e => e.Category).IsRequired();
             builder.Property(e => e.Description).IsRequired();
             builder.Property(e => e.IsActive).IsRequired();
-
-            builder.OwnsOne(e => e.Image, image =>
-            {
-                image.Property(e => e.ByteImage).HasColumnName("ImageInBytes");
-                image.Property(e => e.ImageSourceType).HasColumnName("ImageSourceType").IsRequired();
-                image.Property(e => e.Path).HasColumnName("ImagePath").IsRequired();
-            });
+            builder.HasOne(e => e.Image)
+                   .WithOne(i => i.Expense)
+                   .HasForeignKey<Image>(i => i.ExpenseId);
         }
     }
 }
