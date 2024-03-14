@@ -1,4 +1,4 @@
-using AdaTech.AIntelligence.Entities.Objects;
+    using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.Attributes;
 using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
 using AdaTech.AIntelligence.Service.Services;
@@ -32,6 +32,11 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             _emailService = emailService;
         }
 
+        /// <summary>
+        /// Login to the system
+        /// </summary>
+        /// <param name="userLoginInfo"></param>
+        /// <returns></returns>
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] DTOUserLogin userLoginInfo)
         {
@@ -40,6 +45,11 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             return Ok(succeeded);
         }
 
+        /// <summary>
+        /// Logout from the system
+        /// </summary>
+        /// <returns></returns>
+        [Authorize]
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {
@@ -48,6 +58,11 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Register a new user withouth roles
+        /// </summary>
+        /// <param name="userRegister"></param>
+        /// <returns></returns>
         [HttpPost("createUser")]
         public async Task<IActionResult> Register([FromBody] DTOUserRegister userRegister)
         {
@@ -65,6 +80,13 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             }
         }
 
+
+    /// <summary>
+    /// Confirm the email of a user.
+    /// </summary>
+    /// <param name="userId"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
         [HttpGet("confirm-email/{userId}/{token}")]
         public async Task<IActionResult> ConfirmEmail([FromRoute] string userId, [FromRoute] string token)
         {
@@ -95,6 +117,11 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Register a new super user
+        /// </summary>
+        /// <param name="dTOSuperUserRegister"></param>
+        /// <returns></returns>
         [HttpPost("create-super-user")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> RegisterSuperUser([FromBody] DTOSuperUserRegister dTOSuperUserRegister)

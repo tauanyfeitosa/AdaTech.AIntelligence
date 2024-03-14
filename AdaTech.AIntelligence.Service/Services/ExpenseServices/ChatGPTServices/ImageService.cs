@@ -1,22 +1,22 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace AdaTech.AIntelligence.Service.Services
+namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.ChatGPTServices
 {
     public static class ImageService
     {
-        public static async Task<string> GetImage(this IFormFile image, string extension)
+        private static async Task<string> GetImageBase64(this IFormFile image, string extension)
         {
             if (image == null || image.Length == 0)
             {
                 return "Upload a valid image file.";
             }
 
-            var allowedExtensions = new[] { ".jpg", ".png" };
+            var allowedExtensions = new[] { ".jpg", ".png", ".jpeg" };
 
 
             if (!allowedExtensions.Contains(extension))
             {
-                return "Only .jpg and .png file formats are allowed.";
+                throw new Exception("Somente são aceitas imagens nos formatos JPG, JPEG e PNG.");
             }
 
             string base64Image;
@@ -34,7 +34,7 @@ namespace AdaTech.AIntelligence.Service.Services
         {
             var extension = Path.GetExtension(image.FileName).ToLowerInvariant();
 
-            var base64Image = await image.GetImage(extension);
+            var base64Image = await image.GetImageBase64(extension);
 
             var urlImage = new
             {
@@ -56,10 +56,10 @@ namespace AdaTech.AIntelligence.Service.Services
                 role = "user",
                 content = new object[]
                         {
-                            new 
-                            { 
-                                type = "image_url", image_url = new 
-                                { 
+                            new
+                            {
+                                type = "image_url", image_url = new
+                                {
                                     url = $"{url}",
                                     detail="low"
                                 }
