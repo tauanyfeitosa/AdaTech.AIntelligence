@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AdaTech.AIntelligence.DateLibrary.EntityFramework.Configuration
 {
+    /// <summary>
+    /// Configuration for the User entity based in IdentityUser
+    /// </summary>
     internal class UserConfiguration : IEntityTypeConfiguration<UserInfo>
     {
         public void Configure(EntityTypeBuilder<UserInfo> builder)

@@ -3,6 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AdaTech.AIntelligence.DateLibrary.Repository
 {
+    /// <summary>
+    /// Repository generic class for the application
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class AIntelligenceRepository<T> : IAIntelligenceRepository<T> where T : class
     {
         private readonly ExpenseReportingDbContext _context;

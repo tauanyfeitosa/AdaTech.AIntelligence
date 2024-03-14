@@ -1,100 +1,114 @@
 using AdaTech.AIntelligence.Entities.Enums;
 using AdaTech.AIntelligence.IoC.Extensions.Filters;
+using AdaTech.AIntelligence.Service.Attributes;
 using AdaTech.AIntelligence.Service.Exceptions;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
-using AdaTech.AIntelligence.Service.Services.ImageServices;
+using AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.Net.Http.Headers;
+using System.Web;
 
 namespace AdaTech.AIntelligence.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [SwaggerDisplayName("Report Expense")]
     public class ExpenseController : ControllerBase
     {
         private readonly ILogger<ExpenseController> _logger;
         private readonly IConfiguration _configuration;
-        private readonly IExpenseScriptGPT _expenseScriptGPT;
         private readonly IExpenseCRUDService _expenseCRUDService;
+        private readonly IHttpClientFactory _clientFactory;
         private readonly HttpClient _httpClient;
+        private readonly ResponseGPTService _responseGPTService;
         private readonly string _apiKey;
 
 
         private const string _url = "https://api.openai.com/v1/chat/completions";
 
-        public ExpenseController(IConfiguration configuration, IWebHostEnvironment environment, 
-            ILogger<ExpenseController> logger, IExpenseScriptGPT expenseScriptGPT, 
-            IExpenseCRUDService expenseCRUDService)
+        public ExpenseController(IConfiguration configuration, ILogger<ExpenseController> logger, 
+            IExpenseCRUDService expenseCRUDService, IHttpClientFactory httpClientFactory, 
+            ResponseGPTService responseGPTService)
         {
             _configuration = configuration;
             _logger = logger;
-            _expenseScriptGPT = expenseScriptGPT;
             _expenseCRUDService = expenseCRUDService;
             _apiKey = _configuration.GetValue<string>("ApiKey");
+            _clientFactory = httpClientFactory;
+            _responseGPTService = responseGPTService;
 
             _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
         }
 
-        [HttpPost("enviarImagemParaOChatGPT")]
-        public async Task<IActionResult> EnviarImagemParaOChatGPT(IFormFile image)
+        /// <summary>
+        /// Create an expense from an image
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpPost("create-expense-image-file")]
+        public async Task<IActionResult> CreateExpenseImageFile(IFormFile image)
         {
-            var (urlImage, base64Image) = await image.DescriptionImage();
+            string ocrApiUrl = "https://localhost:7034/api/OCRChatGPT/create-expenseRequest-image-file";
 
-            var contentRequest = await _expenseScriptGPT.ExpenseScriptPrompt(base64Image, urlImage);
+            var (extension, base64Image) = await image.DescriptionImage();
 
-            var response = await _httpClient.PostAsync(_url, contentRequest);
+            var requestImage = new
+            {
+                Base64Image = base64Image,
+                Extension = extension,
+                ApiKey = _apiKey,
+                Url = ""
+            };
 
-            var resposta = await response.ProcessResponse();
+            var response = await _responseGPTService.GetResponseGPT(ocrApiUrl, requestImage);
 
-            if (resposta.Contains("message"))
-
-                return BadRequest(resposta);
-
-            var success = await _expenseCRUDService.CreateExpense(resposta);
-
-            if (!success)
-                return BadRequest("Erro ao criar despesa.");
-
-            return Ok("Despesa cadastrada com sucesso!");
-
+            return Ok(response);
         }
 
-        [HttpPost("montarObjetoSobreAImagemEnviada")]
-        public async Task<IActionResult> TesteDeRespostaDaImagem([FromQuery] string url)
+        /// <summary>
+        /// Create an expense from an image url
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpPost("create-expense-image-url")]
+        public async Task<IActionResult> CreateExpenseImageUrl([FromQuery] string url)
         {
-            var urlObject = await url.DescriptionImage();
+            string ocrApiUrl = "https://localhost:7034/api/OCRChatGPT/create-expenseRequest-image-file";
 
-            var contentRequest = await _expenseScriptGPT.ExpenseScriptPrompt(url, urlObject);
+            var requestImage = new
+            {
+                Base64Image = "",
+                Extension = "",
+                ApiKey = _apiKey,
+                Url = url
+            };
 
-            var response = await _httpClient.PostAsync(_url, contentRequest);
+            var response = await _responseGPTService.GetResponseGPT(ocrApiUrl, requestImage);
 
-            var resposta = await response.ProcessResponse();
-
-            if (resposta.Contains("message"))
-
-                return BadRequest(resposta);
-
-            var success = await _expenseCRUDService.CreateExpense(resposta);
-
-            if (!success)
-                return BadRequest("Erro ao criar despesa.");
-
-            return Ok("Despesa cadastrada com sucesso!");
+            return Ok(response);
         }
 
-        [HttpPatch("alterarStatusDaDespesa")]
-        public async Task<IActionResult> AlterarStatusDaDespesa([FromQuery] int idExpense)
+        /// <summary>
+        /// Update the status of an expense
+        /// </summary>
+        /// <param name="idExpense"></param>
+        /// <returns></returns>
+        [Authorize(Roles = "Finance")]
+        [HttpPatch("update-status-expense")]
+        public async Task<IActionResult> UpdateStatusExpense([FromQuery] int idExpense)
         {
             var expense = await _expenseCRUDService.GetOne(idExpense);
 
-            if(expense.Status == ExpenseStatus.PAGO)
-                throw new NotAnExpenseException("Despesa n�o encontrada.");
+            if(expense.Status == ExpenseStatus.PAID)
+                throw new NotAnExpenseException("Despesa não encontrada.");
 
-            expense.Status = ExpenseStatus.PAGO;
+            expense.Status = ExpenseStatus.PAID;
 
             var success = await _expenseCRUDService.UpdateExpense(expense);
 
@@ -104,23 +118,33 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             return Ok("Status da despesa atualizado com sucesso!");
         }
 
-        [HttpGet("VisualizarTodasDespesas")]
+        /// <summary>
+        /// View all expenses (actives and inactives)
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
+        [HttpGet("view-expense")]
         [Authorize(Roles = "Admin")]
         [TypeFilter(typeof(AcessFinanceFilter))]
-        public async Task<IActionResult> VisualizarTodasDespesas()
+        public async Task<IActionResult> ViewExpenseAll()
         {
             var success = await _expenseCRUDService.GetAll();
 
             if (success.IsNullOrEmpty())
-                throw new NotFoundException("N�o existem despesas.");
+                throw new NotFoundException("Não existem despesas.");
 
             return Ok(success);
         }
 
-        [HttpGet("VisualizarTodasDespesaAtivas")]
+        /// <summary>
+        /// View all active expenses
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
+        [HttpGet("view-expense-active")]
         [Authorize(Roles = "Admin")]
         [TypeFilter(typeof(AcessFinanceFilter))]
-        public async Task<IActionResult> VisualizarTodasDespesaAtivas()
+        public async Task<IActionResult> ViewExpenseActive()
         {
             var success = await _expenseCRUDService.GetAllActive();
 
@@ -130,11 +154,16 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             return Ok(success);
         }
 
-        [HttpGet("VisualizarTodasDespesasSubmetidas")]
+        /// <summary>
+        /// View active submitted expenses
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
+        [HttpGet("view-expense-submitted")]
         [Authorize(Roles = "Finance")]
-        public async Task<IActionResult> VisualizarTodasDespesasSubmetidas()
+        public async Task<IActionResult> ViewExpenseSubmitted()
         {
-            var success = await _expenseCRUDService.GetAllSubmetido();
+            var success = await _expenseCRUDService.GetAllSubmitted();
 
             if (success.IsNullOrEmpty())
                 throw new NotFoundException();
@@ -142,9 +171,16 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             return Ok(success);
         }
 
-
+        /// <summary>
+        /// Delete an expense in hard or soft mode
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="isHardDelete"></param>
+        /// <returns></returns>
+        [Authorize(Roles = "Admin")]
+        [TypeFilter(typeof(AcessFinanceFilter))]
         [HttpDelete("delete")]
-        public async Task<IActionResult> Delete(int id, [FromQuery] bool isHardDelete = false)
+        public async Task<IActionResult> DeleteExpense(int id, [FromQuery] bool isHardDelete = false)
         {
             var result = await _expenseCRUDService.DeleteAsync(id, isHardDelete);
             return Ok(result);

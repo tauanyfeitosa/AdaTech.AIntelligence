@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace AdaTech.AIntelligence.DateLibrary.Roles
 {
+    /// <summary>
+    /// Class to initialize the roles in the application
+    /// </summary>
     public static class IdentityDataInitializer
     {
         public static void SeedData(UserManager<UserInfo> userManager, RoleManager<IdentityRole> roleManager)
@@ -10,6 +13,10 @@ namespace AdaTech.AIntelligence.DateLibrary.Roles
             SeedRoles(roleManager);
         }
 
+        /// <summary>
+        /// Create Roles for the application based on the roles in the database
+        /// </summary>
+        /// <param name="roleManager"></param>
         public static void SeedRoles(RoleManager<IdentityRole> roleManager)
         {
             if (!roleManager.RoleExistsAsync("Admin").Result)

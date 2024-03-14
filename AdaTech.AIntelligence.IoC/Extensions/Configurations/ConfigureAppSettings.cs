@@ -16,7 +16,6 @@ namespace AdaTech.AIntelligence.IoC.Extensions.Configurations
         public static IServiceCollection AddCustomConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<UserCredentialsSettings>(configuration.GetSection("UserCredentials"));
-            services.Configure<TokenSettings>(configuration.GetSection("TokenUserSettings"));
 
             return services;
         }

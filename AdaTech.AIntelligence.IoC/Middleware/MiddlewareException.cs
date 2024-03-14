@@ -5,6 +5,10 @@ using System.Text.Json;
 
 namespace AdaTech.AIntelligence.IoC.Middleware
 {
+
+    /// <summary>
+    /// Middleware to handle exceptions
+    /// </summary>
     public class MiddlewareException
     {
         private readonly RequestDelegate _next;
@@ -16,6 +20,11 @@ namespace AdaTech.AIntelligence.IoC.Middleware
             _logger = logger;
         }
 
+        /// <summary>
+        /// Invoke the middleware
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <returns></returns>
         public async Task InvokeAsync(HttpContext httpContext)
         {
             int originalStatusCode = httpContext.Response.StatusCode;
@@ -31,6 +40,12 @@ namespace AdaTech.AIntelligence.IoC.Middleware
             }
         }
 
+        /// <summary>
+        /// Handle exceptions according to the custom exception received
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="exception"></param>
+        /// <returns></returns>
         private static async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
            

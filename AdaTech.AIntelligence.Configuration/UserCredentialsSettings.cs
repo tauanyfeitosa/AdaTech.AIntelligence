@@ -1,5 +1,4 @@
-﻿
-namespace AdaTech.AIntelligence.Configuration
+﻿namespace AdaTech.AIntelligence.Configuration
 {
     public class UserCredentialsSettings
     {

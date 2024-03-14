@@ -2,6 +2,9 @@
 
 namespace AdaTech.AIntelligence.Entities.Objects
 {
+    /// <summary>
+    /// Class to represent the user authentication with properties to acess information about the user
+    /// </summary>
     public class UserInfo : UserAuth
     {
         public string Name { get; set; }

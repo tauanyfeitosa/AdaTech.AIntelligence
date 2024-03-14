@@ -1,12 +1,17 @@
 ﻿using System.Text;
 using System.Text.Json;
-using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
 
-namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
+namespace AdaTech.AIntelligence.OCR.Services.ChatGPT
 {
-    public class ExpenseScriptGPT : IExpenseScriptGPT
+    public class ScriptGPTService
     {
-        public Task<StringContent> ExpenseScriptPrompt(string imagem, object url)
+        /// <summary>
+        /// Method to create the request to the chat GPT.
+        /// </summary>
+        /// <param name="imagem"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public Task<StringContent> ScriptPrompt(string imagem, object url)
         {
             var imagemInvalida = @"HTTP/1.1 400 Bad Request{" + "\"message\": \"Comprovante Inválido\"}";
             var requestData = new
@@ -36,7 +41,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
                         role = "system",
                         content = new object[]
                         {
-                            new { type = "text", text = "Responder em formato CSV sem cabeçalho" },
+                            new { type = "text", text = "Responder em formato CSV sem cabeçalho, separe sempre por vírgulas" },
                         }
                     },
                     new
@@ -70,21 +75,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
             };
             var contentRequest = new StringContent(JsonSerializer.Serialize(requestData), Encoding.UTF8, "application/json");
 
-            return Task.FromResult((contentRequest));
-        }
-
-        public static bool IsBase64String(string base64String)
-        {
-            try
-            {
-                byte[] bytes = Convert.FromBase64String(base64String);
-
-                return true;
-            }
-            catch (FormatException)
-            {
-                return false;
-            }
+            return Task.FromResult(contentRequest);
         }
     }
 }

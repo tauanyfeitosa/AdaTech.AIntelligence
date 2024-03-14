@@ -10,37 +10,19 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
     public class ExpenseCRUDService : IExpenseCRUDService
     {
         private readonly IAIntelligenceRepository<Expense> _repository;
-        private IDeleteStrategy<Expense> _deleteStrategy { get; set; }
+        private readonly GenericDeleteService<Expense> _deleteService;
 
-        public ExpenseCRUDService(IAIntelligenceRepository<Expense> repository)
+        public ExpenseCRUDService(IAIntelligenceRepository<Expense> repository, GenericDeleteService<Expense> deleteService)
         {
             _repository = repository;
+            _deleteService = deleteService;
         }
 
-        public async Task<bool> CreateExpense(string response)
+        public async Task<bool> CreateExpense(Expense expense)
         {
-            try
-            {
-                string[] valores = response.Split(",");
-                var respostaObjeto = new Expense()
-                {
-                    Category = (Category)int.Parse(valores[0]),
-                    TotalValue = double.Parse(valores[1].Replace(".", ",")),
-                    Description = valores[2],
-                    Status = ExpenseStatus.SUBMETIDO,
-                    IsActive = true
-                };
+            var success = await _repository.Create(expense);
 
-                var success = await _repository.Create(respostaObjeto);
-
-                return success;
-
-            }
-            catch
-            {
-                throw new Exception($"{response} \nVerifique possíveis problemas com a resolução da imagem enviada!");
-            }
-
+            return success;
         }
 
         public async Task<bool> UpdateExpense(Expense expense)
@@ -58,10 +40,10 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
             throw new NotFoundException("Não foi localizada uma nota ativa com o ID fornecido. Tente novamente.");
         }
 
-        public async Task<IEnumerable<Expense>> GetAllSubmetido()
+        public async Task<IEnumerable<Expense>> GetAllSubmitted()
         {
             var allExpenses = await _repository.GetAll();
-            return allExpenses.Where(expense => expense.Status == ExpenseStatus.SUBMETIDO && expense.IsActive);
+            return allExpenses.Where(expense => expense.Status == ExpenseStatus.SUBMITTED && expense.IsActive);
         }
 
         public async Task<IEnumerable<Expense>> GetAllActive()
@@ -77,15 +59,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
 
         public async Task<string> DeleteAsync(int id, bool isHardDelete)
         {
-            if (isHardDelete)
-                _deleteStrategy = new HardDeleteStrategy<Expense>();
-            else
-                _deleteStrategy = new SoftDeleteStrategy<Expense>();
-
-
-            string result = await _deleteStrategy.DeleteAsync(_repository, id);
-
-            return result;
+            return await _deleteService.DeleteAsync(_repository, id, isHardDelete);
         }
     }
 }

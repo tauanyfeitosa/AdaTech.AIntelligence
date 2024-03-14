@@ -9,13 +9,19 @@ using AdaTech.AIntelligence.IoC.Extensions.Configurations;
 namespace AdaTech.AIntelligence.IoC.Extensions
 {
     /// <summary>
-    /// Destinado a injetar as dependências do ciclo de vida da solution.
+    /// Intended to inject solution lifecycle dependencies
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
     internal static class DependencyInjection
     {
 
+        /// <summary>
+        /// Extension method to resolve the services dependencies
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
         internal static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.ResolveDependenciesService()

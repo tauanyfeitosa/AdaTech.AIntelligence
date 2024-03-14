@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
-using AdaTech.AIntelligence.Service.Services.DeleteStrategyService;
-using AdaTech.AIntelligence.DateLibrary.Repository;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using AdaTech.AIntelligence.Service.DTOs.Interfaces;
+using Microsoft.Extensions.Configuration;
 
 namespace AdaTech.AIntelligence.Service.Services.UserSystem
 {
@@ -13,21 +12,20 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
         private readonly UserManager<UserInfo> _userManager;
         private readonly SignInManager<UserInfo> _signInManager;
         private readonly ILogger<UserAuthService> _logger;
-        private readonly IdentityDbContext<UserInfo> _context;
-        private readonly IAIntelligenceRepository<Expense> _repository;
-        private IDeleteStrategy<Expense> _deleteStrategy { get; set; }
+        private readonly EmailService.IEmailService _emailService;
+        private readonly IConfiguration _appSettings;
 
 
         public UserAuthService(SignInManager<UserInfo> signInManager,
             UserManager<UserInfo> userManager,
-            ILogger<UserAuthService> logger, IdentityDbContext<UserInfo> context, 
-            IAIntelligenceRepository<Expense> repository)
+            ILogger<UserAuthService> logger,
+            EmailService.IEmailService emailService, IConfiguration appSettings)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
-            _context = context;
-            _repository = repository;
+            _emailService = emailService;
+            _appSettings = appSettings;
         }
 
         public async Task<bool> AuthenticateAsync(string email, string password)
@@ -64,61 +62,44 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
             }
         }
 
-        public async Task<bool> RegisterUserAsync(DTOUserRegister userRegister)
+        public async Task<bool> RegisterUserAsync(IUserRegister userRegister)
         {
             try
             {
-                var userInfo = new UserInfo
-                {
-                    UserName = userRegister.Name,
-                    Name = userRegister.Name,
-                    LastName = userRegister.LastName,
-                    CPF = userRegister.CPF,
-                    Email = userRegister.Email,
-                    DateBirth = new DateTime(userRegister.DateBirth.Year, userRegister.DateBirth.Month, userRegister.DateBirth.Day, 0, 0, 0),
-                    IsStaff = true,
-                };
+                var userInfo = await userRegister.RegisterUserAsync();
 
                 var result = await _userManager.CreateAsync(userInfo, userRegister.Password);
 
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(userInfo, "Employee");
-                }
+                    if (userRegister is DTOSuperUserRegister superUserRegister)
+                    {
+                        foreach (var item in superUserRegister.Roles)
+                        {
+                            await _userManager.AddToRoleAsync(userInfo, item.ToString());
+                        }
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(userInfo, "Employee");
+                    }
 
+                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(userInfo);
+
+                    var confirmationLink = $"{_appSettings.GetValue<string>("ServerSMTP:BaseUrl")}/{userInfo.Id}/{Uri.EscapeDataString(token)}";
+
+                    var emailBody = $"Por favor, clique no link a seguir para confirmar seu endereço de e-mail: <a href='{confirmationLink}'>Confirmar E-mail</a>";
+
+                    await _emailService.SendEmailAsync(userInfo.Email, "Confirmação de E-mail", emailBody);
+                }
                 return result.Succeeded;
+
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Tentativa de registro sem sucesso com email {userRegister.Email}: {ex}");
                 throw new ArgumentException($"Tentativa de registro sem sucesso: {ex}");
             }
-        }
-
-        public async Task<UserInfo> GetUserByEmailAsync(string email)
-        {
-            try
-            {
-                return await _userManager.FindByEmailAsync(email);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Tentativa de buscar usuário sem sucesso: {ex}");
-                throw new ArgumentException($"Tentativa de buscar usuário sem sucesso: {ex}");
-            }
-        }
-
-        public async Task<string> DeleteAsync(int id, bool isHardDelete)
-        {
-            if (isHardDelete)
-                _deleteStrategy = new HardDeleteStrategy<Expense>();
-            else
-                _deleteStrategy = new SoftDeleteStrategy<Expense>();
-
-
-            string result = await _deleteStrategy.DeleteAsync(_repository, id, _context);
-
-            return result;
         }
     }
 }

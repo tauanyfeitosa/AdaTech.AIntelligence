@@ -2,6 +2,9 @@
 
 namespace AdaTech.AIntelligence.IoC.Extensions.Filters
 {
+    /// <summary>
+    /// Filter to control the access to the finance resources
+    /// </summary>
     public class AcessFinanceFilter : IAuthorizationFilter
     {
         public void OnAuthorization(AuthorizationFilterContext context)
