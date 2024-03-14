@@ -81,12 +81,13 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         }
 
 
-    /// <summary>
-    /// Confirm the email of a user.
-    /// </summary>
-    /// <param name="userId"></param>
-    /// <param name="token"></param>
-    /// <returns></returns>
+        /// <summary>
+        /// Confirm the email of a user.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet("confirm-email/{userId}/{token}")]
         public async Task<IActionResult> ConfirmEmail([FromRoute] string userId, [FromRoute] string token)
         {
