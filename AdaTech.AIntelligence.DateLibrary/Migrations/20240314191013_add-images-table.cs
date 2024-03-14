@@ -5,7 +5,7 @@
 namespace AdaTech.AIntelligence.DateLibrary.Migrations
 {
     /// <inheritdoc />
-    public partial class addimage : Migration
+    public partial class addimagestable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +18,7 @@ namespace AdaTech.AIntelligence.DateLibrary.Migrations
                 defaultValue: 0);
 
             migrationBuilder.CreateTable(
-                name: "Image",
+                name: "Images",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -31,17 +31,17 @@ namespace AdaTech.AIntelligence.DateLibrary.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Image", x => x.Id);
+                    table.PrimaryKey("PK_Images", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Image_Expenses_ExpenseId",
+                        name: "FK_Images_Expenses_ExpenseId",
                         column: x => x.ExpenseId,
                         principalTable: "Expenses",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Image_ExpenseId",
-                table: "Image",
+                name: "IX_Images_ExpenseId",
+                table: "Images",
                 column: "ExpenseId",
                 unique: true,
                 filter: "[ExpenseId] IS NOT NULL");
@@ -51,7 +51,7 @@ namespace AdaTech.AIntelligence.DateLibrary.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Image");
+                name: "Images");
 
             migrationBuilder.DropColumn(
                 name: "ImageId",

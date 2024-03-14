@@ -7,6 +7,7 @@ namespace AdaTech.AIntelligence.DateLibrary.Context
     public class ExpenseReportingDbContext : IdentityDbContext<UserInfo>
     {
         public DbSet<Expense> Expenses { get; set; }
+        public DbSet<Image> Images { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

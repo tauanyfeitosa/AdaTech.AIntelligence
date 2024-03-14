@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdaTech.AIntelligence.DateLibrary.Migrations
 {
     [DbContext(typeof(ExpenseReportingDbContext))]
-    [Migration("20240314182516_add-image")]
-    partial class addimage
+    [Migration("20240314195026_alter-image-table")]
+    partial class alterimagetable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,8 +65,9 @@ namespace AdaTech.AIntelligence.DateLibrary.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<byte[]>("ByteImage")
-                        .HasColumnType("varbinary(max)");
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ExpenseId")
                         .HasColumnType("int");
@@ -77,16 +78,13 @@ namespace AdaTech.AIntelligence.DateLibrary.Migrations
                     b.Property<int>("SourceType")
                         .HasColumnType("int");
 
-                    b.Property<string>("URLImage")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ExpenseId")
                         .IsUnique()
                         .HasFilter("[ExpenseId] IS NOT NULL");
 
-                    b.ToTable("Image");
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("AdaTech.AIntelligence.Entities.Objects.UserInfo", b =>

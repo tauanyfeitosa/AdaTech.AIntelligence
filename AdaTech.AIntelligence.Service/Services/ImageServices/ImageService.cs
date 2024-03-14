@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace AdaTech.AIntelligence.Service.Services
+namespace AdaTech.AIntelligence.Service.Services.ImageServices
 {
     public static class ImageService
     {
@@ -56,10 +56,10 @@ namespace AdaTech.AIntelligence.Service.Services
                 role = "user",
                 content = new object[]
                         {
-                            new 
-                            { 
-                                type = "image_url", image_url = new 
-                                { 
+                            new
+                            {
+                                type = "image_url", image_url = new
+                                {
                                     url = $"{url}",
                                     detail="low"
                                 }

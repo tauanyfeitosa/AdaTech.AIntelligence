@@ -4,6 +4,7 @@ using AdaTech.AIntelligence.DateLibrary.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdaTech.AIntelligence.DateLibrary.Migrations
 {
     [DbContext(typeof(ExpenseReportingDbContext))]
-    partial class ExpenseReportingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240314191013_add-images-table")]
+    partial class addimagestable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,9 +65,8 @@ namespace AdaTech.AIntelligence.DateLibrary.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("ByteImage")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<int?>("ExpenseId")
                         .HasColumnType("int");
@@ -74,6 +76,9 @@ namespace AdaTech.AIntelligence.DateLibrary.Migrations
 
                     b.Property<int>("SourceType")
                         .HasColumnType("int");
+
+                    b.Property<string>("URLImage")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

@@ -1,9 +1,9 @@
 using AdaTech.AIntelligence.Entities.Enums;
 using AdaTech.AIntelligence.IoC.Extensions.Filters;
 using AdaTech.AIntelligence.Service.Exceptions;
-using AdaTech.AIntelligence.Service.Services;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
+using AdaTech.AIntelligence.Service.Services.ImageServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;

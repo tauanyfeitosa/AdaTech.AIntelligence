@@ -5,8 +5,7 @@ namespace AdaTech.AIntelligence.Entities.Objects
     public class Image
     {
         public int Id { get; set; }
-        public byte[]? ByteImage { get; set; }
-        public string? URLImage { get; set; }
+        public string Content { get; set; }
         public ImageSourceType SourceType { get; set; }
         public ImageProcessingStatus ProcessingStatus { get; set; }
         public Expense? Expense { get; set; }

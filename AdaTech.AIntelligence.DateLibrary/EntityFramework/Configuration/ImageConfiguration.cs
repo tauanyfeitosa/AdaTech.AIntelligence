@@ -18,8 +18,7 @@ namespace AdaTech.AIntelligence.DateLibrary.EntityFramework.Configuration
             builder.Property(i => i.Id).ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(i => i.SourceType).IsRequired();
             builder.Property(i => i.ProcessingStatus).IsRequired();
-            builder.Property(i => i.ByteImage);
-            builder.Property(i => i.URLImage);
+            builder.Property(i => i.Content).IsRequired();
         }
     }
 }
