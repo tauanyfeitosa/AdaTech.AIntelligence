@@ -18,30 +18,11 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
             _deleteService = deleteService;
         }
 
-        public async Task<bool> CreateExpense(string response)
+        public async Task<bool> CreateExpense(Expense expense)
         {
-            try
-            {
-                string[] valores = response.Split(",");
-                var respostaObjeto = new Expense()
-                {
-                    Category = (Category)int.Parse(valores[0]),
-                    TotalValue = double.Parse(valores[1].Replace(".", ",")),
-                    Description = valores[2],
-                    Status = ExpenseStatus.SUBMITTED,
-                    IsActive = true
-                };
+            var success = await _repository.Create(expense);
 
-                var success = await _repository.Create(respostaObjeto);
-
-                return success;
-
-            }
-            catch
-            {
-                throw new Exception($"{response} \nVerifique possíveis problemas com a resolução da imagem enviada!");
-            }
-
+            return success;
         }
 
         public async Task<bool> UpdateExpense(Expense expense)

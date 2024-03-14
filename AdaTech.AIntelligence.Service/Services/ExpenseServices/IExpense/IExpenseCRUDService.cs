@@ -4,7 +4,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense
 {
     public interface IExpenseCRUDService
     {
-        Task<bool> CreateExpense(string response);
+        Task<bool> CreateExpense(Expense expense);
         Task<bool> UpdateExpense(Expense expense);
         Task<Expense> GetOne(int idExpense);
         Task<IEnumerable<Expense>> GetAllSubmitted();
