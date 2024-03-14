@@ -1,5 +1,9 @@
 ﻿namespace AdaTech.AIntelligence.DateLibrary.Repository
 {
+    /// <summary>
+    /// Interface for the AIntelligenceRepository
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface IAIntelligenceRepository<T> where T : class
     {
         Task<bool> Create(T entity);

@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AdaTech.AIntelligence.DateLibrary.EntityFramework.Configuration
 {
+    /// <summary>
+    /// Configuration for the Expense entity
+    /// </summary>
     internal class ExpenseConfiguration : IEntityTypeConfiguration<Expense>
     {
         public void Configure(EntityTypeBuilder<Expense> builder)
