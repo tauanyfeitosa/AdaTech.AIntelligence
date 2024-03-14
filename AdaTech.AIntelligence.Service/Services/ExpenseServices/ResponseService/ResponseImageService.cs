@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService
+namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.ResponseService
 {
     /// <summary>
     /// Class to handle the image request.
     /// </summary>
-    public static class ImageService
+    public static class ResponseImageService
     {
         /// <summary>
         /// Method to convert the image to base64

@@ -4,7 +4,7 @@ using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http.Json;
 
-namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService
+namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.ResponseService
 {
     /// <summary>
     /// Class to handle the response from GPT-4

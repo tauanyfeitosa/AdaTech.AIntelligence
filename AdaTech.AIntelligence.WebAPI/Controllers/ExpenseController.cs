@@ -4,7 +4,7 @@ using AdaTech.AIntelligence.Service.Attributes;
 using AdaTech.AIntelligence.Service.Exceptions;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
-using AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService;
+using AdaTech.AIntelligence.Service.Services.ExpenseServices.ResponseService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;

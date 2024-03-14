@@ -13,7 +13,7 @@ using AdaTech.AIntelligence.Service.Services.DeleteStrategyService;
 using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.Services.EmailService;
 using System.Net.Mail;
-using AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService;
+using AdaTech.AIntelligence.Service.Services.ExpenseServices.ResponseService;
 
 
 namespace AdaTech.AIntelligence.IoC.Extensions.Injections
