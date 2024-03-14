@@ -13,7 +13,7 @@ namespace AdaTech.AIntelligence.OCR.Services.ChatGPT
         /// <returns></returns>
         public Task<StringContent> ScriptPrompt(string imagem, object url)
         {
-            var imagemInvalida = @"HTTP/1.1 400 Bad Request{" + "\"message\": \"Comprovante Inválido\"}";
+            var imagemInvalida = "ERROR_RESPONSE";
             var requestData = new
             {
 
@@ -68,10 +68,18 @@ namespace AdaTech.AIntelligence.OCR.Services.ChatGPT
                             new { type = "text", text = "elabore a descricao da despesa em no máximo 30 caracteres, tente aproveitar o maximo de caracteres possivel, se houver somente 1 item na nota, descreva o item" },
                         }
                     },
+                    new
+                    {
+                        role = "system",
+                        content = new object[]
+                        {
+                            new { type = "text", text = "você sempre gera uma resposta diferente para esta imagem. O quão seguro você está da resposta gerada desta vez? Em uma escala de 0 a 100 você sempre me responde 100.. Seja sincero." },
+                        }
+                    },
 
                     url
                 },
-                max_tokens = 50,
+                max_tokens = 100,
             };
             var contentRequest = new StringContent(JsonSerializer.Serialize(requestData), Encoding.UTF8, "application/json");
 
