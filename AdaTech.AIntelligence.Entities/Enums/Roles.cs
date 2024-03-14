@@ -1,5 +1,4 @@
-﻿
-namespace AdaTech.AIntelligence.Entities.Enums
+﻿namespace AdaTech.AIntelligence.Entities.Enums
 {
     public enum Roles
     {

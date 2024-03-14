@@ -1,17 +1,22 @@
 ﻿using AdaTech.AIntelligence.IoC.Extensions.Filters;
 using AdaTech.AIntelligence.Service.Attributes;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Reflection;
-using System.Text;
 
 namespace AdaTech.AIntelligence.IoC.Extensions.Injections
 {
+    /// <summary>
+    /// Intended to inject swagger dependencies
+    /// </summary>
     public static class InjectionsSwagger
     {
+
+        /// <summary>
+        /// Injects swagger documentation to accept XML documentation, access filters and custom tags to change controller names
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
         public static IServiceCollection AddCustomSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(c =>

@@ -17,8 +17,18 @@ using System.Net.Mail;
 
 namespace AdaTech.AIntelligence.IoC.Extensions.Injections
 {
+
+    /// <summary>
+    /// Injects the services dependencies
+    /// </summary>
     public static class InjectionsServices
     {
+
+        /// <summary>
+        /// Extension method to resolve the services dependencies
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
         public static IServiceCollection ResolveDependenciesService(this IServiceCollection services)
         {
             services.AddScoped<ISeedUserInitial, SeedUserInitial>();

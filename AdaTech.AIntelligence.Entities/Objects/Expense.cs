@@ -2,6 +2,9 @@
 
 namespace AdaTech.AIntelligence.Entities.Objects
 {
+    /// <summary>
+    /// Class to represent the expense with properties to control the expense information
+    /// </summary>
     public class Expense
     {
         public int Id { get; set; }

@@ -1,14 +1,13 @@
 ﻿using AdaTech.AIntelligence.Service.Services.SeedUser;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdaTech.AIntelligence.IoC.Extensions.ApplicationInitializer
 {
+
+    /// <summary>
+    /// Hosted service to initialize the application
+    /// </summary>
     public class StartupHostedApplication: IHostedService
     {
         private readonly IServiceProvider _serviceProvider;
