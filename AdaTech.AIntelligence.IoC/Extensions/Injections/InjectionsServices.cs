@@ -14,6 +14,7 @@ using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.Services.EmailService;
 using System.Net.Mail;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService;
+using AdaTech.AIntelligence.Service.Services.UserSystem.PromotionServices;
 
 
 namespace AdaTech.AIntelligence.IoC.Extensions.Injections
@@ -35,6 +36,7 @@ namespace AdaTech.AIntelligence.IoC.Extensions.Injections
             services.AddScoped<ISeedUserInitial, SeedUserInitial>();
             services.AddScoped<IUserAuthService, UserAuthService>();
             services.AddScoped<IExpenseCRUDService, ExpenseCRUDService>();
+            services.AddScoped<PromotionService, PromotionService>();
             services.AddScoped<RoleManagerService, RoleManagerService>();
             services.AddScoped<UserManagerService, UserManagerService>();
             services.AddScoped<ResponseGPTService, ResponseGPTService>();

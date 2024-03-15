@@ -140,5 +140,6 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
                 return BadRequest("Registro sem sucesso.");
             }
         }
+
     }
 }
