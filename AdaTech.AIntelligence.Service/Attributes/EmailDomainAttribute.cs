@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AdaTech.AIntelligence.Service.Attributes
 {
+    /// <summary>
+    /// Validates that an email address belongs to a specified domain.
+    /// </summary>
     public class EmailDomainAttribute: ValidationAttribute
     {
         private readonly string _domain;
@@ -13,6 +16,12 @@ namespace AdaTech.AIntelligence.Service.Attributes
             _domain = domain;
         }
 
+        /// <summary>
+        /// Determines whether the specified value is a valid email address for the specified domain.
+        /// </summary>
+        /// <param name="value">The value to validate.</param>
+        /// <param name="validationContext">The validation context.</param>
+        /// <returns>A <see cref="ValidationResult"/> indicating whether the value is a valid email address for the specified domain.</returns>
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var configuration = (IConfiguration)validationContext.GetService(typeof(IConfiguration));
