@@ -46,8 +46,7 @@ namespace AdaTech.AIntelligence.OCR.Services.Image
                             {
                                 type = "image_url", image_url = new
                                 {
-                                    url = $"{url}",
-                                    detail="low"
+                                    url = $"{url}"
                                 }
                             }
                         }

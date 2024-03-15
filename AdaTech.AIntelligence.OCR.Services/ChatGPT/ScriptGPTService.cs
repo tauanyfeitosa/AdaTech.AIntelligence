@@ -33,7 +33,7 @@ namespace AdaTech.AIntelligence.OCR.Services.ChatGPT
                         role = "system",
                         content = new object[]
                         {
-                            new { type = "text", text = $"A imagem contém um comprovante fiscal? Continuar somente se a resposta for SIM, caso contrário, responder {imagemInvalida}" },
+                            new { type = "text", text = $"A imagem ou url contém uma nota fiscal? Uma nota fiscal tem o nome nota fiscal, comprovante fiscal ou DANFE nela. Uma nota fiscal tem um valor nela. Continuar somente se a resposta for SIM, caso contrário, responder {imagemInvalida}" },
                         }
                     },
                     new
