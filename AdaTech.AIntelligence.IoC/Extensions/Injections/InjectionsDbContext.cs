@@ -21,7 +21,7 @@ namespace AdaTech.AIntelligence.IoC.Extensions.Injections
         public static IServiceCollection ResolveDependenciesDbContext(this IServiceCollection services)
         {
             services.AddDbContext<ExpenseReportingDbContext>();
-            services.AddDbContext<IdentityDbContext<UserInfo>>();
+            //services.AddDbContext<IdentityDbContext<UserInfo>>();
             services.AddIdentity<UserInfo, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                     .AddEntityFrameworkStores<ExpenseReportingDbContext>()
                     .AddDefaultUI()
