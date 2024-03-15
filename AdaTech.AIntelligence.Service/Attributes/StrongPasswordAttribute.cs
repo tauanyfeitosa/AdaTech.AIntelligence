@@ -5,16 +5,29 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("AdaTech.AIntelligence.Tests")]
 namespace AdaTech.AIntelligence.Service.Attributes
 {
+    /// <summary>
+    /// Validates that a given password meets the criteria for a strong password.
+    /// </summary>
     public class StrongPasswordAttribute : ValidationAttribute
     {
         private readonly int _minumumLength;
         private static int MimumumCharCombinations = 3;
 
+        /// <summary>
+        /// Initializes <see cref="StrongPasswordAttribute"/> class with the specified minimum length.
+        /// </summary>
+        /// <param name="minimumLength">The minimum length required for the password.</param>
         public StrongPasswordAttribute (int minumumLength)
         {
             _minumumLength = minumumLength;
         }
 
+        /// <summary>
+        /// Determines whether the specified value is a strong password.
+        /// </summary>
+        /// <param name="value">The value to validate.</param>
+        /// <param name="validationContext">The validation context.</param>
+        /// <returns>A <see cref="ValidationResult"/> indicating whether the value is a strong password.</returns>
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
             var password = value as string;
@@ -34,6 +47,11 @@ namespace AdaTech.AIntelligence.Service.Attributes
             return ValidationResult.Success;
         }
 
+        /// <summary>
+        /// Checks if the password contains the required combinations.
+        /// </summary>
+        /// <param name="password">The password to check.</param>
+        /// <returns>True if the password contains the required combinations; otherwise, false.</returns>
         internal bool HasRequiredCombinations(string password)
         {
             var hasUpperCase = Regex.IsMatch(password, "[A-Z]");
