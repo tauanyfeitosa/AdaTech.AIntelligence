@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("AdaTech.AIntelligence.Tests")]
-namespace AdaTech.AIntelligence.Service.Attributes
+namespace AdaTech.AIntelligence.Attributes
 {
     /// <summary>
     /// Validates that a given password meets the criteria for a strong password.
@@ -17,7 +17,7 @@ namespace AdaTech.AIntelligence.Service.Attributes
         /// Initializes <see cref="StrongPasswordAttribute"/> class with the specified minimum length.
         /// </summary>
         /// <param name="minimumLength">The minimum length required for the password.</param>
-        public StrongPasswordAttribute (int minumumLength)
+        public StrongPasswordAttribute(int minumumLength)
         {
             _minumumLength = minumumLength;
         }
@@ -31,15 +31,15 @@ namespace AdaTech.AIntelligence.Service.Attributes
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
             var password = value as string;
-            if(string.IsNullOrEmpty(password) )
+            if (string.IsNullOrEmpty(password))
             {
                 return new ValidationResult("A senha não pode ser vazia");
             }
-            if(password.Length < _minumumLength)
+            if (password.Length < _minumumLength)
             {
                 return new ValidationResult($"A senha deve ter no minimo {_minumumLength} caracteres");
             }
-            if(!HasRequiredCombinations(password)) 
+            if (!HasRequiredCombinations(password))
             {
                 return new ValidationResult("A senha deve conter ao menos 3 das seguintes combinações: letra maiúscula, letra minúscula, caractere especial ou número.");
             }

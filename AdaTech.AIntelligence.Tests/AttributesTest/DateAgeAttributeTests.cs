@@ -1,4 +1,4 @@
-﻿using AdaTech.AIntelligence.Service.Attributes;
+﻿using AdaTech.AIntelligence.Attributes;
 using FluentAssertions;
 using Microsoft.AspNetCore.Routing;
 using NSubstitute;

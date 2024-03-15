@@ -1,13 +1,12 @@
-﻿
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using System.ComponentModel.DataAnnotations;
 
-namespace AdaTech.AIntelligence.Service.Attributes
+namespace AdaTech.AIntelligence.Attributes
 {
     /// <summary>
     /// Validates that an email address belongs to a specified domain.
     /// </summary>
-    public class EmailDomainAttribute: ValidationAttribute
+    public class EmailDomainAttribute : ValidationAttribute
     {
         private readonly string _domain;
 
