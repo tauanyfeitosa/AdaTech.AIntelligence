@@ -185,7 +185,7 @@ Quando as funcionalidades do sistema, voltemos agora ao README, onde veremos mai
 |`Swashbuckle.AspNetCore.Swagger` |integra a documentação da API Swagger e interfaces de usuário interativas diretamente em suas aplicações web| 6.4.0    |é importante garantir que a documentação do Swagger não revele informações sensíveis e seja protegida em ambientes de produção|
 
 
-###Para todos os pacotes:
+### Para todos os pacotes:
 1. Manter os pacotes atualizados para a versão mais recente pode ajudar a mitigar problemas de segurança conhecidos e bugs.
 2. Use a análise de código estático e outras ferramentas de segurança para identificar e resolver problemas proativamente.
 3. Esteja ciente das implicações de atualizações de versão, pois podem incluir alterações significativas que podem afetar a estabilidade e segurança da sua aplicação.
