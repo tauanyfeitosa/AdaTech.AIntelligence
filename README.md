@@ -17,7 +17,7 @@
 
 Antes de começarmos, pedimos que acessem o link abaixo para as configurações do sistema:
 
-Clique aqui: [QuickSetup](https://github.com/tauanyfeitosa/AdaTech.AIntelligence/edit/master/QuickSetup.md)
+Clique aqui: [QuickSetup](https://github.com/tauanyfeitosa/AdaTech.AIntelligence/blob/master/QuickSetup.md)
 
 Após essas configurações, vamos conhecer um pouco mais sobre o projeto em si.
 
@@ -39,7 +39,7 @@ Alguns outros requisitos foram levados em conta ao fazer este projeto, como:
 
 Presumimos que já tenham visitado nosso md sobre as configurações do sistema, caso não, basta clicar no link abaixo:
 
-[QuickSetup](https://github.com/tauanyfeitosa/AdaTech.AIntelligence/edit/master/QuickSetup.md)
+[QuickSetup](https://github.com/tauanyfeitosa/AdaTech.AIntelligence/blob/master/QuickSetup.md)
 
 Com o seu projeto devidamente configurado, com o banco atualizado e com acesso a um usuário criado automaticamente e que possui todas as permissões, vamos agora para o fluxo de uso do sistema (deixando-o pronto para testar qualquer funcionalidade).
 
