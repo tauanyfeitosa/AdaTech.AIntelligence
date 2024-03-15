@@ -87,6 +87,8 @@ Todos os usuários só poderão se registrar com um email com este domínio e s�
 
 5. Em BaseOCRUrl, verifique se a porta (7034) é a mesma que aparece no arquivo abaixo no seu projeto (ocr>AdaTech.AIntelligence.OCR.Presentation>AdaTech.AIntelligence.OCR.WebAPI>Propities>launchSettings.json) na rota https:
 
+![image](https://github.com/tauanyfeitosa/AdaTech.AIntelligence/assets/93644115/54326c95-afee-43a0-a615-4fb6920bcc58)
+
 ![image](https://github.com/tauanyfeitosa/AdaTech.AIntelligence/assets/93644115/153667c2-5385-453f-a4c9-e304d856a95f)
 
 
@@ -118,8 +120,9 @@ dotnet ef
 Caso um erro também ocorra aqui, verifique se atualizou o seu RunTime para a versão mais recente: 8.0.2
 
 Abaixo segue o link para download caso necessite:
-[Runtime 8.0.2](https://dotnet.microsoft.com/pt-br/download)
+[Runtime 8.0.2](https://dotnet.microsoft.com/pt-br/download/dotnet/8.0)
 
+Basta rodar o comando de update novamente após a instalação.
 Se tudo ocorrer bem, pronto! Estamos com o banco atualizado!!!
 
 #### Configurar Inicializações:
@@ -154,7 +157,7 @@ ExpenseReporting é o nosso banco em uso. Para visualizar suas tabelas, basta cl
 
 A tabela acima se refere aos usuários do sistema. Note que, para você ela está completamente vazia, o que poderia ser um problema para a utilização do projeto, já que algumas de nossas rotas são fechadas, sendo acessadas somente com as permissões adequadas. Se desejar ver que permissões são, basta abrir a tabela de Roles e se quiser saber quais permissões cada usuário tem, basta abrir UsersRoles.
 
-Para evitar fadiga, o primeiro usuário é criado assim que o programa é iniciado. Lembra do nosso appsettings que pedimos para modificar? As modificações contidas em UserName e Password seram os dados do seu usuário (que terá por nome FinancialAdmin - tendo todas as permissões do sistema).
+Para evitar fadiga, o primeiro usuário é criado assim que o programa é iniciado. Lembra do nosso appsettings que pedimos para modificar? As modificações contidas em UserName e Password serão os dados do seu usuário (que terá por nome FinancialAdmin - tendo todas as permissões do sistema).
 
 Agora, no seu banco, você deve estar vendo algo como (depois de abrir o view data):
 
