@@ -41,8 +41,10 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         public async Task<IActionResult> Login([FromBody] DTOUserLogin userLoginInfo)
         {
             var succeeded = await _userAuthService.AuthenticateAsync(userLoginInfo.Email, userLoginInfo.Password);
-
-            return Ok(succeeded);
+            if (succeeded)
+                return Ok($"Usuário {userLoginInfo.Email} logado com sucesso!");
+            return BadRequest($"Não foi possível logar com {userLoginInfo.Email}. " +
+                $"Certifique-se de que seu email foi confirmado e que suas credenciais estão corretas.");
         }
 
         /// <summary>
@@ -52,10 +54,10 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         [Authorize]
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()
-        {
+        { 
             await _userAuthService.LogoutAsync();
             _logger.LogInformation("Logout realizado com sucesso.");
-            return Ok();
+            return Ok("Usuário deslogado com sucesso!");
         }
 
         /// <summary>
