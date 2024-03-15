@@ -1,5 +1,6 @@
 ﻿using AdaTech.AIntelligence.Entities.Enums;
 using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Service.Exceptions;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http.Json;
@@ -39,8 +40,9 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService
             {
                 var responseData = await response.Content.ReadAsStringAsync();
 
-                if (responseData.Contains("message"))
-                    return responseData;
+                if (responseData.Contains("ERROR_RESPONSE"))
+                    throw new NotAnExpenseException("Comprovante Inválido");
+//                    return responseData;
 
                 var success = await CreateExpense(responseData);
 
