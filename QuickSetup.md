@@ -35,13 +35,18 @@ git clone https://github.com/tauanyfeitosa/AdaTech.AIntelligence
 
 #### Opção 2:
 
+![image](https://github.com/tauanyfeitosa/AdaTech.AIntelligence/assets/93644115/8421fa6b-03d2-41c6-9050-8e47ed1ee02b)
+
+
 1. Abra sua IDE (Visual Studio, por exemplo);
 2. Selecione a opção: clonar repositório;
 3. Digite a url a seguir:
 
 ```bash
-https://github.com/tauanyfeitosa/AdaTech.AIntelligence
+https://github.com/tauanyfeitosa/AdaTech.AIntelligence.git
 ```
+![image](https://github.com/tauanyfeitosa/AdaTech.AIntelligence/assets/93644115/c19510f0-d7e1-46aa-a83d-80947d6b9348)
+
 
 ### Passo 2: Configurações Gerais
 
@@ -49,12 +54,16 @@ Agora que conseguimos clonar, é preciso falar sobre algumas informações muito
 
 #### No appSettings:
 
-1. Navegue até o file appSettings.json em ...\AdaTech.AIntelligence.Presentation\AdaTech.AIntelligence.WebAPI\appsettings.json
+![image](https://github.com/tauanyfeitosa/AdaTech.AIntelligence/assets/93644115/aaeacc7b-bc97-49ea-9f25-7ec746a2812b)
+
+1. Navegue até o file appSettings.json em ...\AdaTech.AIntelligence.Presentation\AdaTech.AIntelligence.WebAPI\appsettings.json (dentro da pasta src)
 2. Neste arquivo, modifique o valor atribuído a ApiKey para uma chave válida de integração com o Vision do ChatGPT-4
 
 ```bash
   "ApiKey": "sua-chave-aqui",
 ```
+
+
 3. Em UserCredentials, modifique o valor atribuído ao UserName e Password
 
 ```bash
@@ -76,12 +85,16 @@ UserName será seu login de acesso ao sistema. Esta alteração criará para voc
 
 Todos os usuários só poderão se registrar com um email com este domínio e só poderão logar se este email for válido e confirmado via link enviado por email.
 
+5. Em BaseOCRUrl, verifique se a porta (7034) é a mesma que aparece no arquivo abaixo no seu projeto (ocr>AdaTech.AIntelligence.OCR.Presentation>AdaTech.AIntelligence.OCR.WebAPI>Propities>launchSettings.json) na rota https:
+
+![image](https://github.com/tauanyfeitosa/AdaTech.AIntelligence/assets/93644115/153667c2-5385-453f-a4c9-e304d856a95f)
+
 
 #### Atualizando o Banco:
 
 1. Abra o seu terminal e rode o comando para atualizar o banco de acordo com as migrations fornecidas.
 
-Para o PowerShell do Desenvolvedor:
+Para o PowerShell do Desenvolvedor (basta abrir o terminal em View):
 ```bash
 cd .\AdaTech.AIntelligence.WebAPI
 
@@ -107,18 +120,51 @@ Caso um erro também ocorra aqui, verifique se atualizou o seu RunTime para a ve
 Abaixo segue o link para download caso necessite:
 [Runtime 8.0.2](https://dotnet.microsoft.com/pt-br/download)
 
-Outro erro comum é o apontamento de mais de um DbContext (por conta do uso do IdentityUser). Neste caso, para dar o update, informe em qual contexto esta atualização deve entrar: ExpenseReportingDbContext
-
 Se tudo ocorrer bem, pronto! Estamos com o banco atualizado!!!
 
 #### Configurar Inicializações:
 
 1. No Visual Studio, abra o Soluctionm Explorer e clique com o botão direito na soluction.
 2. Abra "Configure Startup Projects"
+
+![image](https://github.com/tauanyfeitosa/AdaTech.AIntelligence/assets/93644115/82e405e0-a3c4-4bfe-8b58-5219ea6d75d0)
+
 3. Na janela que abrirá selecione a opção: `Multiple start projects`
-4. Dentre os projetos, selecione: AdaTech.AIntelligence.WebAPI (Action em Start) e AdaTech.AIntelligence.OCR.WebAPI (Action em Start without debug)
+4. Dentre os projetos, selecione: AdaTech.AIntelligence.WebAPI (Action em Start) e AdaTech.AIntelligence.OCR.WebAPI (Action em Start without debugging)
 
+![image](https://github.com/tauanyfeitosa/AdaTech.AIntelligence/assets/93644115/53529ba1-b862-4374-895f-3d22d0af2a9e)
 
+Clique em aplicar e depois confirme!
+
+### Passo 3: Preparando o Banco
+
+Agora que seu banco está devidamente configurado, abra a aba de pesquisa na navegação superior: Search
+
+![image](https://github.com/tauanyfeitosa/AdaTech.AIntelligence/assets/93644115/1ac45469-f9ca-472c-99bd-8e6a681f54da)
+
+Pesquise por: `SQL Server Object Explorer`
+
+Algo clicar no resultado obtido, fixe-o na tela. Deve estar vendo algo como a imagem abaixo:
+
+![image](https://github.com/tauanyfeitosa/AdaTech.AIntelligence/assets/93644115/15260a14-e542-4e09-ab8e-7270477782d3)
+
+ExpenseReporting é o nosso banco em uso. Para visualizar suas tabelas, basta clicar com o botão direito e selecionar View Data, como abaixo:
+
+![image](https://github.com/tauanyfeitosa/AdaTech.AIntelligence/assets/93644115/cd6917d1-aef6-4fe1-9e13-ed4dfcab8945)
+
+A tabela acima se refere aos usuários do sistema. Note que, para você ela está completamente vazia, o que poderia ser um problema para a utilização do projeto, já que algumas de nossas rotas são fechadas, sendo acessadas somente com as permissões adequadas. Se desejar ver que permissões são, basta abrir a tabela de Roles e se quiser saber quais permissões cada usuário tem, basta abrir UsersRoles.
+
+Para evitar fadiga, o primeiro usuário é criado assim que o programa é iniciado. Lembra do nosso appsettings que pedimos para modificar? As modificações contidas em UserName e Password seram os dados do seu usuário (que terá por nome FinancialAdmin - tendo todas as permissões do sistema).
+
+Agora, no seu banco, você deve estar vendo algo como (depois de abrir o view data):
+
+![image](https://github.com/tauanyfeitosa/AdaTech.AIntelligence/assets/93644115/dccc4305-b1d2-4445-814e-fe6a86587dff)
+
+Caso ainda não esteja vendo, experimente dar um refresh em seu banco clicando na seta circular azul. Se entrar em UserRole notará que esse usuário possui duas regras: Admin e Finance. Essas duas regras em conjunto permitem acesso a qualquer endpoint do sistema.
+
+### Passo 4: Testando o sistema:
+
+Quando as funcionalidades do sistema, voltemos agora ao README, onde veremos mais sobre elas: basta clicar aqui -> [README](https://github.com/tauanyfeitosa/AdaTech.AIntelligence/blob/master/README.md)
 
 ## 🔧 Tecnologias Utilizadas
 
