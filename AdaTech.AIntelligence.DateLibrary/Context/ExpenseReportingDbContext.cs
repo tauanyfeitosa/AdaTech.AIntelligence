@@ -15,6 +15,11 @@ namespace AdaTech.AIntelligence.DateLibrary.Context
         public DbSet<Expense> Expenses { get; set; }
 
         /// <summary>
+        /// Property for the roleRequirements table
+        /// </summary>
+        public DbSet<RoleRequirement> RoleRequirements { get; set; }
+
+        /// <summary>
         /// Constructor for the context with ConnectionString for SQL Server
         /// </summary>
         /// <param name="optionsBuilder"></param>
@@ -34,6 +39,7 @@ namespace AdaTech.AIntelligence.DateLibrary.Context
 
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new ExpenseConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleRequirementConfiguration());
         }
     }
 }
