@@ -3,6 +3,8 @@ using AdaTech.AIntelligence.Entities.Enums;
 using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
 using AdaTech.AIntelligence.Service.Exceptions;
+using AdaTech.AIntelligence.Service.Services.DeleteStrategyService;
+using AdaTech.AIntelligence.Service.Services.ImageServices.IImage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,51 +13,42 @@ using System.Threading.Tasks;
 
 namespace AdaTech.AIntelligence.Service.Services.ImageServices
 {
-    public class ImageCRUDService
+    public class ImageCRUDService : IImageCRUDService
     {
         private readonly IAIntelligenceRepository<Image> _repository;
+        private readonly GenericDeleteService<Image> _deleteService;
 
-        public ImageCRUDService(IAIntelligenceRepository<Image> repository)
+        public ImageCRUDService(IAIntelligenceRepository<Image> repository, GenericDeleteService<Image> deleteService)
         {
             _repository = repository;
+            _deleteService = deleteService;
         }
 
-        //public async Task<bool> CreateImage(DTOImageRegister imageRequest)
-        //{
-        //    try
-        //    {
-        //        if (imageRequest.ByteImage == null && imageRequest.URLImage == null)
-        //            throw new NotReadableImageException("Nenhum dado foi encontrado para a leitura da imagem.");
+        public async Task<bool> CreateImage(Image image)
+        {
+            var success = await _repository.Create(image);
 
-        //        var respostaObjeto = new Image()
-        //        {
-        //            SourceType,
-        //            ProcessingStatus,
-        //            ? Expense,
-        //            ? ExpenseId,
-        //        };
+            return success;
+        }
 
+        public async Task<bool> UpdateImage(Image image)
+        {
+            return await _repository.Update(image);
+        }
 
+        public async Task<Image> GetOne(int idImage)
+        {
+            var image = await _repository.GetOne(idImage);
 
-        //        var respostaObjeto = new Expense()
-        //        {
-        //            Category = (Category)int.Parse(valores[0]),
-        //            TotalValue = double.Parse(valores[1].Replace(".", ",")),
-        //            Description = valores[2],
-        //            Status = ExpenseStatus.SUBMETIDO,
-        //            IsActive = true
-        //        };
+            if (image != null)
+                return image;
 
-        //        var success = await _repository.Create(respostaObjeto);
-
-        //        return success;
-
-        //    }
-        //    catch
-        //    {
-        //        throw new Exception($"{response} \nVerifique possíveis problemas com a resolução da imagem enviada!");
-        //    }
-
-        //}
+            throw new NotFoundException("Não foi localizada uma imagem com o ID fornecido. Tente novamente.");
+        }
+        
+        public async Task<string> DeleteAsync(int id, bool isHardDelete)
+        {
+            return await _deleteService.DeleteAsync(_repository, id, isHardDelete);
+        }
     }
 }
