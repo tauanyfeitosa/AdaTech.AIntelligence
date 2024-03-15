@@ -72,19 +72,21 @@ Criamos uma WebAPI (você irá encontrá-la dentro do folder soluction `ocr` jun
 
 Para que pudéssemos empregar melhor nossos conhecimentos(e aprender sobre outros mais), fez-se necessário uma evolução funcional nos requisitos mínimos. No entanto, para manter o contexto de uma OCR que poderia ser utilizada por qualquer sistema sem a necessidade de grandes modificações, nossa aplicação conta com duas Web APIs, sendo uma para a OCR, contendo os endpoints relacionados com o ChatGPT-4 (Vision) e outra relacionada com um projeto mais robusto, contendo banco SQL, usuários e um sistema de permissões.
 
-## Em qual janela devo mexer?
+## Qual janela devo explorar?
 
-Ambas as janelas devem estar abertas, pois a AIntelligence faz consultas ao endpoint da OCR, logo, nossa OCR deve estar aberta também. No entanto, não precisaremos mexer nela, então pode se concentrar e se divertir navegando apenas pelo Swagger nomeado AIntelligence (mas não vá fechar a janela da OCR hein? Ela precisa continuar aberta!!!)
+Ambas as janelas devem estar abertas, pois a `Artificial Intelligence` faz consultas ao endpoint da OCR, logo, nossa OCR deve estar aberta também. No entanto, não precisaremos mexer nela, então pode se concentrar e se divertir navegando apenas pelo Swagger nomeado `Artificial Intelligence` (mas não vá fechar a janela da OCR hein? Ela precisa continuar aberta!!!)
 
 ## Erro 404
 
-Analisando o Swagger principal (AIntelligence), você verá alguns ícones importantes:
+Analisando o Swagger principal (`Artificial Intelligence`), você verá alguns ícones importantes:
 
 <img width="958" alt="image" src="https://github.com/tauanyfeitosa/AdaTech.AIntelligence/assets/93644115/6435ee57-3d3a-4a70-8381-f655b549b13e">
 
+
+
 A estrutura abaixo significa:
 
-1. ChatGPT - Vision (controller renomeada de onde esse endpoint vem)
+1. Chat GPT - Vision (controller renomeada de onde esse endpoint vem)
 2. Get (verbo HTTP que informa qual o tipo de requisição que estamos fazendo)
 3. /api/ChatGPT/check (está é a rota de acesso sendo ChatGPT o prefixo da nossa controller e check a rota do endpoint que estamos aplicando
 4. A frase ao lado desta estrutura é a descrição do uso daquele endpoint e para que ele serve.
