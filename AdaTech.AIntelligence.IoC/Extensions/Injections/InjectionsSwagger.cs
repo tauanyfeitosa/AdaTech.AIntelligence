@@ -1,5 +1,5 @@
-﻿using AdaTech.AIntelligence.IoC.Extensions.Filters;
-using AdaTech.AIntelligence.Service.Attributes;
+﻿using AdaTech.AIntelligence.Attributes;
+using AdaTech.AIntelligence.IoC.Extensions.Filters;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;

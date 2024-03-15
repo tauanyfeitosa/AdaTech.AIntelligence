@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AdaTech.AIntelligence.DateLibrary.EntityFramework.Configuration
+namespace AdaTech.AIntelligence.DataLibrary.EntityFramework.Configuration
 {
     /// <summary>
     /// Configuration for the RoleRequirement entity

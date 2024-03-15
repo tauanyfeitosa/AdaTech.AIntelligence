@@ -1,6 +1,6 @@
 using AdaTech.AIntelligence.Entities.Enums;
 using AdaTech.AIntelligence.IoC.Extensions.Filters;
-using AdaTech.AIntelligence.Service.Attributes;
+using AdaTech.AIntelligence.Attributes;
 using AdaTech.AIntelligence.Service.Exceptions;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;

@@ -1,4 +1,4 @@
-﻿namespace AdaTech.AIntelligence.DateLibrary.Repository
+﻿namespace AdaTech.AIntelligence.DataLibrary.Repository
 {
     /// <summary>
     /// Interface for the AIntelligenceRepository
@@ -9,7 +9,7 @@
         Task<bool> Create(T entity);
         Task<bool> Update(T entity);
         Task<bool> Delete(T entity);
-        Task<IEnumerable<T>> GetAll();  
-        Task<T> GetOne (int id);
+        Task<IEnumerable<T>> GetAll();
+        Task<T> GetOne(int id);
     }
 }

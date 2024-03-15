@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AdaTech.AIntelligence.Attributes\AdaTech.AIntelligence.Attributes.csproj" />
     <ProjectReference Include="..\AdaTech.AIntelligence.Service\AdaTech.AIntelligence.Service.csproj" />
   </ItemGroup>
 

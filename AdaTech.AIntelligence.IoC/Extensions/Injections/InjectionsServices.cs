@@ -6,7 +6,6 @@ using AdaTech.AIntelligence.Service.Services.ExpenseServices;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
 using AdaTech.AIntelligence.Service.Services.UserSystem;
 using AdaTech.AIntelligence.Service.Services;
-using AdaTech.AIntelligence.DateLibrary.Repository;
 using AdaTech.AIntelligence.Service.Services.SeedUser.SeedManagerInitial;
 using AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyDelete;
 using AdaTech.AIntelligence.Service.Services.DeleteStrategyService;
@@ -15,6 +14,7 @@ using AdaTech.AIntelligence.Service.Services.EmailService;
 using System.Net.Mail;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService;
 using AdaTech.AIntelligence.Service.Services.UserSystem.PromotionServices;
+using AdaTech.AIntelligence.DataLibrary.Repository;
 
 
 namespace AdaTech.AIntelligence.IoC.Extensions.Injections
