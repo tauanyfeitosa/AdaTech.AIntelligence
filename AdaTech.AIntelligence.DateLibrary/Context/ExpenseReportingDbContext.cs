@@ -1,8 +1,8 @@
-﻿using AdaTech.AIntelligence.DateLibrary.EntityFramework.Configuration;
+﻿using AdaTech.AIntelligence.DataLibrary.EntityFramework.Configuration;
 using AdaTech.AIntelligence.Entities.Objects;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-namespace AdaTech.AIntelligence.DateLibrary.Context
+namespace AdaTech.AIntelligence.DataLibrary.Context
 {
     /// <summary>
     /// Context for the application

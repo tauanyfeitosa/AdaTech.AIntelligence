@@ -1,5 +1,4 @@
-﻿
-namespace AdaTech.AIntelligence.Service.Attributes
+﻿namespace AdaTech.AIntelligence.Attributes
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class SwaggerDisplayNameAttribute : Attribute

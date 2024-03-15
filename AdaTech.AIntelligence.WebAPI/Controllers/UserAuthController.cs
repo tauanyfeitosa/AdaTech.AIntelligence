@@ -1,15 +1,11 @@
-    using AdaTech.AIntelligence.Entities.Objects;
-using AdaTech.AIntelligence.Service.Attributes;
+using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Attributes;
 using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
-using AdaTech.AIntelligence.Service.Services;
 using AdaTech.AIntelligence.Service.Services.EmailService;
-using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
 using AdaTech.AIntelligence.Service.Services.UserSystem;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System.Net;
 
 namespace AdaTech.AIntelligence.WebAPI.Controllers
 {
@@ -41,8 +37,10 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         public async Task<IActionResult> Login([FromBody] DTOUserLogin userLoginInfo)
         {
             var succeeded = await _userAuthService.AuthenticateAsync(userLoginInfo.Email, userLoginInfo.Password);
-
-            return Ok(succeeded);
+            if (succeeded)
+                return Ok($"Usuário {userLoginInfo.Email} logado com sucesso!");
+            return BadRequest($"Não foi possível logar com {userLoginInfo.Email}. " +
+                $"Certifique-se de que seu email foi confirmado e que suas credenciais estão corretas.");
         }
 
         /// <summary>
@@ -52,10 +50,10 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         [Authorize]
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()
-        {
+        { 
             await _userAuthService.LogoutAsync();
             _logger.LogInformation("Logout realizado com sucesso.");
-            return Ok();
+            return Ok("Usuário deslogado com sucesso!");
         }
 
         /// <summary>
