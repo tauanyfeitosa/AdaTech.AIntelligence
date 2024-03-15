@@ -5,7 +5,7 @@
 
 <!-- markdownlint-disable MD033 MD041 -->
 <p align="center">
-  <h3 align="center">⌨️ Quick Setup</h3>
+  <h3 align="center">⌨️ README</h3>
 </p>
 
 <p align="center">
@@ -106,4 +106,39 @@ Logo, uma das primeiras coisas a se fazer é efetuar o login para poder acessar 
 
 # Fluxo de Funcionamento
 
+## Criando um Novo Usuário
 Você já tem um usuário para testar todas as funcionalidades mas que tal começarmos criando um novo?
+
+Acesse o endpoint abaixo:
+
+<img width="933" alt="image" src="https://github.com/tauanyfeitosa/AdaTech.AIntelligence/assets/93644115/825bea2d-77f8-4e13-87f1-298788ba2602">
+
+
+Substitua os valores no json de acordo com sua escolha, mas atente-se a:
+
+1. Em QuickSetup foi pedido que alterasse o domain para o domain do email da sua empresa e isso vai ser muito importante agora. Para fazer um autocadastro, você precisa passar um email válido deste domínio, pois receberá na sua caixa postal uma mensagem de confirmação como a mensagem abaixo:
+
+<img width="483" alt="image" src="https://github.com/tauanyfeitosa/AdaTech.AIntelligence/assets/93644115/3479a359-1e09-444a-8420-e1eb0de4b2a8">
+
+Basta clicar no link. Ele é um link único, criptografado especialmente para você. Assim que clicar, poderá fazer login normalmente!
+
+2. No campo Data de Nascimento, só será aceita datas que infiram uma idades igual ou superior a 14 anos;
+3. Não aceitamos CPFs inválidos (nossa verificação é pelo cálculo do dígito verificador);
+4. Sua senha deve ser uma senha forte.
+
+Após se registrar e confirmar seu email via link enviado, estará pronto para efetuar o login no sistema. Mas, você só tem permissões de um funcionário comum, o que significa que só pode cadastrar notas no sistema (seja via link ou imagem
+
+## Como Criar um Usuário Fora do Domínio?
+
+Caso você tenha um usuário de fora da sua empresa e precise que ele também tenha acesso, basta acessar por este endpoint:
+
+<img width="944" alt="image" src="https://github.com/tauanyfeitosa/AdaTech.AIntelligence/assets/93644115/65e82b63-a1d1-40c3-98b9-64ea21a6c4f1">
+
+Note que este endpoint possui um campo a mais no JSON, este campo indica que tipo de permissões ele pode ter, sendo:
+1. Employee (permissões baixas de acesso)
+2. Finance (tem acesso ao gerenciamento da notas)
+3. Admin (pode gerenciar usuários)
+
+Você deve ter notado que temos um cadeado neste endpoint, ou seja, um outro usuário logado deve criar um usuário externo. Mas apenas logar não é o suficiente neste caso. Para acessar essa rota o sistema pede que você tenha como permissão Admin. 
+
+E agora, aquele usuário inicial se torna tão importante! Ele possui as permissões de Admin e Finance (pois é possível acumular Roles). Logando com os dados dele (basta pegar o UserName e Password informados no appsettings), você poderá acessar este endpoint. Lembrando que: mesmo criando este usuário em outra rota, ele continuará tendo que confirmar seu email, então apenas informe emails válidos.
