@@ -53,7 +53,8 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         [HttpPost("create-expense-image-file")]
         public async Task<IActionResult> CreateExpenseImageFile(IFormFile image)
         {
-            string ocrApiUrl = "https://localhost:7034/api/OCRChatGPT/create-expenseRequest-image-file";
+            string path = _configuration.GetValue<string>("BaseOCRUrl");
+            string ocrApiUrl = $"{path}api/OCRChatGPT/create-expenseRequest-image-file";
 
             var (extension, base64Image) = await image.DescriptionImage();
 
@@ -79,7 +80,8 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         [HttpPost("create-expense-image-url")]
         public async Task<IActionResult> CreateExpenseImageUrl([FromQuery] string url)
         {
-            string ocrApiUrl = "https://localhost:7034/api/OCRChatGPT/create-expenseRequest-image-file";
+            string path = _configuration.GetValue<string>("BaseOCRUrl");
+            string ocrApiUrl = $"{path}api/OCRChatGPT/create-expenseRequest-image-file";
 
             var requestImage = new
             {

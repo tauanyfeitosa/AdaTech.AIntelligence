@@ -29,7 +29,8 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         {
             var apiKey = _configuration.GetValue<string>("ApiKey");
 
-            string ocrApiUrl = "https://localhost:7034/api/OCRChatGPT/check";
+            string path = _configuration.GetValue<string>("BaseOCRUrl");
+            string ocrApiUrl = $"{path}api/OCRChatGPT/check";
 
             var builder = new UriBuilder(ocrApiUrl);
             var query = HttpUtility.ParseQueryString(builder.Query);
