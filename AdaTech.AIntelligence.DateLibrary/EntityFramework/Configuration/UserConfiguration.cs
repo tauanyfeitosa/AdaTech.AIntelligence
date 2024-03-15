@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AdaTech.AIntelligence.DateLibrary.EntityFramework.Configuration
+namespace AdaTech.AIntelligence.DataLibrary.EntityFramework.Configuration
 {
     /// <summary>
     /// Configuration for the User entity based in IdentityUser
@@ -13,9 +13,9 @@ namespace AdaTech.AIntelligence.DateLibrary.EntityFramework.Configuration
         {
             builder.Property(u => u.DateBirth).IsRequired();
             builder.Property(u => u.PhoneNumber);
-            builder.Property(u => u.CPF).IsRequired(); 
+            builder.Property(u => u.CPF).IsRequired();
             builder.Property(u => u.Name).IsRequired();
-            builder.Property(u => u.LastName).IsRequired(); 
+            builder.Property(u => u.LastName).IsRequired();
             builder.Property(u => u.IsActive).IsRequired();
             builder.Property(u => u.IsLogged).IsRequired();
             builder.Property(u => u.IsStaff).IsRequired();

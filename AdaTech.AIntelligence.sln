@@ -18,7 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{BC1515D0-C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaTech.AIntelligence.Service", "AdaTech.AIntelligence.Service\AdaTech.AIntelligence.Service.csproj", "{F70FB5B2-3A6D-4E7A-ABC8-B106BD6501DB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaTech.AIntelligence.DateLibrary", "AdaTech.AIntelligence.DateLibrary\AdaTech.AIntelligence.DateLibrary.csproj", "{84517B57-A793-40CD-848F-29A563FB0694}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaTech.AIntelligence.DataLibrary", "AdaTech.AIntelligence.DateLibrary\AdaTech.AIntelligence.DataLibrary.csproj", "{84517B57-A793-40CD-848F-29A563FB0694}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaTech.AIntelligence.Entities", "AdaTech.AIntelligence.Entities\AdaTech.AIntelligence.Entities.csproj", "{178CDA6D-69FA-436F-B946-0D593BDF7DE1}"
 EndProject
@@ -36,11 +36,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ocr", "ocr", "{76C2EF49-81D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdaTech.AIntelligence.OCR.Presentation", "AdaTech.AIntelligence.OCR.Presentation", "{8A05A679-DD96-481F-BFD0-F4371C2D651B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdaTech.AIntelligence.OCR.WebAPI", "AdaTech.AIntelligence.OCR.WebAPI\AdaTech.AIntelligence.OCR.WebAPI.csproj", "{C4A29B36-91FC-4E35-A896-2B898F1A4013}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaTech.AIntelligence.OCR.WebAPI", "AdaTech.AIntelligence.OCR.WebAPI\AdaTech.AIntelligence.OCR.WebAPI.csproj", "{C4A29B36-91FC-4E35-A896-2B898F1A4013}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdaTech.AIntelligence.OCR.Application", "AdaTech.AIntelligence.OCR.Application", "{29A73D76-D132-4268-9E39-C2B9138D6584}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdaTech.AIntelligence.OCR.Services", "AdaTech.AIntelligence.OCR.Services\AdaTech.AIntelligence.OCR.Services.csproj", "{BC7415FF-59BD-4EB0-8514-54030776A5DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaTech.AIntelligence.OCR.Services", "AdaTech.AIntelligence.OCR.Services\AdaTech.AIntelligence.OCR.Services.csproj", "{BC7415FF-59BD-4EB0-8514-54030776A5DC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "package", "package", "{4C9204E7-86B7-4EBF-9350-E5FA57931CC7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaTech.AIntelligence.Attributes", "AdaTech.AIntelligence.Attributes\AdaTech.AIntelligence.Attributes.csproj", "{FE3F0FE4-7934-4025-BC0B-C2CA3FA50FD4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,6 +88,10 @@ Global
 		{BC7415FF-59BD-4EB0-8514-54030776A5DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC7415FF-59BD-4EB0-8514-54030776A5DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC7415FF-59BD-4EB0-8514-54030776A5DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE3F0FE4-7934-4025-BC0B-C2CA3FA50FD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE3F0FE4-7934-4025-BC0B-C2CA3FA50FD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE3F0FE4-7934-4025-BC0B-C2CA3FA50FD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE3F0FE4-7934-4025-BC0B-C2CA3FA50FD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -106,6 +114,7 @@ Global
 		{C4A29B36-91FC-4E35-A896-2B898F1A4013} = {8A05A679-DD96-481F-BFD0-F4371C2D651B}
 		{29A73D76-D132-4268-9E39-C2B9138D6584} = {76C2EF49-81D5-4B08-A504-8BBCBE50447C}
 		{BC7415FF-59BD-4EB0-8514-54030776A5DC} = {29A73D76-D132-4268-9E39-C2B9138D6584}
+		{FE3F0FE4-7934-4025-BC0B-C2CA3FA50FD4} = {4C9204E7-86B7-4EBF-9350-E5FA57931CC7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {22918284-F192-4785-9A60-CCBD0AF090B4}

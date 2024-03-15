@@ -1,7 +1,7 @@
-﻿using AdaTech.AIntelligence.DateLibrary.Context;
+﻿using AdaTech.AIntelligence.DataLibrary.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace AdaTech.AIntelligence.DateLibrary.Repository
+namespace AdaTech.AIntelligence.DataLibrary.Repository
 {
     /// <summary>
     /// Repository generic class for the application

@@ -1,15 +1,11 @@
-    using AdaTech.AIntelligence.Entities.Objects;
-using AdaTech.AIntelligence.Service.Attributes;
+using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Attributes;
 using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
-using AdaTech.AIntelligence.Service.Services;
 using AdaTech.AIntelligence.Service.Services.EmailService;
-using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
 using AdaTech.AIntelligence.Service.Services.UserSystem;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System.Net;
 
 namespace AdaTech.AIntelligence.WebAPI.Controllers
 {

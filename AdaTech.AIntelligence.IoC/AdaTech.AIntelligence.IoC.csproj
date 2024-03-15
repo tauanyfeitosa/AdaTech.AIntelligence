@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AdaTech.AIntelligence.DateLibrary\AdaTech.AIntelligence.DateLibrary.csproj" />
+    <ProjectReference Include="..\AdaTech.AIntelligence.DateLibrary\AdaTech.AIntelligence.DataLibrary.csproj" />
     <ProjectReference Include="..\AdaTech.AIntelligence.Service\AdaTech.AIntelligence.Service.csproj" />
   </ItemGroup>
 

@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace AdaTech.AIntelligence.DateLibrary.Migrations
+namespace AdaTech.AIntelligence.DataLibrary.Migrations
 {
     /// <inheritdoc />
     public partial class addisActivepropertyexpense : Migration

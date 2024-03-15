@@ -1,4 +1,4 @@
-using AdaTech.AIntelligence.DateLibrary.Roles;
+using AdaTech.AIntelligence.DataLibrary.Roles;
 using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.IoC.Extensions;
 using AdaTech.AIntelligence.IoC.Extensions.Injections;

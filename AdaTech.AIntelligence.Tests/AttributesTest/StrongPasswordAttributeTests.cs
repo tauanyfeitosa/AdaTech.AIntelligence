@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AdaTech.AIntelligence.Attributes;
+using System.ComponentModel.DataAnnotations;
 using FluentAssertions;
 
 namespace AdaTech.AIntelligence.Service.Attributes.Tests

@@ -1,4 +1,4 @@
-﻿using AdaTech.AIntelligence.Service.Attributes;
+﻿using AdaTech.AIntelligence.Attributes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Web;

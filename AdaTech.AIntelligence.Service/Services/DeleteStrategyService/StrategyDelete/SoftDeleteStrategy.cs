@@ -1,5 +1,5 @@
-﻿using AdaTech.AIntelligence.DateLibrary.Context;
-using AdaTech.AIntelligence.DateLibrary.Repository;
+﻿using AdaTech.AIntelligence.DataLibrary.Context;
+using AdaTech.AIntelligence.DataLibrary.Repository;
 using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.Exceptions;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

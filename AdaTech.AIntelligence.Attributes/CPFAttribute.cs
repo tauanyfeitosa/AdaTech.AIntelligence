@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("AdaTech.AIntelligence.Tests")]
-namespace AdaTech.AIntelligence.Service.Attributes
+namespace AdaTech.AIntelligence.Attributes
 {
     /// <summary>
     /// Custom validation for CPF format.
@@ -55,7 +55,7 @@ namespace AdaTech.AIntelligence.Service.Attributes
 
                 int rest = sum % 11;
 
-                checkDigits[i] = (rest < 2) ? 0 : 11 - rest;
+                checkDigits[i] = rest < 2 ? 0 : 11 - rest;
 
                 if (i == 0)
                 {

@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("AdaTech.AIntelligence.Tests")]
-namespace AdaTech.AIntelligence.Service.Attributes
+namespace AdaTech.AIntelligence.Attributes
 {
     /// <summary>
     /// Validates that a given date is of a minimum age.
