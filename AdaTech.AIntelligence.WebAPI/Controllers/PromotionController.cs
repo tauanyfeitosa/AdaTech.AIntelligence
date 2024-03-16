@@ -1,6 +1,7 @@
 ﻿using AdaTech.AIntelligence.DbLibrary.Repository;
 using AdaTech.AIntelligence.Entities.Enums;
 using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Service.Services.RoleRequirementService;
 using AdaTech.AIntelligence.Service.Services.UserSystem.PromotionServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -17,12 +18,16 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         private readonly ILogger<PromotionController> _logger;
         private readonly UserManager<UserInfo> _userManager;
         private readonly PromotionService _promotionService;
-        public PromotionController(IAIntelligenceRepository<RoleRequirement> repository, ILogger<PromotionController> logger, UserManager<UserInfo> userManager, PromotionService promotionService)
+        private readonly RequirementService _requirementService;
+        public PromotionController(IAIntelligenceRepository<RoleRequirement> repository, 
+            ILogger<PromotionController> logger, UserManager<UserInfo> userManager, 
+            PromotionService promotionService, RequirementService requirementService)
         {
             _roleRequirementRepository = repository;
             _logger = logger;
             _userManager = userManager;
             _promotionService = promotionService;
+            _requirementService = requirementService;
         }
         /// <summary>
         /// Ask for promotion
@@ -33,30 +38,26 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         public async Task<IActionResult> AskForPromotion(Roles roles)
         {
             var user = await _userManager.GetUserAsync(User);
-            var roleRequirement = new RoleRequirement
-            {
-                UserInfoId = user.Id,
-                Role = roles,
-                Status = Status.Requested,
-            };
-            var succeeded = await _promotionService.PromotionRequest(roleRequirement, _roleRequirementRepository);
+            
+            var result = await _requirementService.AskForPromotion(roles, user);
 
-            if (succeeded)
+            if (result == "Promoção solicitada com sucesso!")
             {
-                _logger.LogInformation($"Promoção solicitada com sucesso: {user.Email}");
-                return Ok($"Promoção solicitada com sucesso!");
+                return Ok(result);
             }
             else
             {
                 _logger.LogError($"Solicitação sem sucesso: {user.Email}.");
-                return BadRequest("Solicitação sem sucesso.");
+                return BadRequest(result);
             }
         }
+
+
         [HttpPatch]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PromoteUser(int idRequirement, Status status)
         {
-            var requirement = await _promotionService.GetRequirementById(idRequirement, _roleRequirementRepository);
+            var requirement = await _promotionService.GetRequirementById(idRequirement);
             var user = await _userManager.FindByIdAsync(requirement.UserInfoId);
 
             if (requirement == null)
@@ -66,7 +67,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             }
 
             requirement.Status = status;
-            var succeeded = await _promotionService.PromotionApproval(requirement, _roleRequirementRepository);
+            var succeeded = await _promotionService.PromotionApproval(requirement);
 
             if (succeeded)
             {

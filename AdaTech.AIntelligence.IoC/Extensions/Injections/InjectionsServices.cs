@@ -15,6 +15,7 @@ using System.Net.Mail;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService;
 using AdaTech.AIntelligence.Service.Services.UserSystem.PromotionServices;
 using AdaTech.AIntelligence.DbLibrary.Repository;
+using AdaTech.AIntelligence.Service.Services.RoleRequirementService;
 
 
 namespace AdaTech.AIntelligence.IoC.Extensions.Injections
@@ -37,7 +38,6 @@ namespace AdaTech.AIntelligence.IoC.Extensions.Injections
             services.AddScoped<IUserAuthService, UserAuthService>();
             services.AddScoped<IExpenseCRUDService, ExpenseCRUDService>();
             services.AddScoped<IUserCRUDService, UserCRUDService>();
-            services.AddScoped<PromotionService, PromotionService>();
             services.AddScoped<RoleManagerService, RoleManagerService>();
             services.AddScoped<UserManagerService, UserManagerService>();
             services.AddScoped<ResponseGPTService, ResponseGPTService>();
@@ -46,8 +46,10 @@ namespace AdaTech.AIntelligence.IoC.Extensions.Injections
             services.AddScoped(typeof(IDeleteStrategy<>), typeof(HardDeleteStrategy<>));
             services.AddScoped(typeof(IDeleteStrategy<>), typeof(SoftDeleteStrategy<>));
             services.AddScoped(typeof(IAIntelligenceRepository<>), typeof(AIntelligenceRepository<>));
+            services.AddScoped<PromotionService, PromotionService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<SmtpClient, SmtpClient>();
+            services.AddScoped<RequirementService>();
             services.AddHttpClient();
 
             return services;
