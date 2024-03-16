@@ -2,16 +2,35 @@
 using AdaTech.AIntelligence.DbLibrary.Repository;
 using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.Exceptions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyDelete
 {
     public class SoftDeleteStrategy<T> : IDeleteStrategy<T> where T : class
     {
-        public async Task<string> DeleteAsync(IAIntelligenceRepository<T> repository, int id, ExpenseReportingDbContext? context = null)
-        {
-            var entity = await repository.GetOne(id);
+        private readonly UserManager<UserInfo> _userManager;
 
+        public SoftDeleteStrategy(UserManager<UserInfo> userManager)
+        {
+            _userManager = userManager;
+        }
+
+        public async Task<string> DeleteAsync(IAIntelligenceRepository<T> repository, string id, ExpenseReportingDbContext? context = null)
+        {
+            
+            if (int.TryParse(id, out int intId))
+            {
+                var entity = await repository.GetOne(intId);
+                return await DeleteEntityAsync(repository, entity, context);
+            }
+
+            var entityUser = await _userManager.FindByIdAsync(id);
+            return await DeleteEntityAsync(repository, entityUser, context);
+        }
+
+        public async Task<string> DeleteEntityAsync(IAIntelligenceRepository<T> repository, object entity, ExpenseReportingDbContext? context = null)
+        {
             if (entity == null)
                 throw new NotFoundException($"{typeof(T).Name} não encontrado para exclusão. Experimente buscar por outro ID!");
 
@@ -26,11 +45,11 @@ namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyD
 
             if (context is not null)
             {
-                var updatedSuccessfully = context.Update(entity);
+                var updatedSuccessfully = context.Update((T)entity);
                 success = updatedSuccessfully is not null;
             }
             else
-                success = await repository.Update(entity);
+                success = await repository.Update((T)entity);
 
             if (!success)
                 throw new InvalidOperationException($"Falha ao marcar a entidade como inativa. Tente novamente!");

@@ -36,11 +36,13 @@ namespace AdaTech.AIntelligence.IoC.Extensions.Injections
             services.AddScoped<ISeedUserInitial, SeedUserInitial>();
             services.AddScoped<IUserAuthService, UserAuthService>();
             services.AddScoped<IExpenseCRUDService, ExpenseCRUDService>();
+            services.AddScoped<IUserCRUDService, UserCRUDService>();
             services.AddScoped<PromotionService, PromotionService>();
             services.AddScoped<RoleManagerService, RoleManagerService>();
             services.AddScoped<UserManagerService, UserManagerService>();
             services.AddScoped<ResponseGPTService, ResponseGPTService>();
             services.AddScoped<GenericDeleteService<Expense>, GenericDeleteService<Expense>>();
+            services.AddScoped<GenericDeleteService<UserInfo>, GenericDeleteService<UserInfo>>();
             services.AddScoped(typeof(IDeleteStrategy<>), typeof(HardDeleteStrategy<>));
             services.AddScoped(typeof(IDeleteStrategy<>), typeof(SoftDeleteStrategy<>));
             services.AddScoped(typeof(IAIntelligenceRepository<>), typeof(AIntelligenceRepository<>));
