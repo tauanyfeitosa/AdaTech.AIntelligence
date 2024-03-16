@@ -11,5 +11,7 @@ namespace AdaTech.AIntelligence.Entities.Objects
         public bool IsSuperUser { get; set; } = false;
         public bool IsLogged { get; set; } = false;
         public bool IsActive { get; set; } = true;
+        public DateTime CreatAt { get; set; } = DateTime.Now;
+        public DateTime? UpdateAt { get; set; }
     }
 }

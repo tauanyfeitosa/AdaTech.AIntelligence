@@ -12,5 +12,7 @@ namespace AdaTech.AIntelligence.Entities.Objects
         public string CPF { get; set; }
         public DateTime DateBirth { get; set; }
         public IEnumerable<RoleRequirement> RoleRequirements { get; set; }
+        public IEnumerable<Expense> Expenses { get; set; }
+
     }
 }
