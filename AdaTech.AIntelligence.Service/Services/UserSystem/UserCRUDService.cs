@@ -11,6 +11,13 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
         private readonly GenericDeleteService<UserInfo> _deleteService;
         private readonly UserManager<UserInfo> _userManager;
 
+        public UserCRUDService(IAIntelligenceRepository<UserInfo> repository, GenericDeleteService<UserInfo> deleteService, UserManager<UserInfo> userManager)
+        {
+            _deleteService = deleteService;
+            _repository = repository;
+            _userManager = userManager;
+        }
+
         /// <summary>
         /// Creates a new user asynchronously.
         /// </summary>

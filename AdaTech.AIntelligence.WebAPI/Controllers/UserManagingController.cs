@@ -29,25 +29,10 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Deletes an user asynchronously.
-        /// </summary>
-        /// <param name="id">The ID of the user to delete.</param>
-        /// <param name="isHardDelete">A boolean indicating whether to perform a hard delete or a soft delete.</param>
-        /// <returns>A task representing the asynchronous operation. Returns a message indicating the result of the delete operation.</returns>
-        [HttpDelete("delete-user")]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteUser(string id, [FromQuery] bool isHardDelete = false)
-        {
-            var result = await _userCRUDService.DeleteUser(id, isHardDelete);
-
-            return Ok(result);
-        }
-
-        /// <summary>
-        /// View the data of a single user.
+        /// View the data of a single user
         /// </summary>
         /// <param name="id">The ID of the user to view.</param>
-        /// <returns>A task representing the asynchronous operation. Returns the user if found..</returns>
+        /// <returns>A task representing the asynchronous operation. Returns the user if found.</returns>
         [HttpGet("view-user")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ViewUser(string id)
@@ -61,7 +46,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         }
 
         /// <summary>
-        /// View all users.
+        /// View all users
         /// </summary>
         /// <returns>A task representing the asynchronous operation. Returns a collection of all users.</returns>
         [HttpGet("view-all-users")]
@@ -74,6 +59,21 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
                 throw new NotFoundException("Não existem usuários cadastrados.");
 
             return Ok(success);
+        }
+
+        /// <summary>
+        /// Delete an user asynchronously
+        /// </summary>
+        /// <param name="id">The ID of the user to delete.</param>
+        /// <param name="isHardDelete">A boolean indicating whether to perform a hard delete or a soft delete.</param>
+        /// <returns>A task representing the asynchronous operation. Returns a message indicating the result of the delete operation.</returns>
+        [HttpDelete("delete-user")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteUser(string id, [FromQuery] bool isHardDelete = false)
+        {
+            var result = await _userCRUDService.DeleteUser(id, isHardDelete);
+
+            return Ok(result);
         }
     }
 }
