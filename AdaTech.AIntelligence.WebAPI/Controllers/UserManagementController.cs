@@ -1,4 +1,5 @@
-﻿using AdaTech.AIntelligence.DataLibrary.Repository;
+﻿using AdaTech.AIntelligence.Attributes;
+using AdaTech.AIntelligence.DataLibrary.Repository;
 using AdaTech.AIntelligence.Entities.Enums;
 using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.IoC.Extensions.Filters;
@@ -13,14 +14,15 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserManagingController : ControllerBase
+    [SwaggerDisplayName("User Management")]
+    public class UserManagementController : ControllerBase
     {
         private readonly IAIntelligenceRepository<UserInfo> _userRepository;
         private readonly ILogger<PromotionController> _logger;
         private readonly IUserCRUDService _userCRUDService;
         private readonly UserManager<UserInfo> _userManager;
 
-        public UserManagingController(IAIntelligenceRepository<UserInfo> userRepository, ILogger<PromotionController> logger, IUserCRUDService userCRUDService, UserManager<UserInfo> userManager)
+        public UserManagementController(IAIntelligenceRepository<UserInfo> userRepository, ILogger<PromotionController> logger, IUserCRUDService userCRUDService, UserManager<UserInfo> userManager)
         {
             _logger = logger;
             _userCRUDService = userCRUDService;
