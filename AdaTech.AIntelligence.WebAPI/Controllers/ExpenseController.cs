@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.Net.Http.Headers;
 using System.Web;
+using Microsoft.AspNetCore.Identity;
 using AdaTech.AIntelligence.Entities.Objects;
 
 namespace AdaTech.AIntelligence.WebAPI.Controllers
@@ -26,18 +27,19 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         private readonly HttpClient _httpClient;
         private readonly ResponseGPTService _responseGPTService;
         private readonly string _apiKey;
-   
+        private readonly UserManager<UserInfo> _userManager;
 
 
         private const string _url = "https://api.openai.com/v1/chat/completions";
 
         public ExpenseController(IConfiguration configuration, ILogger<ExpenseController> logger, 
             IExpenseCRUDService expenseCRUDService, IHttpClientFactory httpClientFactory, 
-            ResponseGPTService responseGPTService)
+            ResponseGPTService responseGPTService, UserManager<UserInfo> userManager)
         {
             _configuration = configuration;
             _logger = logger;
             _expenseCRUDService = expenseCRUDService;
+            _userManager = userManager;
             _apiKey = _configuration.GetValue<string>("ApiKey");
             _clientFactory = httpClientFactory;
             _responseGPTService = responseGPTService;
@@ -68,7 +70,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
                 Url = ""
             };
 
-            var response = await _responseGPTService.GetResponseGPT(ocrApiUrl, requestImage);
+            var response = await _responseGPTService.GetResponseGPT(ocrApiUrl, requestImage, await _userManager.GetUserAsync(User));
 
             return Ok(response);
         }
@@ -93,7 +95,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
                 Url = url
             };
 
-            var response = await _responseGPTService.GetResponseGPT(ocrApiUrl, requestImage);
+            var response = await _responseGPTService.GetResponseGPT(ocrApiUrl, requestImage, await _userManager.GetUserAsync(User));
 
             return Ok(response);
         }

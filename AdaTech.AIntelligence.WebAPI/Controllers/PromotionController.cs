@@ -37,7 +37,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             {
                 UserInfoId = user.Id,
                 Role = roles,
-                Status = Status.Requested
+                Status = Status.Requested,
             };
             var succeeded = await _promotionService.PromotionRequest(roleRequirement, _roleRequirementRepository);
 

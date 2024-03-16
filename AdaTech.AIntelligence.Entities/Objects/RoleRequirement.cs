@@ -16,5 +16,7 @@ namespace AdaTech.AIntelligence.Entities.Objects
         public Roles Role { get; set; }
         public DateTime RequestDate { get; set; }
         public DateTime ApprovalDate { get; set; }
+        public DateTime CreatAt { get; set; } = DateTime.Now;
+        public DateTime? UpdateAt { get; set; }
     }
 }

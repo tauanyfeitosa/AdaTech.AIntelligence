@@ -4,6 +4,7 @@ using AdaTech.AIntelligence.DbLibrary.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdaTech.AIntelligence.DbLibrary.Migrations
 {
     [DbContext(typeof(ExpenseReportingDbContext))]
-    partial class ExpenseReportingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240316180756_CreateUpdateAt")]
+    partial class CreateUpdateAt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,13 +55,7 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
                     b.Property<DateTime?>("UpdateAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserInfoId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserInfoId");
 
                     b.ToTable("Expenses");
                 });
@@ -72,9 +69,6 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("ApprovalDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("CreatAt")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("RequestDate")
@@ -334,17 +328,6 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("AdaTech.AIntelligence.Entities.Objects.Expense", b =>
-                {
-                    b.HasOne("AdaTech.AIntelligence.Entities.Objects.UserInfo", "UserInfo")
-                        .WithMany("Expenses")
-                        .HasForeignKey("UserInfoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserInfo");
-                });
-
             modelBuilder.Entity("AdaTech.AIntelligence.Entities.Objects.RoleRequirement", b =>
                 {
                     b.HasOne("AdaTech.AIntelligence.Entities.Objects.UserInfo", "UserInfo")
@@ -409,8 +392,6 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
 
             modelBuilder.Entity("AdaTech.AIntelligence.Entities.Objects.UserInfo", b =>
                 {
-                    b.Navigation("Expenses");
-
                     b.Navigation("RoleRequirements");
                 });
 #pragma warning restore 612, 618

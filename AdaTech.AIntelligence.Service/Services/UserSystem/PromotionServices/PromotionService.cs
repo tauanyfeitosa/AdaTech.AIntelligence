@@ -16,6 +16,7 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem.PromotionServices
         public async Task<bool> PromotionApproval(RoleRequirement roleRequirement, IAIntelligenceRepository<RoleRequirement> repository)
         {
             roleRequirement.ApprovalDate = DateTime.Now;
+            roleRequirement.UpdateAt = DateTime.Now;
             roleRequirement.Status = Entities.Enums.Status.Approved;
             return await repository.Update(roleRequirement);
         }
