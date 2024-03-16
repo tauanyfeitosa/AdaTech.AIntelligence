@@ -5,6 +5,6 @@ namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyD
 {
     public interface IDeleteStrategy<T> where T : class
     {
-        Task<string> DeleteAsync(IAIntelligenceRepository<T> repository, int id, ExpenseReportingDbContext? context = null);
+        Task<string> DeleteAsync(IAIntelligenceRepository<T> repository, string id, ExpenseReportingDbContext? context = null);
     }
 }

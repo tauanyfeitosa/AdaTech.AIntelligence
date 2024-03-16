@@ -93,7 +93,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
         /// <returns>A task representing the asynchronous operation. Returns a message indicating the result of the delete operation.</returns>
         public async Task<string> DeleteAsync(int id, bool isHardDelete)
         {
-            return await _deleteService.DeleteAsync(_repository, id, isHardDelete);
+            return await _deleteService.DeleteAsync(_repository, id.ToString(), isHardDelete);
         }
     }
 }

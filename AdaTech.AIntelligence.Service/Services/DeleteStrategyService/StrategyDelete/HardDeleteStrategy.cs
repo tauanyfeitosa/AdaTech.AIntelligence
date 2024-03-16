@@ -1,15 +1,43 @@
-﻿
+
 using AdaTech.AIntelligence.DbLibrary.Context;
 using AdaTech.AIntelligence.DbLibrary.Repository;
+using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.Exceptions;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyDelete
 {
     public class HardDeleteStrategy<T> : IDeleteStrategy<T> where T : class
     {
-        public async Task<string> DeleteAsync(IAIntelligenceRepository<T> repository, int id, ExpenseReportingDbContext? context = null)
+        private readonly UserManager<UserInfo> _userManager;
+
+        public HardDeleteStrategy(UserManager<UserInfo> userManager)
         {
-            var entity = await repository.GetOne(id);
+            _userManager = userManager;
+        }
+
+        public async Task<string> DeleteAsync(IAIntelligenceRepository<T> repository, string id, ExpenseReportingDbContext? context = null)
+        {
+            if (int.TryParse(id, out int intId))
+            {
+                var entity = await repository.GetOne(intId);
+                return await DeleteEntityAsync(repository, entity, context);
+            }
+
+            var entityUser = await _userManager.FindByIdAsync(id);
+            var result = await _userManager.DeleteAsync(entityUser);
+
+            if (result.Succeeded)
+            {
+                return "Deleção realizada com sucesso.";
+            }
+
+            return "Erro ao realizar a deleção.";
+        }
+
+        public async Task<string> DeleteEntityAsync(IAIntelligenceRepository<T> repository, object entity, ExpenseReportingDbContext? context = null)
+        {
             if (context is not null)
             {
                 context.Remove(entity);
@@ -21,7 +49,7 @@ namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyD
 
             try
             {
-                var success = await repository.Delete(entity);
+                var success = await repository.Delete((T)entity);
 
                 if (!success)
                 {

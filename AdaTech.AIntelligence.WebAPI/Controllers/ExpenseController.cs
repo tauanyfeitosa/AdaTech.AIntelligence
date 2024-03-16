@@ -191,5 +191,19 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             var result = await _expenseCRUDService.DeleteAsync(id, isHardDelete);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Delete an expense only soft mode.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Authorize(Roles = "Finance")]
+        [HttpDelete("delete-soft")]
+        public async Task<IActionResult> DeleteExpenseSoft(int id)
+        {
+            var result = await _expenseCRUDService.DeleteAsync(id, false);
+            return Ok(result);
+        }
+
     }
 }
