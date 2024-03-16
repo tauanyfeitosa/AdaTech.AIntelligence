@@ -1,16 +1,17 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Ganss.Xss;
 using Microsoft.AspNetCore.Http;
 using System.Net;
 using System.Text;
 using Newtonsoft.Json;
+using AdaTech.AIntelligence.Service.Exceptions;
+using AngleSharp.Text;
 
 namespace AdaTech.AIntelligence.IoC.Middleware
 {
     public class AntiXssMiddleware
     {
         private readonly RequestDelegate _next;
-        private ErrorResponse _error;
+        private ErrorDetails _error;
         private readonly int _statusCode = (int)HttpStatusCode.BadRequest;
 
         public AntiXssMiddleware(RequestDelegate next)
@@ -20,16 +21,39 @@ namespace AdaTech.AIntelligence.IoC.Middleware
 
         public async Task Invoke(HttpContext context)
         {
+            if (!string.IsNullOrWhiteSpace(context.Request.Path.Value))
+            {
+                var url = context.Request.Path.Value;
+
+                if (CrossSiteScriptingValidation.IsDangerousString(url, out _))
+                {
+                    await RespondWithAnError(context).ConfigureAwait(false);
+                    return;
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(context.Request.QueryString.Value))
+            {
+                var queryString = WebUtility.UrlDecode(context.Request.QueryString.Value);
+
+                if (CrossSiteScriptingValidation.IsDangerousString(queryString, out _))
+                {
+                    await RespondWithAnError(context).ConfigureAwait(false);
+                    return;
+                }
+            }
+
             var originalBody = context.Request.Body;
             try
             {
                 var content = await ReadRequestBody(context);
 
-                var sanitizer = new HtmlSanitizer();
-                var sanitized = sanitizer.Sanitize(content);
-
-                if (content != sanitized.Replace("&amp;", "&"))
+                if (CrossSiteScriptingValidation.IsDangerousString(content, out _))
+                {
                     await RespondWithAnError(context).ConfigureAwait(false);
+                    return;
+                }
+                await _next(context).ConfigureAwait(false);
             }
             finally
             {
@@ -55,19 +79,70 @@ namespace AdaTech.AIntelligence.IoC.Middleware
         private async Task RespondWithAnError(HttpContext context)
         {
             context.Response.Clear();
-            context.Response.Headers.Add("Content-Type", "application/json; charset=utf-8");
+            context.Response.Headers.AddHeaders();
+            context.Response.ContentType = "application/json; charset=utf-8";
             context.Response.StatusCode = _statusCode;
 
-            if (_error is null)
+            if (_error == null)
             {
-                _error = new ErrorResponse
+                _error = new ErrorDetails
                 {
-                    Description = "XSS Detected.",
-                    ErrorCode = 400
+                    StatusCode = 400,
+                    Message = "XSS detectado."
                 };
             }
 
             await context.Response.WriteAsync(JsonConvert.SerializeObject(_error));
+        }
+    }
+
+    /// <summary>
+    /// Imported from System.Web.CrossSiteScriptingValidation Class
+    /// </summary>
+    public static class CrossSiteScriptingValidation
+    {
+        private static readonly char[] StartingChars = { '<', '&' };
+
+        public static bool IsDangerousString(string request, out int matchIndex)
+        {
+            matchIndex = 0;
+
+            for (var i = 0; i < request.Length; i++)
+            {
+                var n = request.IndexOfAny(StartingChars, i);
+                if (n < 0) return false;
+
+                if (n == request.Length - 1) return false;
+
+                matchIndex = n;
+
+                char letter = request[n];
+                switch (letter)
+                {
+                    case '<':
+                        if (letter.IsLetter() || request[n + 1] == '!' || request[n + 1] == '/' || request[n + 1] == '?') 
+                            return true;
+                        break;
+                    case '&':
+                        if (request[n + 1] == '#') 
+                            return true;
+                        break;
+                }
+            }
+            return false;
+        }
+
+        public static void AddHeaders(this IHeaderDictionary headers)
+        {
+            if (headers["P3P"].IsNullOrEmpty())
+            {
+                headers.Append("P3P", "CP=\"IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT\"");
+            }
+        }
+
+        public static bool IsNullOrEmpty<T>(this IEnumerable<T> source)
+        {
+            return source == null || !source.Any();
         }
     }
 
@@ -77,11 +152,5 @@ namespace AdaTech.AIntelligence.IoC.Middleware
         {
             return builder.UseMiddleware<AntiXssMiddleware>();
         }
-    }
-
-    public class ErrorResponse
-    {
-        public int ErrorCode { get; set; }
-        public string Description { get; set; }
     }
 }

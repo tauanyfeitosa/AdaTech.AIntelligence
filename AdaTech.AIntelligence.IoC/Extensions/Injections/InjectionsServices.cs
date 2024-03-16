@@ -53,8 +53,8 @@ namespace AdaTech.AIntelligence.IoC.Extensions.Injections
 
         public static IApplicationBuilder ResolveDependenciesMiddleware(this IApplicationBuilder app)
         {
-            app.UseMiddleware<MiddlewareException>();
             app.UseAntiXssMiddleware();
+            app.UseMiddleware<MiddlewareException>();
             return app;
         }
     }
