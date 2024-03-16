@@ -1,5 +1,5 @@
 using AdaTech.AIntelligence.Entities.Objects;
-using AdaTech.AIntelligence.Attributes;
+using AdaTech.AIntelligence.Service.Attributes;
 using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
 using AdaTech.AIntelligence.Service.Services.EmailService;
 using AdaTech.AIntelligence.Service.Services.UserSystem;
@@ -41,6 +41,17 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
                 return Ok($"Usuário {userLoginInfo.Email} logado com sucesso!");
             return BadRequest($"Não foi possível logar com {userLoginInfo.Email}. " +
                 $"Certifique-se de que seu email foi confirmado e que suas credenciais estão corretas.");
+        }
+
+        /// <summary>
+        /// Login to the system
+        /// </summary>
+        /// <param name="userLoginInfo"></param>
+        /// <returns></returns>
+        [HttpPost("testexss")]
+        public async Task<IActionResult> xss([FromBody] string userLoginInfo)
+        {
+            return Ok($"teste xss: {userLoginInfo}");
         }
 
         /// <summary>
