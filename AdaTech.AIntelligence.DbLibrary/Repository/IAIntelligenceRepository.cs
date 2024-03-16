@@ -1,4 +1,4 @@
-﻿namespace AdaTech.AIntelligence.DataLibrary.Repository
+﻿namespace AdaTech.AIntelligence.DbLibrary.Repository
 {
     /// <summary>
     /// Interface for the AIntelligenceRepository
