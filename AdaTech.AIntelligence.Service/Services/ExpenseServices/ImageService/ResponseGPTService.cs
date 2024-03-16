@@ -2,6 +2,7 @@
 using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.Exceptions;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http.Json;
 
@@ -14,12 +15,13 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService
     {
         private readonly IExpenseCRUDService _expenseCRUDService;
         private readonly IHttpClientFactory _clientFactory;
+        private readonly UserManager<UserInfo> _userManager;
 
-        public ResponseGPTService(IConfiguration configuration,
-            IExpenseCRUDService expenseCRUDService, IHttpClientFactory httpClientFactory)
+        public ResponseGPTService(IExpenseCRUDService expenseCRUDService, IHttpClientFactory clientFactory, UserManager<UserInfo> userManager)
         {
             _expenseCRUDService = expenseCRUDService;
-            _clientFactory = httpClientFactory;
+            _clientFactory = clientFactory;
+            _userManager = userManager;
         }
 
         /// <summary>
@@ -28,7 +30,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService
         /// <param name="link"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<string> GetResponseGPT(string link, object request)
+        public async Task<string> GetResponseGPT(string link, object request, UserInfo user)
         {
             var jsonContent = JsonContent.Create(request);
 
@@ -44,7 +46,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService
                     throw new NotAnExpenseException("Comprovante Inválido");
 //                    return responseData;
 
-                var success = await CreateExpense(responseData);
+                var success = await CreateExpense(responseData, user);
 
                 if (!success)
                     return "Erro ao criar despesa.";
@@ -60,7 +62,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService
         /// </summary>
         /// <param name="responseData"></param>
         /// <returns></returns>
-        private async Task<bool> CreateExpense(string responseData)
+        private async Task<bool> CreateExpense(string responseData, UserInfo user)
         {
             string[] valores = responseData.Split(",");
 
@@ -70,7 +72,9 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService
                 TotalValue = double.Parse(valores[1].Replace(".", ",")),
                 Description = valores[2],
                 Status = ExpenseStatus.SUBMITTED,
-                IsActive = true
+                IsActive = true,
+                UserInfo = user, 
+                UserInfoId = user.Id
             };
 
             var success = await _expenseCRUDService.CreateExpense(respostaObjeto);

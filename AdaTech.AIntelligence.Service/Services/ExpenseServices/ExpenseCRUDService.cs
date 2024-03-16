@@ -37,6 +37,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
         /// <returns>A task representing the asynchronous operation. Returns true if the update is successful; otherwise, false.</returns>
         public async Task<bool> UpdateExpense(Expense expense)
         {
+            expense.UpdateAt = DateTime.Now;
             return await _repository.Update(expense);
         }
 
