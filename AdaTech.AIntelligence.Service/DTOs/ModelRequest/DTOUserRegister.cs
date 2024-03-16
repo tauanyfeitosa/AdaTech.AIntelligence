@@ -7,9 +7,9 @@ namespace AdaTech.AIntelligence.Service.DTOs.ModelRequest
 {
     public class DTOUserRegister : IUserRegister
     {
-        [Required(ErrorMessage = "O campo Email é obrigatório!")]
-        [EmailAddress(ErrorMessage = "O campo Email é inválido!")]
-        [EmailDomain("EmailSettings:Domain")]
+        //[Required(ErrorMessage = "O campo Email é obrigatório!")]
+        //[EmailAddress(ErrorMessage = "O campo Email é inválido!")]
+        //[EmailDomain("EmailSettings:Domain")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "O campo nome é obrigatório!")]
