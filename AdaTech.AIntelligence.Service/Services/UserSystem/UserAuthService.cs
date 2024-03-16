@@ -28,6 +28,12 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
             _appSettings = appSettings;
         }
 
+        /// <summary>
+        /// Authenticates a user with the provided email and password asynchronously.
+        /// </summary>
+        /// <param name="email">The email of the user.</param>
+        /// <param name="password">The password of the user.</param>
+        /// <returns>A task representing the asynchronous operation. Returns true if the authentication is successful; otherwise, false.</returns>
         public async Task<bool> AuthenticateAsync(string email, string password)
         {
             try
@@ -50,6 +56,10 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
             }
         }
 
+        /// <summary>
+        /// Logs out the currently authenticated user asynchronously.
+        /// </summary>
+        /// <returns>A task representing the asynchronous operation.</returns>
         public async Task LogoutAsync()
         {
             try
@@ -62,6 +72,11 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
             }
         }
 
+        /// <summary>
+        /// Registers a new user asynchronously.
+        /// </summary>
+        /// <param name="userRegister">The user registration information.</param>
+        /// <returns>A task representing the asynchronous operation. Returns true if the registration is successful; otherwise, false.</returns>
         public async Task<bool> RegisterUserAsync(IUserRegister userRegister)
         {
             try

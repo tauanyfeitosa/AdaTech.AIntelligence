@@ -31,14 +31,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AdaTech.AIntelligence.Attributes\AdaTech.AIntelligence.Attributes.csproj" />
     <ProjectReference Include="..\AdaTech.AIntelligence.Configuration\AdaTech.AIntelligence.Configuration.csproj" />
     <ProjectReference Include="..\AdaTech.AIntelligence.Entities\AdaTech.AIntelligence.Entities.csproj" />
     <ProjectReference Include="..\AdaTech.AIntelligence.IoC\AdaTech.AIntelligence.IoC.csproj" />
     <ProjectReference Include="..\AdaTech.AIntelligence.Service\AdaTech.AIntelligence.Service.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\AdaTech.AIntelligence.DateLibrary\AdaTech.AIntelligence.DateLibrary.csproj" />
   </ItemGroup>
 
   <ItemGroup>

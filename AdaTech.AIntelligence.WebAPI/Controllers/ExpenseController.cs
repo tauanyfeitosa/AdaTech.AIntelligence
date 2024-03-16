@@ -1,14 +1,15 @@
 using AdaTech.AIntelligence.Entities.Enums;
 using AdaTech.AIntelligence.IoC.Extensions.Filters;
-using AdaTech.AIntelligence.Service.Attributes;
+using AdaTech.AIntelligence.Attributes;
 using AdaTech.AIntelligence.Service.Exceptions;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices;
-using AdaTech.AIntelligence.Service.Services.ExpenseServices.ChatGPTServices;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
+using AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.Net.Http.Headers;
+using System.Web;
 
 namespace AdaTech.AIntelligence.WebAPI.Controllers
 {
@@ -19,23 +20,25 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
     {
         private readonly ILogger<ExpenseController> _logger;
         private readonly IConfiguration _configuration;
-        private readonly IExpenseScriptGPT _expenseScriptGPT;
         private readonly IExpenseCRUDService _expenseCRUDService;
+        private readonly IHttpClientFactory _clientFactory;
         private readonly HttpClient _httpClient;
+        private readonly ResponseGPTService _responseGPTService;
         private readonly string _apiKey;
 
 
         private const string _url = "https://api.openai.com/v1/chat/completions";
 
-        public ExpenseController(IConfiguration configuration, IWebHostEnvironment environment, 
-            ILogger<ExpenseController> logger, IExpenseScriptGPT expenseScriptGPT, 
-            IExpenseCRUDService expenseCRUDService)
+        public ExpenseController(IConfiguration configuration, ILogger<ExpenseController> logger, 
+            IExpenseCRUDService expenseCRUDService, IHttpClientFactory httpClientFactory, 
+            ResponseGPTService responseGPTService)
         {
             _configuration = configuration;
             _logger = logger;
-            _expenseScriptGPT = expenseScriptGPT;
             _expenseCRUDService = expenseCRUDService;
             _apiKey = _configuration.GetValue<string>("ApiKey");
+            _clientFactory = httpClientFactory;
+            _responseGPTService = responseGPTService;
 
             _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
@@ -50,25 +53,22 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         [HttpPost("create-expense-image-file")]
         public async Task<IActionResult> CreateExpenseImageFile(IFormFile image)
         {
-            var (urlImage, base64Image) = await image.DescriptionImage();
+            string path = _configuration.GetValue<string>("BaseOCRUrl");
+            string ocrApiUrl = $"{path}api/OCRChatGPT/create-expenseRequest-image-file";
 
-            var contentRequest = await _expenseScriptGPT.ExpenseScriptPrompt(base64Image, urlImage);
+            var (extension, base64Image) = await image.DescriptionImage();
 
-            var response = await _httpClient.PostAsync(_url, contentRequest);
+            var requestImage = new
+            {
+                Base64Image = base64Image,
+                Extension = extension,
+                ApiKey = _apiKey,
+                Url = ""
+            };
 
-            var resposta = await response.ProcessResponse();
+            var response = await _responseGPTService.GetResponseGPT(ocrApiUrl, requestImage);
 
-            if (resposta.Contains("message"))
-
-                return BadRequest(resposta);
-
-            var success = await _expenseCRUDService.CreateExpense(resposta);
-
-            if (!success)
-                return BadRequest("Erro ao criar despesa.");
-
-            return Ok("Despesa cadastrada com sucesso!");
-
+            return Ok(response);
         }
 
         /// <summary>
@@ -80,24 +80,20 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         [HttpPost("create-expense-image-url")]
         public async Task<IActionResult> CreateExpenseImageUrl([FromQuery] string url)
         {
-            var urlObject = await url.DescriptionImage();
+            string path = _configuration.GetValue<string>("BaseOCRUrl");
+            string ocrApiUrl = $"{path}api/OCRChatGPT/create-expenseRequest-image-file";
 
-            var contentRequest = await _expenseScriptGPT.ExpenseScriptPrompt(url, urlObject);
+            var requestImage = new
+            {
+                Base64Image = "",
+                Extension = "",
+                ApiKey = _apiKey,
+                Url = url
+            };
 
-            var response = await _httpClient.PostAsync(_url, contentRequest);
+            var response = await _responseGPTService.GetResponseGPT(ocrApiUrl, requestImage);
 
-            var resposta = await response.ProcessResponse();
-
-            if (resposta.Contains("message"))
-
-                return BadRequest(resposta);
-
-            var success = await _expenseCRUDService.CreateExpense(resposta);
-
-            if (!success)
-                return BadRequest("Erro ao criar despesa.");
-
-            return Ok("Despesa cadastrada com sucesso!");
+            return Ok(response);
         }
 
         /// <summary>

@@ -1,12 +1,7 @@
 ﻿using AdaTech.AIntelligence.Entities.Objects;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdaTech.AIntelligence.Service.Services.EmailService
 {

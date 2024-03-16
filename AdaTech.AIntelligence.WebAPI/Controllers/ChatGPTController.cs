@@ -1,8 +1,7 @@
-﻿using AdaTech.AIntelligence.IoC.Extensions.Filters;
-using AdaTech.AIntelligence.Service.Attributes;
-using AdaTech.AIntelligence.Service.Services.ExpenseServices.ChatGPTServices;
+﻿using AdaTech.AIntelligence.Attributes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Web;
 
 namespace AdaTech.AIntelligence.WebAPI.Controllers
 {
@@ -30,9 +29,29 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         {
             var apiKey = _configuration.GetValue<string>("ApiKey");
 
-            var response = await apiKey.GenerateResponse(_clientFactory);
+            string path = _configuration.GetValue<string>("BaseOCRUrl");
+            string ocrApiUrl = $"{path}api/OCRChatGPT/check";
 
-            return Ok(response);
+            var builder = new UriBuilder(ocrApiUrl);
+            var query = HttpUtility.ParseQueryString(builder.Query);
+            query["apiKey"] = apiKey;
+            builder.Query = query.ToString();
+            string urlWithParams = builder.ToString();
+
+            var client = _clientFactory.CreateClient();
+
+            var response = await client.GetAsync(urlWithParams);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseData = await response.Content.ReadAsStringAsync();
+                return Ok(responseData);
+            }
+            else
+            {
+                return StatusCode((int)response.StatusCode, await response.Content.ReadAsStringAsync());
+            }
         }
+
     }
 }

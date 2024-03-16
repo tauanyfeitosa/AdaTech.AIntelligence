@@ -1,13 +1,13 @@
-﻿using AdaTech.AIntelligence.DateLibrary.Repository;
-using AdaTech.AIntelligence.Entities.Objects;
+﻿
+using AdaTech.AIntelligence.DbLibrary.Context;
+using AdaTech.AIntelligence.DbLibrary.Repository;
 using AdaTech.AIntelligence.Service.Exceptions;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyDelete
 {
     public class HardDeleteStrategy<T> : IDeleteStrategy<T> where T : class
     {
-        public async Task<string> DeleteAsync(IAIntelligenceRepository<T> repository, int id, IdentityDbContext<UserInfo>? context = null)
+        public async Task<string> DeleteAsync(IAIntelligenceRepository<T> repository, int id, ExpenseReportingDbContext? context = null)
         {
             var entity = await repository.GetOne(id);
             if (context is not null)

@@ -1,9 +1,9 @@
-using AdaTech.AIntelligence.DateLibrary.Roles;
+using AdaTech.AIntelligence.DbLibrary.Roles;
 using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.IoC.Extensions;
 using AdaTech.AIntelligence.IoC.Extensions.Injections;
-using AdaTech.AIntelligence.IoC.Middleware;
 using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,6 +32,18 @@ app.UseHttpsRedirection();
 app.ResolveDependenciesMiddleware();
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.Use(async (context, next) =>
+{
+    await next();
+
+    if (context.Response.StatusCode == 404 && !context.Response.HasStarted)
+    {
+        context.Response.ContentType = "application/json";
+        var errorResponse = new { message = "Recurso nao encontrado - certifique-se de estar logado" };
+        await context.Response.WriteAsync(JsonConvert.SerializeObject(errorResponse));
+    }
+});
 
 app.MapControllers();
 
