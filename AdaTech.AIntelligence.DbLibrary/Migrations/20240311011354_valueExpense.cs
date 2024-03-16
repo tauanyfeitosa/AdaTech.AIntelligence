@@ -2,28 +2,28 @@
 
 #nullable disable
 
-namespace AdaTech.AIntelligence.DataLibrary.Migrations
+namespace AdaTech.AIntelligence.DbLibrary.Migrations
 {
     /// <inheritdoc />
-    public partial class adicionaRole : Migration
+    public partial class valueExpense : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "Role",
-                table: "AspNetUsers",
-                type: "int",
+            migrationBuilder.AddColumn<double>(
+                name: "TotalValue",
+                table: "Expenses",
+                type: "float",
                 nullable: false,
-                defaultValue: 0);
+                defaultValue: 0.0);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Role",
-                table: "AspNetUsers");
+                name: "TotalValue",
+                table: "Expenses");
         }
     }
 }

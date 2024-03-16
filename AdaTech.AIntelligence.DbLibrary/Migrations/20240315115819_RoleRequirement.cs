@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace AdaTech.AIntelligence.DataLibrary.Migrations
+namespace AdaTech.AIntelligence.DbLibrary.Migrations
 {
     /// <inheritdoc />
     public partial class RoleRequirement : Migration

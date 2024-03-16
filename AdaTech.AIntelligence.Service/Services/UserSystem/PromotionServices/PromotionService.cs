@@ -1,4 +1,4 @@
-﻿using AdaTech.AIntelligence.DataLibrary.Repository;
+﻿using AdaTech.AIntelligence.DbLibrary.Repository;
 using AdaTech.AIntelligence.Entities.Objects;
 
 namespace AdaTech.AIntelligence.Service.Services.UserSystem.PromotionServices
