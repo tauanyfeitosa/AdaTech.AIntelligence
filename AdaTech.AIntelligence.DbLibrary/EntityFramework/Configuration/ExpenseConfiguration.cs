@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AdaTech.AIntelligence.DataLibrary.EntityFramework.Configuration
+namespace AdaTech.AIntelligence.DbLibrary.EntityFramework.Configuration
 {
     /// <summary>
     /// Configuration for the Expense entity

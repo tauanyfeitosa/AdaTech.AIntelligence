@@ -1,4 +1,4 @@
-﻿using AdaTech.AIntelligence.DataLibrary.Context;
+﻿using AdaTech.AIntelligence.DbLibrary.Context;
 using AdaTech.AIntelligence.Entities.Objects;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

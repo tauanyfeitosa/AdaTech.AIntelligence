@@ -1,7 +1,7 @@
 ﻿using AdaTech.AIntelligence.Entities.Objects;
 using Microsoft.AspNetCore.Identity;
 
-namespace AdaTech.AIntelligence.DataLibrary.Roles
+namespace AdaTech.AIntelligence.DbLibrary.Roles
 {
     /// <summary>
     /// Class to initialize the roles in the application

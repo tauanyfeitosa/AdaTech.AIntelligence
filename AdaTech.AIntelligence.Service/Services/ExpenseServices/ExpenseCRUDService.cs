@@ -3,7 +3,7 @@ using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.Services.DeleteStrategyService;
 using AdaTech.AIntelligence.Service.Exceptions;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
-using AdaTech.AIntelligence.DataLibrary.Repository;
+using AdaTech.AIntelligence.DbLibrary.Repository;
 
 namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
 {
