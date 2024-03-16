@@ -1,7 +1,7 @@
 ﻿using AdaTech.AIntelligence.DbLibrary.Repository;
 using AdaTech.AIntelligence.Entities.Objects;
 
-namespace AdaTech.AIntelligence.Service.Services.UserSystem.PromotionServices
+namespace AdaTech.AIntelligence.Service.Services.RoleRequirementService.PromotionServices
 {
     public class PromotionService
     {
@@ -14,7 +14,7 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem.PromotionServices
 
         public async Task<bool> PromotionRequest(RoleRequirement roleRequirement)
         {
-            
+
             roleRequirement.RequestDate = DateTime.Now;
             roleRequirement.Status = Entities.Enums.Status.Requested;
             return await _repository.Create(roleRequirement);

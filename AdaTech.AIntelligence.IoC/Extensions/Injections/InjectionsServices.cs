@@ -13,9 +13,9 @@ using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.Services.EmailService;
 using System.Net.Mail;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService;
-using AdaTech.AIntelligence.Service.Services.UserSystem.PromotionServices;
 using AdaTech.AIntelligence.DbLibrary.Repository;
 using AdaTech.AIntelligence.Service.Services.RoleRequirementService;
+using AdaTech.AIntelligence.Service.Services.RoleRequirementService.PromotionServices;
 
 
 namespace AdaTech.AIntelligence.IoC.Extensions.Injections
