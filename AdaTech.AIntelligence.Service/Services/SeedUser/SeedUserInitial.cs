@@ -28,8 +28,6 @@ namespace AdaTech.AIntelligence.Service.Services.SeedUser
             {
                 await _roleManagerService.AssignRolesAsync(user, "Admin", "Finance");
             }
-
-            throw new UnprocessableEntityException("Erro ao criar usuário inicial.");
         }
     }
 }
