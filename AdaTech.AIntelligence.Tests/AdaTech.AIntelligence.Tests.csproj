@@ -11,6 +11,8 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="6.12.0" />
+    <PackageReference Include="MailKit" Version="4.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
     <PackageReference Include="Moq" Version="4.20.70" />
     <PackageReference Include="NSubstitute" Version="5.1.0" />
@@ -27,6 +29,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AdaTech.AIntelligence.Attributes\AdaTech.AIntelligence.Attributes.csproj" />
+    <ProjectReference Include="..\AdaTech.AIntelligence.Configuration\AdaTech.AIntelligence.Configuration.csproj" />
+    <ProjectReference Include="..\AdaTech.AIntelligence.OCR.Services\AdaTech.AIntelligence.OCR.Services.csproj" />
     <ProjectReference Include="..\AdaTech.AIntelligence.Service\AdaTech.AIntelligence.Service.csproj" />
   </ItemGroup>
 
