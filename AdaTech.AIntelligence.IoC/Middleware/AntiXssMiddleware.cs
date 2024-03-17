@@ -24,6 +24,12 @@ namespace AdaTech.AIntelligence.IoC.Middleware
 
         public async Task Invoke(HttpContext context)
         {
+            if (IsImageRequest(context))
+            {
+                await _next(context);
+                return;
+            }
+
             if (!string.IsNullOrWhiteSpace(context.Request.Path.Value))
             {
                 var url = context.Request.Path.Value;
@@ -96,6 +102,28 @@ namespace AdaTech.AIntelligence.IoC.Middleware
             }
 
             await context.Response.WriteAsync(JsonConvert.SerializeObject(_error));
+        }
+
+        private static bool IsImageRequest(HttpContext context)
+        {
+            var contentType = context.Request.ContentType;
+            if (!string.IsNullOrEmpty(contentType) && (contentType.StartsWith("image/jpeg") || contentType.StartsWith("image/png") || contentType.StartsWith("image/gif")))
+                return true;
+
+            if (context.Request.HasFormContentType)
+            {
+                var form = context.Request.Form;
+                foreach (var file in form.Files)
+                {
+                    var fileName = file.FileName;
+                    var fileExtension = Path.GetExtension(fileName).ToLower();
+                    if (fileExtension == ".jpg" || fileExtension == ".jpeg" || fileExtension == ".png" || fileExtension == ".gif")
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 
