@@ -2,7 +2,6 @@ using AdaTech.AIntelligence.Entities.Enums;
 using AdaTech.AIntelligence.IoC.Extensions.Filters;
 using AdaTech.AIntelligence.Attributes;
 using AdaTech.AIntelligence.Service.Exceptions;
-using AdaTech.AIntelligence.Service.Services.ExpenseServices;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService;
 using Microsoft.AspNetCore.Authorization;
@@ -12,36 +11,33 @@ using System.Net.Http.Headers;
 using System.Web;
 using Microsoft.AspNetCore.Identity;
 using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.WebAPI.SistemaVendas.Utilities.Filters;
 
 namespace AdaTech.AIntelligence.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [SwaggerDisplayName("Report Expense")]
+    [TypeFilter(typeof(LoggingActionFilter))]
     public class ExpenseController : ControllerBase
     {
         private readonly ILogger<ExpenseController> _logger;
         private readonly IConfiguration _configuration;
         private readonly IExpenseCRUDService _expenseCRUDService;
-        private readonly IHttpClientFactory _clientFactory;
         private readonly HttpClient _httpClient;
         private readonly ResponseGPTService _responseGPTService;
         private readonly string _apiKey;
         private readonly UserManager<UserInfo> _userManager;
 
-
-        private const string _url = "https://api.openai.com/v1/chat/completions";
-
         public ExpenseController(IConfiguration configuration, ILogger<ExpenseController> logger, 
-            IExpenseCRUDService expenseCRUDService, IHttpClientFactory httpClientFactory, 
-            ResponseGPTService responseGPTService, UserManager<UserInfo> userManager)
+            IExpenseCRUDService expenseCRUDService, ResponseGPTService responseGPTService, 
+            UserManager<UserInfo> userManager)
         {
             _configuration = configuration;
             _logger = logger;
             _expenseCRUDService = expenseCRUDService;
             _userManager = userManager;
             _apiKey = _configuration.GetValue<string>("ApiKey");
-            _clientFactory = httpClientFactory;
             _responseGPTService = responseGPTService;
 
             _httpClient = new HttpClient();
