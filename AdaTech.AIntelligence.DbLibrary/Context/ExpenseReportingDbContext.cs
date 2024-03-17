@@ -1,7 +1,8 @@
 ﻿using AdaTech.AIntelligence.DbLibrary.EntityFramework.Configuration;
-using AdaTech.AIntelligence.Entities.Objects;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using AdaTech.AIntelligence.Entities.Objects;
 using Microsoft.EntityFrameworkCore;
+
 namespace AdaTech.AIntelligence.DbLibrary.Context
 {
     /// <summary>

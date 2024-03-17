@@ -1,5 +1,5 @@
-﻿using AdaTech.AIntelligence.Entities.Objects;
-using AdaTech.AIntelligence.Service.DTOs.Interfaces;
+﻿using AdaTech.AIntelligence.Service.DTOs.Interfaces;
+using AdaTech.AIntelligence.Entities.Objects;
 
 namespace AdaTech.AIntelligence.Service.Services.UserSystem
 {

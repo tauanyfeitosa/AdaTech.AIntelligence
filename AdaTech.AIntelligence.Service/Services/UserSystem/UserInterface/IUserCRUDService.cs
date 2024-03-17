@@ -1,6 +1,6 @@
 ﻿using AdaTech.AIntelligence.Entities.Objects;
 
-namespace AdaTech.AIntelligence.Service.Services.UserSystem
+namespace AdaTech.AIntelligence.Service.Services.UserSystem.UserInterface
 {
     /// <summary>
     /// Interface for CRUD operations related to users.

@@ -1,6 +1,6 @@
-﻿using AdaTech.AIntelligence.Configuration;
+﻿using Microsoft.Extensions.DependencyInjection;
+using AdaTech.AIntelligence.Configuration;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace AdaTech.AIntelligence.IoC.Extensions.Configurations
 {

@@ -1,5 +1,5 @@
-﻿using AdaTech.AIntelligence.Configuration;
 using AdaTech.AIntelligence.Service.Services.SeedUser.SeedManagerInitial;
+using AdaTech.AIntelligence.Configuration;
 using Microsoft.Extensions.Options;
 
 namespace AdaTech.AIntelligence.Service.Services.SeedUser

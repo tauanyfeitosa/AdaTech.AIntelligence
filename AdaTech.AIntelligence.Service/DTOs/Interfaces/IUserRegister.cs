@@ -1,4 +1,5 @@
-﻿namespace AdaTech.AIntelligence.Service.DTOs.Interfaces
+﻿
+namespace AdaTech.AIntelligence.Service.DTOs.Interfaces
 {
     /// <summary>
     /// Represents the interface for user registration data.

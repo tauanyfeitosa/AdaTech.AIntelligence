@@ -1,10 +1,8 @@
-﻿using AdaTech.AIntelligence.DbLibrary.Context;
+﻿using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
 using AdaTech.AIntelligence.DbLibrary.Repository;
+using AdaTech.AIntelligence.DbLibrary.Context;
 using AdaTech.AIntelligence.Entities.Objects;
-using AdaTech.AIntelligence.Service.Exceptions;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Threading.Tasks;
 
 namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyDelete
 {

@@ -1,6 +1,6 @@
 ﻿using AdaTech.AIntelligence.Service.DTOs.Interfaces;
 
-namespace AdaTech.AIntelligence.Service.Services.UserSystem
+namespace AdaTech.AIntelligence.Service.Services.UserSystem.UserInterface
 {
     /// <summary>
     /// Interface for user authentication and registration services.

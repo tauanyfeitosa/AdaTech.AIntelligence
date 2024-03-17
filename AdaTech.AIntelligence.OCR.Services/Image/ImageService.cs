@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-
+﻿
 namespace AdaTech.AIntelligence.OCR.Services.Image
 {
     /// <summary>

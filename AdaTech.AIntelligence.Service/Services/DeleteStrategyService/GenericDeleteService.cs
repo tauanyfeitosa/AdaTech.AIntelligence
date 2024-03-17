@@ -1,7 +1,7 @@
-using AdaTech.AIntelligence.DbLibrary.Context;
-using AdaTech.AIntelligence.DbLibrary.Repository;
-using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyDelete;
+using AdaTech.AIntelligence.DbLibrary.Repository;
+using AdaTech.AIntelligence.DbLibrary.Context;
+using AdaTech.AIntelligence.Entities.Objects;
 using Microsoft.AspNetCore.Identity;
 
 namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService

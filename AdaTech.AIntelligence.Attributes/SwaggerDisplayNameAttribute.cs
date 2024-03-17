@@ -1,4 +1,5 @@
-﻿namespace AdaTech.AIntelligence.Attributes
+﻿
+namespace AdaTech.AIntelligence.Attributes
 {
     /// <summary>
     /// Specifies a display name for Swagger documentation.

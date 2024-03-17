@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+﻿using AdaTech.AIntelligence.Service.DTOs.Interfaces;
+using System.ComponentModel.DataAnnotations;
 using AdaTech.AIntelligence.Entities.Enums;
 using AdaTech.AIntelligence.Attributes;
-using AdaTech.AIntelligence.Service.DTOs.Interfaces;
+using System.Text.Json.Serialization;
 
 namespace AdaTech.AIntelligence.Service.DTOs.ModelRequest
 {

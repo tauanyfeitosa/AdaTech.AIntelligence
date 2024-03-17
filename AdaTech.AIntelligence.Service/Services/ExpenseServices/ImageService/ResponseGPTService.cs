@@ -1,8 +1,7 @@
-﻿using AdaTech.AIntelligence.Entities.Enums;
-using AdaTech.AIntelligence.Entities.Objects;
-using AdaTech.AIntelligence.Service.Exceptions;
+using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
-using Microsoft.AspNetCore.Identity;
+using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Entities.Enums;
 using System.Net.Http.Json;
 
 namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService
@@ -44,12 +43,14 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService
                 var responseData = await response.Content.ReadAsStringAsync();
 
                 if (responseData.Contains("ERROR_RESPONSE"))
-                    throw new NotAnExpenseException("Invalid receipt");
+
+                    throw new NotAnExpenseException("Comprovante Inválido");
 
                 var success = await CreateExpense(responseData, user);
 
                 if (!success)
-                    return "Error creating expense.";
+                    
+                    throw new UnprocessableEntityException("Erro ao cadastrar despesa");
 
                 return "Expense created successfully!";
             }

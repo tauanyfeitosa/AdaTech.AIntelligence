@@ -1,6 +1,6 @@
-﻿using AdaTech.AIntelligence.Attributes;
-using AdaTech.WebAPI.SistemaVendas.Utilities.Filters;
+﻿using AdaTech.WebAPI.SistemaVendas.Utilities.Filters;
 using Microsoft.AspNetCore.Authorization;
+using AdaTech.AIntelligence.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using System.Web;
 

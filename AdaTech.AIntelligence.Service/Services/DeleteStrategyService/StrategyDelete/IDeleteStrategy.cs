@@ -1,5 +1,5 @@
-﻿using AdaTech.AIntelligence.DbLibrary.Context;
-using AdaTech.AIntelligence.DbLibrary.Repository;
+﻿using AdaTech.AIntelligence.DbLibrary.Repository;
+using AdaTech.AIntelligence.DbLibrary.Context;
 
 namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyDelete
 {

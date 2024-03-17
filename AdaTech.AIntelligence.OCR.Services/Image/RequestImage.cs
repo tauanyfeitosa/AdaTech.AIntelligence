@@ -1,4 +1,5 @@
-﻿namespace AdaTech.AIntelligence.OCR.Services.Image
+﻿
+namespace AdaTech.AIntelligence.OCR.Services.Image
 {
     /// <summary>
     /// DTO class to handle the request image.

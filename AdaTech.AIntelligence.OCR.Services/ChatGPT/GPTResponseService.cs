@@ -1,5 +1,4 @@
-﻿
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 
 namespace AdaTech.AIntelligence.OCR.Services.ChatGPT
 {

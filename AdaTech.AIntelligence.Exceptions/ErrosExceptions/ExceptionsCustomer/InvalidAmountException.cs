@@ -1,4 +1,4 @@
-﻿namespace AdaTech.AIntelligence.Service.Exceptions
+﻿namespace AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer
 {
     /// <summary>
     /// Represents an exception thrown when an invalid amount is encountered.

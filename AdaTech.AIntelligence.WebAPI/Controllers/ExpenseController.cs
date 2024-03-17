@@ -1,8 +1,8 @@
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService;
+using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
 using AdaTech.WebAPI.SistemaVendas.Utilities.Filters;
 using AdaTech.AIntelligence.IoC.Extensions.Filters;
-using AdaTech.AIntelligence.Service.Exceptions;
 using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Entities.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -114,7 +114,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             var success = await _expenseCRUDService.UpdateExpense(expense);
 
             if (!success)
-                throw new Exception("Erro ao alterar o status da despesa.");
+                throw new UnprocessableEntityException("Erro ao alterar o status da despesa.");
 
             return Ok("Status da despesa atualizado com sucesso!");
         }

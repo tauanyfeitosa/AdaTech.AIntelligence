@@ -1,6 +1,6 @@
 ﻿using AdaTech.AIntelligence.Entities.Objects;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity;
 using System.Net.Mail;
 
 namespace AdaTech.AIntelligence.Service.Services.EmailService
@@ -56,7 +56,7 @@ namespace AdaTech.AIntelligence.Service.Services.EmailService
             }
             catch (Exception ex)
             {
-                throw new ArgumentException($"Erro ao enviar email: {ex}");
+                throw new SmtpException($"Erro ao enviar email: {ex}");
             }
         }
 
@@ -75,7 +75,7 @@ namespace AdaTech.AIntelligence.Service.Services.EmailService
             }
             catch (Exception ex)
             {
-                throw new ArgumentException($"Erro ao confirmar email: {ex}");
+                throw new SmtpException($"Erro ao confirmar email: {ex}");
             }
         }
     }

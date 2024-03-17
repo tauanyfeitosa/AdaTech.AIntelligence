@@ -1,9 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Identity;
-using AdaTech.AIntelligence.Entities.Objects;
+﻿using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
+using AdaTech.AIntelligence.Service.Services.UserSystem.UserInterface;
 using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
 using AdaTech.AIntelligence.Service.DTOs.Interfaces;
+using AdaTech.AIntelligence.Entities.Objects;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 
 namespace AdaTech.AIntelligence.Service.Services.UserSystem
 {
@@ -57,12 +59,12 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
                 var user = await _userManager.FindByEmailAsync(email);
 
                 _logger.LogInformation("Usuário autenticado com sucesso.");
-                return user == null ? throw new ArgumentException("Usuário não encontrado.") : result.Succeeded;
+                return user == null ? throw new NotFoundException("Usuário não encontrado.") : result.Succeeded;
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Tentativa de login sem sucesso: {ex}");
-                throw new ArgumentException($"Tentativa de login sem sucesso: {ex}");
+                throw new InvalidOperationException($"Tentativa de login sem sucesso: {ex}");
             }
         }
 
@@ -79,6 +81,7 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
             catch (Exception ex)
             {
                 _logger.LogError($"Tentativa de logout sem sucesso: {ex}");
+                throw new InvalidOperationException($"Tentativa de logout sem sucesso: {ex}");
             }
         }
 
@@ -123,7 +126,7 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
             catch (Exception ex)
             {
                 _logger.LogError($"Tentativa de registro sem sucesso com email {userRegister.Email}: {ex}");
-                throw new ArgumentException($"Tentativa de registro sem sucesso: {ex}");
+                throw new UnprocessableEntityException($"Tentativa de registro sem sucesso: {ex}");
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Headers;
+﻿using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
+using System.Net.Http.Headers;
 using System.Text.Json;
 
 namespace AdaTech.AIntelligence.OCR.Services.ChatGPT
@@ -29,7 +30,7 @@ namespace AdaTech.AIntelligence.OCR.Services.ChatGPT
                 return "Conexão com o chat GPT bem-sucedida!";
             }
 
-            throw new Exception("Erro ao conectar-se ao chat GPT.");
+            throw new NotConnectionGPTException("Erro ao conectar-se ao chat GPT.");
         }
 
         /// <summary>

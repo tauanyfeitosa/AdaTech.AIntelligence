@@ -1,7 +1,7 @@
-﻿using AdaTech.AIntelligence.DbLibrary.Context;
+﻿using Microsoft.Extensions.DependencyInjection;
+using AdaTech.AIntelligence.DbLibrary.Context;
 using AdaTech.AIntelligence.Entities.Objects;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace AdaTech.AIntelligence.IoC.Extensions.Injections
 {

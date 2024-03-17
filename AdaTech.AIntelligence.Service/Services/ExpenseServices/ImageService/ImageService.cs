@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService
 {
@@ -29,7 +25,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService
 
             if (!allowedExtensions.Contains(extension))
             {
-                throw new Exception("Only images in JPG, JPEG, and PNG formats are supported.");
+                throw new FormatException("Somente são aceitas imagens nos formatos JPG, JPEG e PNG.");
             }
 
             string base64Image;

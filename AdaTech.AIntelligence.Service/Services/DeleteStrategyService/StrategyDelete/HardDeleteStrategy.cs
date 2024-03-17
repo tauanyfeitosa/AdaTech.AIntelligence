@@ -1,7 +1,7 @@
-using AdaTech.AIntelligence.DbLibrary.Context;
+using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
 using AdaTech.AIntelligence.DbLibrary.Repository;
+using AdaTech.AIntelligence.DbLibrary.Context;
 using AdaTech.AIntelligence.Entities.Objects;
-using AdaTech.AIntelligence.Service.Exceptions;
 using Microsoft.AspNetCore.Identity;
 
 namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyDelete
@@ -51,7 +51,7 @@ namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyD
                 return "Deleção realizada com sucesso.";
             }
 
-            return "Erro ao realizar a deleção.";
+            throw new UnprocessableEntityException("Falha ao deletar usuário. Tente novamente!");
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyD
 
                 if (!success)
                 {
-                    throw new InvalidOperationException("Falha ao realizar Hard Delete.");
+                    throw new UnprocessableEntityException("Falha ao realizar hard delete. Tente novamente!");
                 }
 
                 return "Excluido com sucesso!";

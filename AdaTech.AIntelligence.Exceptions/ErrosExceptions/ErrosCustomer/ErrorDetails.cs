@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("AdaTech.AIntelligence.WebAPI")]
-namespace AdaTech.AIntelligence.Service.Exceptions
+namespace AdaTech.AIntelligence.Exceptions.ErrosExceptions.ErrosCustomer
 {
     /// <summary>
     /// Represents details of an error.

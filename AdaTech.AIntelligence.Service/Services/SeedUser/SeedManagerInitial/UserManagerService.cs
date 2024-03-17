@@ -1,5 +1,5 @@
-﻿using AdaTech.AIntelligence.Configuration;
 using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Configuration;
 using Microsoft.AspNetCore.Identity;
 
 namespace AdaTech.AIntelligence.Service.Services.SeedUser.SeedManagerInitial
@@ -41,7 +41,8 @@ namespace AdaTech.AIntelligence.Service.Services.SeedUser.SeedManagerInitial
             };
 
             var result = await _userManager.CreateAsync(user, userCredentialsSettings.Password);
-            if (result.Succeeded)
+
+            if(result.Succeeded)
             {
                 return user;
             }

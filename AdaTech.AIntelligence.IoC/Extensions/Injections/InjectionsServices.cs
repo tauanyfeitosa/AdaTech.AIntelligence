@@ -1,7 +1,8 @@
-﻿using AdaTech.AIntelligence.Service.Services.RoleRequirementService.PromotionServices;
+using AdaTech.AIntelligence.Service.Services.RoleRequirementService.PromotionServices;
 using AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyDelete;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService;
 using AdaTech.AIntelligence.Service.Services.SeedUser.SeedManagerInitial;
+using AdaTech.AIntelligence.Service.Services.UserSystem.UserInterface;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
 using AdaTech.AIntelligence.Service.Services.RoleRequirementService;
 using AdaTech.AIntelligence.Service.Services.DeleteStrategyService;

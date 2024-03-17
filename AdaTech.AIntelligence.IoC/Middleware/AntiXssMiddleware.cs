@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ErrosCustomer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using System.Net;
-using System.Text;
 using Newtonsoft.Json;
-using AdaTech.AIntelligence.Service.Exceptions;
 using AngleSharp.Text;
+using System.Text;
+using System.Net;
 
 namespace AdaTech.AIntelligence.IoC.Middleware
 {
