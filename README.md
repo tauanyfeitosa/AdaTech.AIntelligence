@@ -190,11 +190,12 @@ Após enviar com sucesso a requisição, um administrador poderá aprovar ou nã
 
 Com todas essas informações, esperamos que esteja bem instruído para navegar por nossa aplicação!!!
 
-
 # Autores
+
+
 |<a href="https://www.linkedin.com/in/charles-serafim/" target="_blank">**Charles Serafim**</a> | <a href="https://www.linkedin.com/in/maria-eduarda-sampaio-955087213/" target="_blank">**Maria Eduarda Sampaio**</a>      |<a href="https://www.linkedin.com/in/tauanyfeitosa/" target="_blank">**Tauany Feitosa**</a> | <a href="https://www.linkedin.com/in/miguelsousakoh/" target="_blank">**Miguel Pereira**</a> | <a href="https://www.linkedin.com/in/yuri-cifuentes/" target="_blank">**Yuri Cifuentes**</a> |
-|:-----------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------:|
-|                   <img src="imgs/charles.png" width="200px"> </img>                            |               <img src="imgs/eduarda.png" width="200px"> </img>                          |                   <img src="imgs/tauany.png" width="200px"> </img>                            |               <img src="imgs/miguel.png" width="200px"> </img>                          |               <img src="imgs/yuri.png" width="200px"> </img>                          |
+|:-----------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------:|
+|                   <img src="img/charles.jpeg" width="200px"> </img>                            |               <img src="img/eduarda.jpeg" width="200px"> </img>                          |                   <img src="img/tauany.jpg" width="200px"> </img>                            |               <img src="img/miguel.jpeg" width="200px"> </img>                          |               <img src="img/yuri.jpeg" width="200px"> </img>                          |
 |               <a href="https://github.com/charles-serafim" target="_blank">`github.com/charles-serafim`</a>      |  <a href="https://github.com/MariaEduardaSampaio" target="_blank">`github.com/MariaEduardaSampaio`</a>  |               <a href="https://github.com/tauanyfeitosa" target="_blank">`github.com/tauanyfeitosa`</a>      |   <a href="https://github.com/Koohra" target="_blank">`github.com/Koohra`</a>  |  <a href="https://github.com/Montaguine" target="_blank">`github.com/Montaguine`</a>  |
 
 
