@@ -61,7 +61,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         /// </summary>
         /// <param name="userRegister"></param>
         /// <returns></returns>
-        [HttpPost("createUser")]
+        [HttpPost("create-user")]
         public async Task<IActionResult> Register([FromBody] DTOUserRegister userRegister)
         {
             var succeeded = await _userAuthService.RegisterUserAsync(userRegister);

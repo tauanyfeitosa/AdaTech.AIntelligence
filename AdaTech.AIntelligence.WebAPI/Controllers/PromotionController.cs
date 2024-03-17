@@ -56,7 +56,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         /// <param name="idRequirement"></param>
         /// <param name="status"></param>
         /// <returns></returns>
-        [HttpPatch]
+        [HttpPatch("promote-user")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PromoteUser(int idRequirement, Status status)
         {
