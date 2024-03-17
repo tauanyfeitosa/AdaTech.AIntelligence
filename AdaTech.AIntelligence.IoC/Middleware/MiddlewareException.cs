@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
 using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ErrosCustomer;
+using System.Net.Mail;
 
 namespace AdaTech.AIntelligence.IoC.Middleware
 {
@@ -66,6 +67,8 @@ namespace AdaTech.AIntelligence.IoC.Middleware
                 ReadingDescriptionException _ => StatusCodes.Status404NotFound,
                 NotConnectionGPTException _ => StatusCodes.Status404NotFound,
                 UnprocessableEntityException _ => StatusCodes.Status422UnprocessableEntity,
+                SmtpException _ => StatusCodes.Status500InternalServerError,
+                FormatException _ => StatusCodes.Status400BadRequest,
                 _ => StatusCodes.Status500InternalServerError,
             };
 

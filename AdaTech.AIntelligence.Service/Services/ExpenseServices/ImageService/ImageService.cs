@@ -26,7 +26,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService
 
             if (!allowedExtensions.Contains(extension))
             {
-                throw new Exception("Somente são aceitas imagens nos formatos JPG, JPEG e PNG.");
+                throw new FormatException("Somente são aceitas imagens nos formatos JPG, JPEG e PNG.");
             }
 
             string base64Image;

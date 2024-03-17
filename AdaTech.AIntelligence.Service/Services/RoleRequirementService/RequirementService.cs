@@ -1,6 +1,7 @@
 ﻿using AdaTech.AIntelligence.DbLibrary.Repository;
 using AdaTech.AIntelligence.Entities.Enums;
 using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
 using AdaTech.AIntelligence.Service.Services.RoleRequirementService.PromotionServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +35,7 @@ namespace AdaTech.AIntelligence.Service.Services.RoleRequirementService
             }
             else
             {
-                return "Solicitação sem sucesso.";
+                throw new UnprocessableEntityException ("Erro ao solicitar promoção.");
             }
         }
 
@@ -45,7 +46,7 @@ namespace AdaTech.AIntelligence.Service.Services.RoleRequirementService
 
             if (requirement == null)
             {
-                return "Requisição não encontrada.";
+                throw new NotFoundException("Requisição não encontrada.");
             }
 
             requirement.Status = status;
@@ -62,7 +63,7 @@ namespace AdaTech.AIntelligence.Service.Services.RoleRequirementService
             }
             else
             {
-                return "Aprovação sem sucesso.";
+                throw new UnprocessableEntityException("Erro ao atualizar requisição.");
             }
         }
     }

@@ -43,13 +43,14 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService
                 var responseData = await response.Content.ReadAsStringAsync();
 
                 if (responseData.Contains("ERROR_RESPONSE"))
+
                     throw new NotAnExpenseException("Comprovante Inválido");
-//                    return responseData;
 
                 var success = await CreateExpense(responseData, user);
 
                 if (!success)
-                    return "Erro ao criar despesa.";
+                    
+                    throw new UnprocessableEntityException("Erro ao cadastrar despesa");
 
                 return "Despesa cadastrada com sucesso!";
             }

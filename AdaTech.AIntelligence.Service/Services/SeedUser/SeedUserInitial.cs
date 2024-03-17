@@ -1,7 +1,6 @@
 ﻿using AdaTech.AIntelligence.Configuration;
-using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
 using AdaTech.AIntelligence.Service.Services.SeedUser.SeedManagerInitial;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
 namespace AdaTech.AIntelligence.Service.Services.SeedUser
@@ -29,6 +28,8 @@ namespace AdaTech.AIntelligence.Service.Services.SeedUser
             {
                 await _roleManagerService.AssignRolesAsync(user, "Admin", "Finance");
             }
+
+            throw new UnprocessableEntityException("Erro ao criar usuário inicial.");
         }
     }
 }
