@@ -1,11 +1,8 @@
 ﻿using AdaTech.AIntelligence.Attributes;
 using AdaTech.AIntelligence.DbLibrary.Repository;
-using AdaTech.AIntelligence.Entities.Enums;
 using AdaTech.AIntelligence.Entities.Objects;
-using AdaTech.AIntelligence.IoC.Extensions.Filters;
 using AdaTech.AIntelligence.Service.Exceptions;
 using AdaTech.AIntelligence.Service.Services.UserSystem;
-using AdaTech.AIntelligence.Service.Services.UserSystem.PromotionServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,17 +14,11 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
     [SwaggerDisplayName("User Management")]
     public class UserManagementController : ControllerBase
     {
-        private readonly IAIntelligenceRepository<UserInfo> _userRepository;
-        private readonly ILogger<PromotionController> _logger;
         private readonly IUserCRUDService _userCRUDService;
-        private readonly UserManager<UserInfo> _userManager;
 
         public UserManagementController(IAIntelligenceRepository<UserInfo> userRepository, ILogger<PromotionController> logger, IUserCRUDService userCRUDService, UserManager<UserInfo> userManager)
         {
-            _logger = logger;
             _userCRUDService = userCRUDService;
-            _userManager = userManager;
-            _userRepository = userRepository;
         }
 
         /// <summary>
