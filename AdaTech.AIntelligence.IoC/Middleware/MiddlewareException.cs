@@ -57,15 +57,11 @@ namespace AdaTech.AIntelligence.IoC.Middleware
             var statusCode = exception switch
             {
                 InvalidAmountException _ or
-                InvalidCategoryException _ or
-                InvalidDescriptionException _ or
                 NotAnExpenseException _ or
                 FormatException _ => StatusCodes.Status400BadRequest,
 
                 NotFoundException _ or
                 ReadingAmountException _ or
-                ReadingCategoryException _ or
-                ReadingDescriptionException _ or
                 NotConnectionGPTException _ => StatusCodes.Status404NotFound,
 
                 NotReadableImageException _ => StatusCodes.Status415UnsupportedMediaType,
