@@ -5,22 +5,22 @@ using Microsoft.EntityFrameworkCore;
 namespace AdaTech.AIntelligence.DbLibrary.Context
 {
     /// <summary>
-    /// Context for the application
+    /// Context for the application.
     /// </summary>
     public class ExpenseReportingDbContext : IdentityDbContext<UserInfo>
     {
         /// <summary>
-        /// Property for the expenses table
+        /// Property for the expenses table.
         /// </summary>
         public DbSet<Expense> Expenses { get; set; }
 
         /// <summary>
-        /// Property for the roleRequirements table
+        /// Property for the roleRequirements table.
         /// </summary>
         public DbSet<RoleRequirement> RoleRequirements { get; set; }
 
         /// <summary>
-        /// Constructor for the context with ConnectionString for SQL Server
+        /// Constructor for the context with ConnectionString for SQL Server.
         /// </summary>
         /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -30,7 +30,7 @@ namespace AdaTech.AIntelligence.DbLibrary.Context
         }
 
         /// <summary>
-        /// Method to apply the configurations for the entities
+        /// Method to apply the configurations for the entities.
         /// </summary>
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)

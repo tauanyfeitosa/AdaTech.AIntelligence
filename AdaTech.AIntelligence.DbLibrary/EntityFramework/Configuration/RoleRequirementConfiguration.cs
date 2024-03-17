@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace AdaTech.AIntelligence.DbLibrary.EntityFramework.Configuration
 {
     /// <summary>
-    /// Configuration for the RoleRequirement entity
+    /// Configuration for the RoleRequirement entity.
     /// </summary>
     internal class RoleRequirementConfiguration : IEntityTypeConfiguration<RoleRequirement>
     {

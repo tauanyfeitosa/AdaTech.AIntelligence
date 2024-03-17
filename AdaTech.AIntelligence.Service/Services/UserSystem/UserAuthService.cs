@@ -7,6 +7,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace AdaTech.AIntelligence.Service.Services.UserSystem
 {
+    /// <summary>
+    /// Service responsible for user authentication and registration.
+    /// </summary>
     public class UserAuthService : IUserAuthService
     {
         private readonly UserManager<UserInfo> _userManager;
@@ -15,7 +18,14 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
         private readonly EmailService.IEmailService _emailService;
         private readonly IConfiguration _appSettings;
 
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserAuthService"/> class.
+        /// </summary>
+        /// <param name="signInManager">The sign-in manager.</param>
+        /// <param name="userManager">The user manager.</param>
+        /// <param name="logger">The logger.</param>
+        /// <param name="emailService">The email service.</param>
+        /// <param name="appSettings">The application settings.</param>
         public UserAuthService(SignInManager<UserInfo> signInManager,
             UserManager<UserInfo> userManager,
             ILogger<UserAuthService> logger,

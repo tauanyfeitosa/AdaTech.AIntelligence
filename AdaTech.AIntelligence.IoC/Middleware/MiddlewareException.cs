@@ -7,7 +7,7 @@ namespace AdaTech.AIntelligence.IoC.Middleware
 {
 
     /// <summary>
-    /// Middleware to handle exceptions
+    /// Middleware to handle exceptions.
     /// </summary>
     public class MiddlewareException
     {
@@ -21,7 +21,7 @@ namespace AdaTech.AIntelligence.IoC.Middleware
         }
 
         /// <summary>
-        /// Invoke the middleware
+        /// Invokes the middleware.
         /// </summary>
         /// <param name="httpContext"></param>
         /// <returns></returns>
@@ -41,7 +41,7 @@ namespace AdaTech.AIntelligence.IoC.Middleware
         }
 
         /// <summary>
-        /// Handle exceptions according to the custom exception received
+        /// Handle exceptions according to the custom exception received.
         /// </summary>
         /// <param name="context"></param>
         /// <param name="exception"></param>

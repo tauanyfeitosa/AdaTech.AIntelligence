@@ -1,11 +1,8 @@
-﻿using AdaTech.AIntelligence.Attributes;
-using AdaTech.AIntelligence.DbLibrary.Repository;
-using AdaTech.AIntelligence.Entities.Objects;
-using AdaTech.AIntelligence.Service.Exceptions;
-using AdaTech.AIntelligence.Service.Services.UserSystem;
+﻿using AdaTech.AIntelligence.Service.Services.UserSystem;
 using AdaTech.WebAPI.SistemaVendas.Utilities.Filters;
+using AdaTech.AIntelligence.Service.Exceptions;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+using AdaTech.AIntelligence.Attributes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdaTech.AIntelligence.WebAPI.Controllers

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace AdaTech.AIntelligence.DbLibrary.EntityFramework.Configuration
 {
     /// <summary>
-    /// Configuration for the Expense entity
+    /// Configuration for the Expense entity.
     /// </summary>
     internal class ExpenseConfiguration : IEntityTypeConfiguration<Expense>
     {
