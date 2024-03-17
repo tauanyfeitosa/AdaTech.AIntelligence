@@ -190,26 +190,33 @@ Após enviar com sucesso a requisição, um administrador poderá aprovar ou nã
 
 Com todas essas informações, esperamos que esteja bem instruído para navegar por nossa aplicação!!!
 
+
+# Autores
+|<a href="https://www.linkedin.com/in/charles-serafim/" target="_blank">**Charles Serafim**</a> | <a href="https://www.linkedin.com/in/maria-eduarda-sampaio-955087213/" target="_blank">**Maria Eduarda Sampaio**</a>      |<a href="https://www.linkedin.com/in/tauanyfeitosa/" target="_blank">**Tauany Feitosa**</a> | <a href="https://www.linkedin.com/in/miguelsousakoh/" target="_blank">**Miguel Pereira**</a> | <a href="https://www.linkedin.com/in/yuri-cifuentes/" target="_blank">**Yuri Cifuentes**</a> |
+|:-----------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------:|
+|                   <img src="imgs/charles.png" width="200px"> </img>                            |               <img src="imgs/eduarda.png" width="200px"> </img>                          |                   <img src="imgs/tauany.png" width="200px"> </img>                            |               <img src="imgs/miguel.png" width="200px"> </img>                          |               <img src="imgs/yuri.png" width="200px"> </img>                          |
+|               <a href="https://github.com/charles-serafim" target="_blank">`github.com/charles-serafim`</a>      |  <a href="https://github.com/MariaEduardaSampaio" target="_blank">`github.com/MariaEduardaSampaio`</a>  |               <a href="https://github.com/tauanyfeitosa" target="_blank">`github.com/tauanyfeitosa`</a>      |   <a href="https://github.com/Koohra" target="_blank">`github.com/Koohra`</a>  |  <a href="https://github.com/Montaguine" target="_blank">`github.com/Montaguine`</a>  |
+
+
+
 # Contato
 
 Caso tenha alguma dúvida, procurem-nos se acaso necessitarem em nossas redes sociais:
 
-Charles -> [![linkedin badge](https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white)](inserirlinkedincharles)
+Charles ->
 <a href="mailto:inseriremailcharles"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=red" target="_blank"></a>
 
-M. Eduarda -> [![linkedin badge](https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/maria-eduarda-sampaio-955087213)
+M. Eduarda -> 
 <a href="mailto:mariaeduardamrs0@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=red" target="_blank"></a>
 
-M. Tauany -> [![linkedin badge](https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/tauanyfeitosa/)
+M. Tauany ->
 <a href="mailto:tauanysanttos13@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=red" target="_blank"></a>
 
-Miguel -> [![linkedin badge](https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white)](inserirlinkedinmiguel)
+Miguel ->
 <a href="mailto:inseriremailmiguel"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=red" target="_blank"></a>
 
-Yuri -> [![linkedin badge](https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white)](inserirlinkedinyuri)
+Yuri ->
 <a href="mailto:inseriremailyuri"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=red" target="_blank"></a>
-
-
 
 
 
