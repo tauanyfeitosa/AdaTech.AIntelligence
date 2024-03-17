@@ -45,6 +45,10 @@ app.Use(async (context, next) =>
     }
 });
 
+app.UseStaticFiles();
+
+app.UseDefaultFiles();
+
 app.MapControllers();
 
 app.Run();

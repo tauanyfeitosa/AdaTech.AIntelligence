@@ -38,8 +38,4 @@
     <ProjectReference Include="..\AdaTech.AIntelligence.Service\AdaTech.AIntelligence.Service.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\images\" />
-  </ItemGroup>
-
 </Project>
