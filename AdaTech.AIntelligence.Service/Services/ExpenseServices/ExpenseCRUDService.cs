@@ -1,17 +1,25 @@
-using AdaTech.AIntelligence.Entities.Enums;
-using AdaTech.AIntelligence.Entities.Objects;
-using AdaTech.AIntelligence.Service.Services.DeleteStrategyService;
 using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
+using AdaTech.AIntelligence.Service.Services.DeleteStrategyService;
 using AdaTech.AIntelligence.DbLibrary.Repository;
+using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Entities.Enums;
 
 namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
 {
+    /// <summary>
+    /// Service class for performing CRUD operations on expenses.
+    /// </summary>
     public class ExpenseCRUDService : IExpenseCRUDService
     {
         private readonly IAIntelligenceRepository<Expense> _repository;
         private readonly GenericDeleteService<Expense> _deleteService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExpenseCRUDService"/> class.
+        /// </summary>
+        /// <param name="repository">The repository for accessing expense data.</param>
+        /// <param name="deleteService">The service for deleting expenses.</param>
         public ExpenseCRUDService(IAIntelligenceRepository<Expense> repository, GenericDeleteService<Expense> deleteService)
         {
             _repository = repository;
@@ -26,7 +34,6 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
         public async Task<bool> CreateExpense(Expense expense)
         {
             var success = await _repository.Create(expense);
-
             return success;
         }
 
@@ -53,7 +60,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
             if (expense != null && expense.IsActive)
                 return expense;
 
-            throw new NotFoundException("Não foi localizada uma nota ativa com o ID fornecido. Tente novamente.");
+            throw new NotFoundException("Não existe despesa ativa com este ID.");
         }
 
         /// <summary>

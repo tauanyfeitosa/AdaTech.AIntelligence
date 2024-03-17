@@ -1,8 +1,8 @@
-﻿using AdaTech.AIntelligence.Attributes;
 using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
 using AdaTech.AIntelligence.Service.Services.UserSystem.UserInterface;
 using AdaTech.WebAPI.SistemaVendas.Utilities.Filters;
 using Microsoft.AspNetCore.Authorization;
+using AdaTech.AIntelligence.Attributes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdaTech.AIntelligence.WebAPI.Controllers

@@ -5,13 +5,13 @@ using System.Runtime.CompilerServices;
 namespace AdaTech.AIntelligence.Attributes
 {
     /// <summary>
-    /// Custom validation for CPF format.
+    /// Custom validation attribute for CPF format.
     /// </summary>   
     public class CPFAttribute : ValidationAttribute
     {
         private static int LenghtCPF = 11;
         /// <summary>
-        /// Validates CPF
+        /// Verifies if CPF length is valid
         /// </summary>
         /// <param name="value">Value to be validated.</param>
         /// <param name="validationContext">Validation context.</param>
@@ -33,10 +33,10 @@ namespace AdaTech.AIntelligence.Attributes
             return ValidationResult.Success;
         }
         /// <summary>
-        /// Check if a CPF is valid.
+        /// Verifies if CPF value is valid
         /// </summary>
         /// <param name="cpf">CPF to be checked</param>
-        /// <returns><c>true</c>if CPF is valid, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if CPF is valid, <c>false</c> otherwise.</returns>
         private bool IsCpfValid(string cpf)
         {
             int[] numberCPF = cpf.Substring(0, 9).Select(c => int.Parse(c.ToString())).ToArray();

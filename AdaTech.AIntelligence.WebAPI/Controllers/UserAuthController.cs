@@ -1,10 +1,9 @@
-using AdaTech.AIntelligence.Attributes;
-using AdaTech.AIntelligence.Entities.Objects;
-using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
-using AdaTech.AIntelligence.Service.Services.EmailService;
 using AdaTech.AIntelligence.Service.Services.UserSystem.UserInterface;
+using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
 using AdaTech.WebAPI.SistemaVendas.Utilities.Filters;
+using AdaTech.AIntelligence.Entities.Objects;
 using Microsoft.AspNetCore.Authorization;
+using AdaTech.AIntelligence.Attributes;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 

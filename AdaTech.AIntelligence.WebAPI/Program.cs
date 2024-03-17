@@ -1,10 +1,7 @@
-using AdaTech.AIntelligence.DbLibrary.Roles;
-using AdaTech.AIntelligence.Entities.Objects;
-using AdaTech.AIntelligence.IoC.Extensions;
 using AdaTech.AIntelligence.IoC.Extensions.Injections;
+using AdaTech.AIntelligence.DbLibrary.Roles;
+using AdaTech.AIntelligence.IoC.Extensions;
 using Microsoft.AspNetCore.Identity;
-using Newtonsoft.Json;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,8 +17,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
 
-IdentityDataInitializer.SeedData(app.Services.CreateScope().ServiceProvider.GetRequiredService<UserManager<UserInfo>>(),
-                                 app.Services.CreateScope().ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>());
+IdentityDataInitializer.SeedData(app.Services.CreateScope().ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>());
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

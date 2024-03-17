@@ -4,6 +4,9 @@ using Newtonsoft.Json;
 
 namespace AdaTech.AIntelligence.IoC.Middleware
 {
+    /// <summary>
+    /// Middleware for handling custom authorization logic.
+    /// </summary>
     public class CustomAuthorizationMiddleware
     {
         private readonly RequestDelegate _next;
@@ -13,6 +16,10 @@ namespace AdaTech.AIntelligence.IoC.Middleware
             _next = next;
         }
 
+        /// <summary>
+        /// Invokes the middleware.
+        /// </summary>
+        /// <param name="context">The HTTP context.</param>
         public async Task InvokeAsync(HttpContext context)
         {
             await _next(context);

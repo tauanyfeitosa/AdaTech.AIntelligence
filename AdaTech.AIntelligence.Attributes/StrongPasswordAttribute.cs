@@ -17,9 +17,9 @@ namespace AdaTech.AIntelligence.Attributes
         /// Initializes <see cref="StrongPasswordAttribute"/> class with the specified minimum length.
         /// </summary>
         /// <param name="minimumLength">The minimum length required for the password.</param>
-        public StrongPasswordAttribute(int minumumLength)
+        public StrongPasswordAttribute(int minimumLength)
         {
-            _minumumLength = minumumLength;
+            _minumumLength = minimumLength;
         }
 
         /// <summary>
@@ -33,11 +33,11 @@ namespace AdaTech.AIntelligence.Attributes
             var password = value as string;
             if (string.IsNullOrEmpty(password))
             {
-                return new ValidationResult("A senha não pode ser vazia");
+                return new ValidationResult("A senha não pode ser vazia.");
             }
             if (password.Length < _minumumLength)
             {
-                return new ValidationResult($"A senha deve ter no minimo {_minumumLength} caracteres");
+                return new ValidationResult($"A senha deve ter no mínimo {_minumumLength} caracteres.");
             }
             if (!HasRequiredCombinations(password))
             {
@@ -48,7 +48,7 @@ namespace AdaTech.AIntelligence.Attributes
         }
 
         /// <summary>
-        /// Checks if the password contains the required combinations.
+        /// Checks if password contains the required combinations.
         /// </summary>
         /// <param name="password">The password to check.</param>
         /// <returns>True if the password contains the required combinations; otherwise, false.</returns>

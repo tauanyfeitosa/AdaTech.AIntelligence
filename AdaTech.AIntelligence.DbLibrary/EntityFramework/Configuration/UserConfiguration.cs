@@ -1,11 +1,12 @@
-﻿using AdaTech.AIntelligence.Entities.Objects;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using AdaTech.AIntelligence.Entities.Objects;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
 
 namespace AdaTech.AIntelligence.DbLibrary.EntityFramework.Configuration
 {
     /// <summary>
-    /// Configuration for the User entity based in IdentityUser
+    /// Configuration for the User entity based in IdentityUser.
     /// </summary>
     internal class UserConfiguration : IEntityTypeConfiguration<UserInfo>
     {
