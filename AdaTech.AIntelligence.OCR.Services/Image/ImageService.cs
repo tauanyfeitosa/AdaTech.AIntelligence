@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-
+﻿
 namespace AdaTech.AIntelligence.OCR.Services.Image
 {
     /// <summary>
@@ -13,7 +11,7 @@ namespace AdaTech.AIntelligence.OCR.Services.Image
         /// </summary>
         /// <param name="image"></param>
         /// <param name="extension"></param>
-        /// <returns></returns>
+        /// <returns cref="object">Returns a portion of the request that describes the image file.</returns>
         public static async Task<object> DescriptionImage(this string image, string extension)
         {
 
@@ -34,7 +32,7 @@ namespace AdaTech.AIntelligence.OCR.Services.Image
         /// Method to validate the input url
         /// </summary>
         /// <param name="url"></param>
-        /// <returns></returns>
+        /// <returns cref="object">Returns a portion of the request that describes the url image.</returns>
         public static async Task<object> DescriptionImage(this string url)
         {
             var urlObject = new

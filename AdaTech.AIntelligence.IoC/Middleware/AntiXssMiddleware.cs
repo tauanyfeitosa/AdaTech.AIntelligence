@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ErrosCustomer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using System.Net;
-using System.Text;
 using Newtonsoft.Json;
 using AngleSharp.Text;
-using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ErrosCustomer;
+using System.Text;
+using System.Net;
 
 namespace AdaTech.AIntelligence.IoC.Middleware
 {
+    /// <summary>
+    /// Middleware to prevent Cross-Site Scripting (XSS) attacks by validating request URLs and query strings.
+    /// </summary>
     public class AntiXssMiddleware
     {
         private readonly RequestDelegate _next;
@@ -131,6 +134,12 @@ namespace AdaTech.AIntelligence.IoC.Middleware
     {
         private static readonly char[] StartingChars = { '<', '&' };
 
+        /// <summary>
+        /// Checks if a string contains potentially dangerous content indicating a Cross-Site Scripting (XSS) attack.
+        /// </summary>
+        /// <param name="request">The string to validate.</param>
+        /// <param name="matchIndex">The index of the first character of the potentially dangerous content if found; otherwise, 0.</param>
+        /// <returns>True if the string contains potentially dangerous content; otherwise, false.</returns>
         public static bool IsDangerousString(string request, out int matchIndex)
         {
             matchIndex = 0;
@@ -160,6 +169,10 @@ namespace AdaTech.AIntelligence.IoC.Middleware
             return false;
         }
 
+        /// <summary>
+        /// Adds the P3P header to the HTTP response headers if it's not already present.
+        /// </summary>
+        /// <param name="headers">The HTTP response headers.</param>
         public static void AddHeaders(this IHeaderDictionary headers)
         {
             if (headers["P3P"].IsNullOrEmpty())
@@ -168,14 +181,28 @@ namespace AdaTech.AIntelligence.IoC.Middleware
             }
         }
 
+        /// <summary>
+        /// Checks if a sequence is null or empty.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the sequence.</typeparam>
+        /// <param name="source">The sequence to check.</param>
+        /// <returns>True if the sequence is null or empty; otherwise, false.</returns>
         public static bool IsNullOrEmpty<T>(this IEnumerable<T> source)
         {
             return source == null || !source.Any();
         }
     }
 
+    /// <summary>
+    /// Extension method to add the AntiXssMiddleware to the request pipeline.
+    /// </summary>
     public static class AntiXssMiddlewareExtension
     {
+        /// <summary>
+        /// Adds the AntiXssMiddleware to the request pipeline.
+        /// </summary>
+        /// <param name="builder">The application builder.</param>
+        /// <returns>The application builder.</returns>
         public static IApplicationBuilder UseAntiXssMiddleware(this IApplicationBuilder builder)
         {
             return builder.UseMiddleware<AntiXssMiddleware>();

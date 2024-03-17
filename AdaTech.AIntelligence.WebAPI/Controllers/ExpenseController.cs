@@ -1,17 +1,16 @@
-using AdaTech.AIntelligence.Entities.Enums;
-using AdaTech.AIntelligence.IoC.Extensions.Filters;
-using AdaTech.AIntelligence.Attributes;
+using AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService;
 using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
-using AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.Net.Http.Headers;
-using System.Web;
-using Microsoft.AspNetCore.Identity;
-using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.WebAPI.SistemaVendas.Utilities.Filters;
+using AdaTech.AIntelligence.IoC.Extensions.Filters;
+using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Entities.Enums;
+using Microsoft.AspNetCore.Authorization;
+using AdaTech.AIntelligence.Attributes;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System.Net.Http.Headers;
 
 namespace AdaTech.AIntelligence.WebAPI.Controllers
 {
@@ -168,7 +167,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             var success = await _expenseCRUDService.GetAllSubmitted();
 
             if (success.IsNullOrEmpty())
-                throw new NotFoundException("Não existe despesas submetidas.");
+                throw new NotFoundException("Não existem despesas submetidas.");
 
             return Ok(success);
         }

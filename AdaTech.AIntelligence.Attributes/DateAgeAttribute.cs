@@ -10,7 +10,8 @@ namespace AdaTech.AIntelligence.Attributes
     public class DateAgeAttribute : ValidationAttribute
     {
         private readonly int _minimumAge;
-        // <summary>
+
+        /// <summary>
         /// Initializes need a <see cref="DateAgeAttribute"/> class with the specified minimum age.
         /// </summary>
         /// <param name="minimumAge">The minimum age allowed.</param>
@@ -48,9 +49,9 @@ namespace AdaTech.AIntelligence.Attributes
         }
 
         /// <summary>
-        /// Calculates the age based on the provided date of birth.
+        /// Calculates the age based on the provided birth date.
         /// </summary>
-        /// <param name="dateOfBirth">Date of birth.</param>
+        /// <param name="dateOfBirth">Birth date.</param>
         /// <returns>The age calculated based on the date of birth.</returns>
         internal int CalculateAge(DateOnly dateOfBirth)
         {
