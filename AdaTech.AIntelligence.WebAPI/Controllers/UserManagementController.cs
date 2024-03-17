@@ -3,6 +3,7 @@ using AdaTech.AIntelligence.DbLibrary.Repository;
 using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.Exceptions;
 using AdaTech.AIntelligence.Service.Services.UserSystem;
+using AdaTech.WebAPI.SistemaVendas.Utilities.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,13 +13,16 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [SwaggerDisplayName("User Management")]
+    [TypeFilter(typeof(LoggingActionFilter))]
     public class UserManagementController : ControllerBase
     {
         private readonly IUserCRUDService _userCRUDService;
+        private readonly ILogger<UserManagementController> _logger;
 
-        public UserManagementController(IAIntelligenceRepository<UserInfo> userRepository, ILogger<PromotionController> logger, IUserCRUDService userCRUDService, UserManager<UserInfo> userManager)
+        public UserManagementController(ILogger<UserManagementController> logger, IUserCRUDService userCRUDService)
         {
             _userCRUDService = userCRUDService;
+            _logger = logger;
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using AdaTech.AIntelligence.Attributes;
+using AdaTech.WebAPI.SistemaVendas.Utilities.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Web;
@@ -8,15 +9,18 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [SwaggerDisplayName("Chat GPT - Vision")]
+    [TypeFilter(typeof(LoggingActionFilter))]
     public class ChatGPTController : ControllerBase
     {
         private readonly IConfiguration _configuration;
         private readonly IHttpClientFactory _clientFactory;
+        private readonly ILogger<ChatGPTController> _logger;
 
-        public ChatGPTController(IHttpClientFactory clientFactory, IConfiguration configuration)
+        public ChatGPTController(IHttpClientFactory clientFactory, IConfiguration configuration, ILogger<ChatGPTController> logger)
         {
             _configuration = configuration;
             _clientFactory = clientFactory;
+            _logger = logger;
         }
 
         /// <summary>
