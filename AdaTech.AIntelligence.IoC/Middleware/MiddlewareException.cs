@@ -1,7 +1,8 @@
-﻿using AdaTech.AIntelligence.Service.Exceptions;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
+using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
+using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ErrosCustomer;
 
 namespace AdaTech.AIntelligence.IoC.Middleware
 {
@@ -63,6 +64,8 @@ namespace AdaTech.AIntelligence.IoC.Middleware
                 ReadingAmountException _ => StatusCodes.Status404NotFound,
                 ReadingCategoryException _ => StatusCodes.Status404NotFound,
                 ReadingDescriptionException _ => StatusCodes.Status404NotFound,
+                NotConnectionGPTException _ => StatusCodes.Status404NotFound,
+                UnprocessableEntityException _ => StatusCodes.Status422UnprocessableEntity,
                 _ => StatusCodes.Status500InternalServerError,
             };
 

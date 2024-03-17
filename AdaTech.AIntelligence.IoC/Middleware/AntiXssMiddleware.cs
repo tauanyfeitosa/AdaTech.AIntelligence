@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Http;
 using System.Net;
 using System.Text;
 using Newtonsoft.Json;
-using AdaTech.AIntelligence.Service.Exceptions;
 using AngleSharp.Text;
+using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ErrosCustomer;
 
 namespace AdaTech.AIntelligence.IoC.Middleware
 {

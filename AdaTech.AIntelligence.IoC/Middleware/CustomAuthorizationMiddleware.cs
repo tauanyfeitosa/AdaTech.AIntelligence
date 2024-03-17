@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using AdaTech.AIntelligence.Service.Exceptions;
+﻿using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ErrosCustomer;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
 namespace AdaTech.AIntelligence.IoC.Middleware
@@ -23,7 +23,7 @@ namespace AdaTech.AIntelligence.IoC.Middleware
 
                 var errorResponse = new ErrorDetails() 
                 { 
-                    StatusCode = StatusCodes.Status403Forbidden,
+                    StatusCode = StatusCodes.Status401Unauthorized,
                     Message = "Usuário não autorizado para acessar esta rota."
                 };
 
