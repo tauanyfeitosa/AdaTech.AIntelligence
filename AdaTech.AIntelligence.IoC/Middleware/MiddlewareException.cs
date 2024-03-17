@@ -56,21 +56,27 @@ namespace AdaTech.AIntelligence.IoC.Middleware
 
             var statusCode = exception switch
             {
-                InvalidAmountException _ => StatusCodes.Status400BadRequest,
-                InvalidCategoryException _ => StatusCodes.Status400BadRequest,
-                InvalidDescriptionException _ => StatusCodes.Status400BadRequest,
-                NotAnExpenseException _ => StatusCodes.Status400BadRequest,
-                NotFoundException _ => StatusCodes.Status404NotFound,
-                NotReadableImageException _ => StatusCodes.Status415UnsupportedMediaType,
-                ReadingAmountException _ => StatusCodes.Status404NotFound,
-                ReadingCategoryException _ => StatusCodes.Status404NotFound,
-                ReadingDescriptionException _ => StatusCodes.Status404NotFound,
-                NotConnectionGPTException _ => StatusCodes.Status404NotFound,
-                UnprocessableEntityException _ => StatusCodes.Status422UnprocessableEntity,
-                SmtpException _ => StatusCodes.Status500InternalServerError,
+                InvalidAmountException _ or
+                InvalidCategoryException _ or
+                InvalidDescriptionException _ or
+                NotAnExpenseException _ or
                 FormatException _ => StatusCodes.Status400BadRequest,
+
+                NotFoundException _ or
+                ReadingAmountException _ or
+                ReadingCategoryException _ or
+                ReadingDescriptionException _ or
+                NotConnectionGPTException _ => StatusCodes.Status404NotFound,
+
+                NotReadableImageException _ => StatusCodes.Status415UnsupportedMediaType,
+
+                UnprocessableEntityException _ => StatusCodes.Status422UnprocessableEntity,
+
+                SmtpException _ => StatusCodes.Status500InternalServerError,
+
                 _ => StatusCodes.Status500InternalServerError,
             };
+
 
             var message = exception.Message;
 
