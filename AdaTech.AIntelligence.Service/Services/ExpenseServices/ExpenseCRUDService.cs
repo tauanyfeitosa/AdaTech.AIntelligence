@@ -1,7 +1,7 @@
 using AdaTech.AIntelligence.Entities.Enums;
 using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.Services.DeleteStrategyService;
-using AdaTech.AIntelligence.Service.Exceptions;
+using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
 using AdaTech.AIntelligence.DbLibrary.Repository;
 

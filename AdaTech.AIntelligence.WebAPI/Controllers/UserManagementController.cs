@@ -1,7 +1,7 @@
 ﻿using AdaTech.AIntelligence.Attributes;
 using AdaTech.AIntelligence.DbLibrary.Repository;
 using AdaTech.AIntelligence.Entities.Objects;
-using AdaTech.AIntelligence.Service.Exceptions;
+using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
 using AdaTech.AIntelligence.Service.Services.UserSystem;
 using AdaTech.WebAPI.SistemaVendas.Utilities.Filters;
 using Microsoft.AspNetCore.Authorization;

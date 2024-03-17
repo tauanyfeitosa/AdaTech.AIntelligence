@@ -1,4 +1,4 @@
-﻿namespace AdaTech.AIntelligence.Service.Exceptions
+﻿namespace AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer
 {
     public class ReadingCategoryException : Exception
     {
