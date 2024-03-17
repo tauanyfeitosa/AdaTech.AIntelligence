@@ -16,6 +16,7 @@ using AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService;
 using AdaTech.AIntelligence.DbLibrary.Repository;
 using AdaTech.AIntelligence.Service.Services.RoleRequirementService;
 using AdaTech.AIntelligence.Service.Services.RoleRequirementService.PromotionServices;
+using AdaTech.AIntelligence.Service.Services.UserSystem.UserInterface;
 
 
 namespace AdaTech.AIntelligence.IoC.Extensions.Injections

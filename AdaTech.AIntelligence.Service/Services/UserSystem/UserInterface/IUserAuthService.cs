@@ -1,6 +1,6 @@
 ﻿using AdaTech.AIntelligence.Service.DTOs.Interfaces;
 
-namespace AdaTech.AIntelligence.Service.Services.UserSystem
+namespace AdaTech.AIntelligence.Service.Services.UserSystem.UserInterface
 {
     public interface IUserAuthService
     {
