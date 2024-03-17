@@ -1,6 +1,6 @@
 ﻿using AdaTech.AIntelligence.Entities.Objects;
 
-namespace AdaTech.AIntelligence.Service.Services.UserSystem
+namespace AdaTech.AIntelligence.Service.Services.UserSystem.UserInterface
 {
     public interface IUserCRUDService
     {

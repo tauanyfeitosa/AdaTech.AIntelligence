@@ -115,7 +115,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             var success = await _expenseCRUDService.UpdateExpense(expense);
 
             if (!success)
-                throw new Exception("Erro ao alterar o status da despesa.");
+                throw new UnprocessableEntityException("Erro ao alterar o status da despesa.");
 
             return Ok("Status da despesa atualizado com sucesso!");
         }

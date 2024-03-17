@@ -4,7 +4,6 @@ using AdaTech.AIntelligence.DbLibrary.Repository;
 using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyDelete
 {
@@ -33,7 +32,7 @@ namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyD
                 return "Deleção realizada com sucesso.";
             }
 
-            return "Erro ao realizar a deleção.";
+            throw new UnprocessableEntityException("Falha ao deletar usuário. Tente novamente!");
         }
 
         public async Task<string> DeleteEntityAsync(IAIntelligenceRepository<T> repository, object entity, ExpenseReportingDbContext? context = null)
@@ -53,7 +52,7 @@ namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyD
 
                 if (!success)
                 {
-                    throw new InvalidOperationException("Falha ao realizar hard delete. Tente novamente!");
+                    throw new UnprocessableEntityException("Falha ao realizar hard delete. Tente novamente!");
                 }
 
                 return "Excluido com sucesso!";

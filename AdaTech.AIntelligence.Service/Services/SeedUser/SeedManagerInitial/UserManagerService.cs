@@ -29,6 +29,7 @@ namespace AdaTech.AIntelligence.Service.Services.SeedUser.SeedManagerInitial
             };
 
             var result = await _userManager.CreateAsync(user, userCredentialsSettings.Password);
+
             if(result.Succeeded)
             {
                 return user;
