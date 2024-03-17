@@ -23,7 +23,7 @@ namespace AdaTech.AIntelligence.IoC.Middleware
 
                 var errorResponse = new ErrorDetails() 
                 { 
-                    StatusCode = StatusCodes.Status403Forbidden,
+                    StatusCode = StatusCodes.Status401Unauthorized,
                     Message = "Usuário não autorizado para acessar esta rota."
                 };
 
