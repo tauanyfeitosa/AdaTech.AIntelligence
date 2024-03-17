@@ -197,27 +197,9 @@ Com todas essas informações, esperamos que esteja bem instruído para navegar 
 |:-----------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------:|
 |                   <img src="img/charles.jpeg" width="200px"> </img>                            |               <img src="img/eduarda.jpeg" width="200px"> </img>                          |                   <img src="img/tauany.jpg" width="200px"> </img>                            |               <img src="img/miguel.jpeg" width="200px"> </img>                          |               <img src="img/yuri.jpeg" width="200px"> </img>                          |
 |               <a href="https://github.com/charles-serafim" target="_blank">`github.com/charles-serafim`</a>      |  <a href="https://github.com/MariaEduardaSampaio" target="_blank">`github.com/MariaEduardaSampaio`</a>  |               <a href="https://github.com/tauanyfeitosa" target="_blank">`github.com/tauanyfeitosa`</a>      |   <a href="https://github.com/Koohra" target="_blank">`github.com/Koohra`</a>  |  <a href="https://github.com/Montaguine" target="_blank">`github.com/Montaguine`</a>  |
+|               <a href="mailto:inseriremailcharles"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=red" target="_blank"></a>      |  <a href="mailto:mariaeduardamrs0@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=red" target="_blank"></a>  |               <a href="mailto:tauanysanttos13@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=red" target="_blank"></a>     |   <a href="mailto:inseriremailmiguel"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=red" target="_blank"></a>  |  <a href="mailto:inseriremailyuri"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=red" target="_blank"></a>  |
 
 
-
-# Contato
-
-Caso tenha alguma dúvida, procurem-nos se acaso necessitarem em nossas redes sociais:
-
-Charles ->
-<a href="mailto:inseriremailcharles"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=red" target="_blank"></a>
-
-M. Eduarda -> 
-<a href="mailto:mariaeduardamrs0@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=red" target="_blank"></a>
-
-M. Tauany ->
-<a href="mailto:tauanysanttos13@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=red" target="_blank"></a>
-
-Miguel ->
-<a href="mailto:inseriremailmiguel"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=red" target="_blank"></a>
-
-Yuri ->
-<a href="mailto:inseriremailyuri"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=red" target="_blank"></a>
 
 
 
