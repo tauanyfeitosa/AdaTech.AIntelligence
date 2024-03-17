@@ -155,7 +155,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             var success = await _expenseCRUDService.GetAllActive();
 
             if (success.IsNullOrEmpty())
-                throw new NotFoundException("N�o existem despesas ativas.");
+                throw new NotFoundException("Não existem despesas ativas.");
 
             return Ok(success);
         }
@@ -172,7 +172,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             var success = await _expenseCRUDService.GetAllSubmitted();
 
             if (success.IsNullOrEmpty())
-                throw new NotFoundException();
+                throw new NotFoundException("Não existe despesas submetidas.");
 
             return Ok(success);
         }

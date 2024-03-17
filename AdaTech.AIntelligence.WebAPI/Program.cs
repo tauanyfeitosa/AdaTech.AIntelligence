@@ -33,18 +33,6 @@ app.ResolveDependenciesMiddleware();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.Use(async (context, next) =>
-{
-    await next();
-
-    if (context.Response.StatusCode == 404 && !context.Response.HasStarted)
-    {
-        context.Response.ContentType = "application/json";
-        var errorResponse = new { message = "Recurso nao encontrado - certifique-se de estar logado" };
-        await context.Response.WriteAsync(JsonConvert.SerializeObject(errorResponse));
-    }
-});
-
 app.MapControllers();
 
 app.Run();
