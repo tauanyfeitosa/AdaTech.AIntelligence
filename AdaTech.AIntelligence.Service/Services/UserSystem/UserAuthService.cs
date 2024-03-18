@@ -49,24 +49,16 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
         /// <returns>A task representing the asynchronous operation. Returns true if the authentication is successful; otherwise, false.</returns>
         public async Task<bool> AuthenticateAsync(string email, string password)
         {
-            try
-            {
-                var result = await _signInManager.PasswordSignInAsync(email,
-                password, false, lockoutOnFailure: false);
+            var result = await _signInManager.PasswordSignInAsync(email,
+            password, false, lockoutOnFailure: false);
 
-                if (!result.Succeeded)
-                    return false;
+            var user = await _userManager.FindByEmailAsync(email);
 
-                var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+                throw new NotFoundException("Usuário não encontrado. Por favor, realize o autocadastro!");
 
-                _logger.LogInformation("Usuário autenticado com sucesso.");
-                return user == null ? throw new NotFoundException("Usuário não encontrado.") : result.Succeeded;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Tentativa de login sem sucesso: {ex}");
-                throw new InvalidOperationException($"Tentativa de login sem sucesso: {ex}");
-            }
+            _logger.LogInformation("Usuário autenticado com sucesso.");
+            return result.Succeeded;
         }
 
         /// <summary>

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using AdaTech.AIntelligence.Attributes;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
 
 namespace AdaTech.AIntelligence.WebAPI.Controllers
 {
@@ -37,10 +38,14 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         public async Task<IActionResult> Login([FromBody] DTOUserLogin userLoginInfo)
         {
             var succeeded = await _userAuthService.AuthenticateAsync(userLoginInfo.Email, userLoginInfo.Password);
-            if (succeeded)
-                return Ok($"Usuário {userLoginInfo.Email} logado com sucesso!");
-            return BadRequest($"Não foi possível logar com {userLoginInfo.Email}. " +
-                $"Certifique-se de que seu email foi confirmado e que suas credenciais estão corretas.");
+            
+            if (!succeeded)
+            {
+                _logger.LogError($"Login sem sucesso: {userLoginInfo.Email}.");
+                throw new UnauthorizedAccessException("Login sem sucesso.");
+            }
+
+            return Ok($"Usuário {userLoginInfo.Email} logado com sucesso!");
         }
 
         /// <summary>
