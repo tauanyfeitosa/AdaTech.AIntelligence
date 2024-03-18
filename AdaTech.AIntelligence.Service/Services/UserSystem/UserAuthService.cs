@@ -85,42 +85,38 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
         /// <returns>A task representing the asynchronous operation. Returns true if the registration is successful; otherwise, false.</returns>
         public async Task<bool> RegisterUserAsync(IUserRegister userRegister)
         {
-            try
+            var user = await _userManager.FindByEmailAsync(userRegister.Email);
+
+            if (user != null)
+                throw new UnprocessableEntityException("Usuário já cadastrado.");
+
+            var userInfo = await userRegister.RegisterUserAsync();
+
+            var result = await _userManager.CreateAsync(userInfo, userRegister.Password);
+
+            if (result.Succeeded)
             {
-                var userInfo = await userRegister.RegisterUserAsync();
-
-                var result = await _userManager.CreateAsync(userInfo, userRegister.Password);
-
-                if (result.Succeeded)
+                if (userRegister is DTOSuperUserRegister superUserRegister)
                 {
-                    if (userRegister is DTOSuperUserRegister superUserRegister)
+                    foreach (var item in superUserRegister.Roles)
                     {
-                        foreach (var item in superUserRegister.Roles)
-                        {
-                            await _userManager.AddToRoleAsync(userInfo, item.ToString());
-                        }
+                        await _userManager.AddToRoleAsync(userInfo, item.ToString());
                     }
-                    else
-                    {
-                        await _userManager.AddToRoleAsync(userInfo, "Employee");
-                    }
-
-                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(userInfo);
-
-                    var confirmationLink = $"{_appSettings.GetValue<string>("ServerSMTP:BaseUrl")}/{userInfo.Id}/{Uri.EscapeDataString(token)}";
-
-                    var emailBody = $"Por favor, clique no link a seguir para confirmar seu endereço de e-mail: <a href='{confirmationLink}'>Confirmar E-mail</a>";
-
-                    await _emailService.SendEmailAsync(userInfo.Email, "Confirmação de E-mail", emailBody);
                 }
-                return result.Succeeded;
+                else
+                {
+                    await _userManager.AddToRoleAsync(userInfo, "Employee");
+                }
 
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(userInfo);
+
+                var confirmationLink = $"{_appSettings.GetValue<string>("ServerSMTP:BaseUrl")}/{userInfo.Id}/{Uri.EscapeDataString(token)}";
+
+                var emailBody = $"Por favor, clique no link a seguir para confirmar seu endereço de e-mail: <a href='{confirmationLink}'>Confirmar E-mail</a>";
+
+                await _emailService.SendEmailAsync(userInfo.Email, "Confirmação de E-mail", emailBody);
             }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Tentativa de registro sem sucesso com email {userRegister.Email}: {ex}");
-                throw new UnprocessableEntityException($"Tentativa de registro sem sucesso: {ex}");
-            }
+            return result.Succeeded;
         }
     }
 }
