@@ -86,43 +86,81 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
         /// <returns>A task representing the asynchronous operation. Returns true if the registration is successful; otherwise, false.</returns>
         public async Task<bool> RegisterUserAsync(IUserRegister userRegister)
         {
-            var userCpf = await _userManager.Users.FirstOrDefaultAsync(u => u.CPF == userRegister.CPF);
-
-            if (userCpf != null)
-                throw new UnprocessableEntityException("CPF já cadastrado.");
-
-            var user = await _userManager.FindByEmailAsync(userRegister.Email);
-
-            if (user != null)
-                throw new UnprocessableEntityException("Usuário já cadastrado.");
+            await ValidateCpfAsync(userRegister.CPF);
+            await ValidateEmailAsync(userRegister.Email);
 
             var userInfo = await userRegister.RegisterUserAsync();
-
             var result = await _userManager.CreateAsync(userInfo, userRegister.Password);
-
-            if (result.Succeeded)
+            if (!result.Succeeded)
             {
-                if (userRegister is DTOSuperUserRegister superUserRegister)
-                {
-                    foreach (var item in superUserRegister.Roles)
-                    {
-                        await _userManager.AddToRoleAsync(userInfo, item.ToString());
-                    }
-                }
-                else
-                {
-                    await _userManager.AddToRoleAsync(userInfo, "Employee");
-                }
-
-                var token = await _userManager.GenerateEmailConfirmationTokenAsync(userInfo);
-
-                var confirmationLink = $"{_appSettings.GetValue<string>("ServerSMTP:BaseUrl")}/{userInfo.Id}/{Uri.EscapeDataString(token)}";
-
-                var emailBody = $"Por favor, clique no link a seguir para confirmar seu endereço de e-mail: <a href='{confirmationLink}'>Confirmar E-mail</a>";
-
-                await _emailService.SendEmailAsync(userInfo.Email, "Confirmação de E-mail", emailBody);
+                throw new UnprocessableEntityException ("Falha ao criar usuário.");
             }
+
+            await AssignRolesAsync(userInfo, userRegister);
+            await SendConfirmationEmailAsync(userInfo);
+
             return result.Succeeded;
+        }
+
+        /// <summary>
+        /// Confirms the email of a user asynchronously.
+        /// </summary>
+        /// <param name="cpf"></param>
+        /// <returns></returns>
+        /// <exception cref="UnprocessableEntityException"></exception>
+        private async Task ValidateCpfAsync(string cpf)
+        {
+            var userCpf = await _userManager.Users.FirstOrDefaultAsync(u => u.CPF == cpf);
+            if (userCpf != null)
+                throw new UnprocessableEntityException("CPF já cadastrado.");
+        }
+
+        /// <summary>
+        /// Confirms the email of a user asynchronously.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        /// <exception cref="UnprocessableEntityException"></exception>
+        private async Task ValidateEmailAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user != null)
+                throw new UnprocessableEntityException("Usuário já cadastrado.");
+        }
+
+        /// <summary>
+        /// Assigns roles to a user asynchronously.
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <param name="userRegister"></param>
+        /// <returns></returns>
+        private async Task AssignRolesAsync(UserInfo userInfo, IUserRegister userRegister)
+        {
+            if (userRegister is DTOSuperUserRegister superUserRegister)
+            {
+                foreach (var role in superUserRegister.Roles)
+                {
+                    await _userManager.AddToRoleAsync(userInfo, role.ToString());
+                }
+            }
+            else
+            {
+                await _userManager.AddToRoleAsync(userInfo, "Employee");
+            }
+        }
+
+        /// <summary>
+        /// Sends a confirmation email to a user asynchronously.
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
+        private async Task SendConfirmationEmailAsync(UserInfo userInfo)
+        {
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(userInfo);
+            var confirmationLink = $"{_appSettings.GetValue<string>("ServerSMTP:BaseUrl")}/{userInfo.Id}/{Uri.EscapeDataString(token)}";
+            var emailBody = $"Por favor, clique no link a seguir para confirmar seu endereço de e-mail: <a href='{confirmationLink}'>Confirmar E-mail</a>";
+
+            await _emailService.SendEmailAsync(userInfo.Email, "Confirmação de E-mail", emailBody);
         }
     }
 }
