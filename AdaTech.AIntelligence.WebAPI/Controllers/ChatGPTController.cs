@@ -1,8 +1,10 @@
-﻿using AdaTech.WebAPI.SistemaVendas.Utilities.Filters;
+﻿using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
+using AdaTech.WebAPI.SistemaVendas.Utilities.Filters;
 using Microsoft.AspNetCore.Authorization;
 using AdaTech.AIntelligence.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using System.Web;
+using System.Net;
 
 namespace AdaTech.AIntelligence.WebAPI.Controllers
 {
@@ -50,10 +52,14 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             {
                 var responseData = await response.Content.ReadAsStringAsync();
                 return Ok(responseData);
+
+            } else if (response.StatusCode == HttpStatusCode.InternalServerError)
+            {
+                throw new UnauthorizedAccessException("Acesso negado, verifique sua apiKey");
             }
             else
             {
-                return StatusCode((int)response.StatusCode, await response.Content.ReadAsStringAsync());
+                throw new NotConnectionGPTException("A coneção com o GPT não conseguiu ser estabelecida.");
             }
         }
 
