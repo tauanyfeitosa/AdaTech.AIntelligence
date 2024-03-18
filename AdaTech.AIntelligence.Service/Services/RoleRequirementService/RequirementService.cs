@@ -1,9 +1,7 @@
-﻿using AdaTech.AIntelligence.DbLibrary.Repository;
-using AdaTech.AIntelligence.Entities.Enums;
+﻿using AdaTech.AIntelligence.Entities.Enums;
 using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.Services.RoleRequirementService.PromotionServices;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 
 namespace AdaTech.AIntelligence.Service.Services.RoleRequirementService
 {

@@ -4,6 +4,7 @@ using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
 using AdaTech.AIntelligence.Service.DTOs.Interfaces;
 using Microsoft.Extensions.Configuration;
+using AdaTech.AIntelligence.Service.Services.EmailService;
 
 namespace AdaTech.AIntelligence.Service.Services.UserSystem
 {
@@ -12,14 +13,14 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
         private readonly UserManager<UserInfo> _userManager;
         private readonly SignInManager<UserInfo> _signInManager;
         private readonly ILogger<UserAuthService> _logger;
-        private readonly EmailService.IEmailService _emailService;
+        private readonly IEmailService _emailService;
         private readonly IConfiguration _appSettings;
 
 
         public UserAuthService(SignInManager<UserInfo> signInManager,
             UserManager<UserInfo> userManager,
             ILogger<UserAuthService> logger,
-            EmailService.IEmailService emailService, IConfiguration appSettings)
+            IEmailService emailService, IConfiguration appSettings)
         {
             _signInManager = signInManager;
             _userManager = userManager;
