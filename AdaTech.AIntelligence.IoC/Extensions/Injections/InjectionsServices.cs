@@ -16,6 +16,8 @@ using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.IoC.Middleware;
 using Microsoft.AspNetCore.Builder;
 using System.Net.Mail;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Http;
 
 
 namespace AdaTech.AIntelligence.IoC.Extensions.Injections
