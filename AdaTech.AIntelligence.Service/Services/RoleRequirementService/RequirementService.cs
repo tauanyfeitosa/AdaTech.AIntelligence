@@ -3,6 +3,8 @@ using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
 using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Entities.Enums;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Http;
 
 namespace AdaTech.AIntelligence.Service.Services.RoleRequirementService
 {
@@ -13,16 +15,18 @@ namespace AdaTech.AIntelligence.Service.Services.RoleRequirementService
     {
         private readonly PromotionService _promotionService;
         private readonly UserManager<UserInfo> _userManager;
+        private readonly HttpContext _httpContext;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RequirementService"/> class.
         /// </summary>
         /// <param name="promotionService">The promotion service instance.</param>
         /// <param name="userManager">The user manager instance.</param>
-        public RequirementService( PromotionService promotionService, UserManager<UserInfo> userManager)
+        public RequirementService( PromotionService promotionService, UserManager<UserInfo> userManager, IHttpContextAccessor httpContextAccessor)
         {
             _promotionService = promotionService;
             _userManager = userManager;
+            _httpContext = httpContextAccessor.HttpContext;
         }
 
         /// <summary>
@@ -33,6 +37,18 @@ namespace AdaTech.AIntelligence.Service.Services.RoleRequirementService
         /// <returns>A task representing the asynchronous operation. Returns a message indicating the result of the promotion request.</returns>
         public async Task<string> AskForPromotion(Roles roles, UserInfo user)
         {
+            if  (roles == 0)
+            {
+                throw new UnprocessableEntityException("Cargo invalída.");
+            }
+            var userContext = _httpContext.User;
+            var isRole = userContext.IsInRole(roles.ToString());
+
+            if (isRole)
+            {
+                throw new InvalidOperationException("Cargo inválido, você já possui essa permissão");
+            }
+
             var roleRequirement = new RoleRequirement
             {
                 UserInfoId = user.Id,
