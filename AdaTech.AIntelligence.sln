@@ -44,7 +44,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "package", "package", "{4C92
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaTech.AIntelligence.Attributes", "AdaTech.AIntelligence.Attributes\AdaTech.AIntelligence.Attributes.csproj", "{FE3F0FE4-7934-4025-BC0B-C2CA3FA50FD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdaTech.AIntelligence.DbLibrary", "AdaTech.AIntelligence.DbLibrary\AdaTech.AIntelligence.DbLibrary.csproj", "{157C30CA-96EC-41C9-9138-929339735D5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaTech.AIntelligence.DbLibrary", "AdaTech.AIntelligence.DbLibrary\AdaTech.AIntelligence.DbLibrary.csproj", "{157C30CA-96EC-41C9-9138-929339735D5D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "exceptions", "exceptions", "{DBE475A1-1010-45FA-A587-A4030B72693B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdaTech.AIntelligence.Exceptions", "AdaTech.AIntelligence.Exceptions\AdaTech.AIntelligence.Exceptions.csproj", "{C0276C3A-7164-49D1-BA0D-B566CB12C1AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -92,6 +96,10 @@ Global
 		{157C30CA-96EC-41C9-9138-929339735D5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{157C30CA-96EC-41C9-9138-929339735D5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{157C30CA-96EC-41C9-9138-929339735D5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0276C3A-7164-49D1-BA0D-B566CB12C1AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0276C3A-7164-49D1-BA0D-B566CB12C1AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0276C3A-7164-49D1-BA0D-B566CB12C1AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0276C3A-7164-49D1-BA0D-B566CB12C1AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -115,6 +123,7 @@ Global
 		{BC7415FF-59BD-4EB0-8514-54030776A5DC} = {29A73D76-D132-4268-9E39-C2B9138D6584}
 		{FE3F0FE4-7934-4025-BC0B-C2CA3FA50FD4} = {4C9204E7-86B7-4EBF-9350-E5FA57931CC7}
 		{157C30CA-96EC-41C9-9138-929339735D5D} = {7625578D-3775-4783-9360-D8D97C5BFE3B}
+		{C0276C3A-7164-49D1-BA0D-B566CB12C1AC} = {DBE475A1-1010-45FA-A587-A4030B72693B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {22918284-F192-4785-9A60-CCBD0AF090B4}

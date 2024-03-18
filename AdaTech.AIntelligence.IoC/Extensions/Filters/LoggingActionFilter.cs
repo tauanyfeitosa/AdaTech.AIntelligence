@@ -3,6 +3,9 @@ using Microsoft.Extensions.Logging;
 
 namespace AdaTech.WebAPI.SistemaVendas.Utilities.Filters
 {
+    /// <summary>
+    /// Filter responsable for logging action informations.
+    /// </summary>
     public class LoggingActionFilter : ActionFilterAttribute
     {
         private readonly ILogger<LoggingActionFilter> _logger;

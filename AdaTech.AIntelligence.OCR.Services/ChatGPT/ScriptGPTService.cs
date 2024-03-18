@@ -6,14 +6,14 @@ namespace AdaTech.AIntelligence.OCR.Services.ChatGPT
     public class ScriptGPTService
     {
         /// <summary>
-        /// Method to create the request to the chat GPT.
+        /// Method to create a portion of the request to the ChatGPT-4-Vision API.
         /// </summary>
-        /// <param name="imagem"></param>
+        /// <param name="image"></param>
         /// <param name="url"></param>
-        /// <returns></returns>
-        public Task<StringContent> ScriptPrompt(string imagem, object url)
+        /// <returns cref="StringContent">Returns a portion of the request following business's rules.</returns>
+        public Task<StringContent> ScriptPrompt(string image, object url)
         {
-            var imagemInvalida = "ERROR_RESPONSE";
+            var invalidImageResponse = "ERROR_RESPONSE";
             var requestData = new
             {
 
@@ -33,7 +33,7 @@ namespace AdaTech.AIntelligence.OCR.Services.ChatGPT
                         role = "system",
                         content = new object[]
                         {
-                            new { type = "text", text = $"A imagem ou url contém uma nota fiscal? Uma nota fiscal tem o nome nota fiscal, comprovante fiscal ou DANFE nela. Uma nota fiscal tem um valor nela. Continuar somente se a resposta for SIM, caso contrário, responder {imagemInvalida}" },
+                            new { type = "text", text = $"A imagem ou url contém uma nota fiscal? Uma nota fiscal tem o nome nota fiscal, comprovante fiscal ou DANFE nela. Uma nota fiscal tem um valor nela. Continuar somente se a resposta for SIM, caso contrário, responder {invalidImageResponse}" },
                         }
                     },
                     new

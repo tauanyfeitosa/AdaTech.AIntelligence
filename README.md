@@ -76,7 +76,7 @@ Para que pudéssemos empregar melhor nossos conhecimentos(e aprender sobre outro
 
 Ambas as janelas devem estar abertas, pois a `Artificial Intelligence` faz consultas ao endpoint da OCR, logo, nossa OCR deve estar aberta também. No entanto, não precisaremos mexer nela, então pode se concentrar e se divertir navegando apenas pelo Swagger nomeado `Artificial Intelligence` (mas não vá fechar a janela da OCR hein? Ela precisa continuar aberta!!!)
 
-## Erro 404
+## Erro 401
 
 Analisando o Swagger principal (`Artificial Intelligence`), você verá alguns ícones importantes:
 
@@ -97,12 +97,11 @@ A estrutura abaixo significa:
 
 Se você tentar agora utilizar esse endpoint, sem ter feito login, clicando em `Try it out` e depois `Execute`, deverá encontrar o seguinte erro:
 
-<img width="921" alt="image" src="https://github.com/tauanyfeitosa/AdaTech.AIntelligence/assets/93644115/17b14ecf-06d3-4113-8c47-2be5b8b20ecb">
-
+![image](https://github.com/tauanyfeitosa/AdaTech.AIntelligence/assets/93644115/0ecd2a69-9fc4-4a2b-a43e-d2661fa33a95)
 
 Como dito no nosso QuickSetup, estamos utilizando o Identity para usuários. O Identity cria Claims que informa dados do usuário logado para os endpoints que necessitam de autenticação (você deverá os reconhecer pelos ícones de cadeados, eles significam que são endpoints fechados para usuários anônimos, necessitando de uma identificação).
 
-Logo, uma das primeiras coisas a se fazer é efetuar o login para poder acessar os endpoints que necessitam de autenticação.
+Logo, uma das primeiras coisas a se fazer é efetuar o login para poder acessar os endpoints que necessitam de autenticação. Além disso, alguns endpoints necessitam de permissões especiais (que falaremos mais adiante), caso não tenha a permissão devida, o sistema também irá barrá-lo.
 
 # Fluxo de Funcionamento
 
@@ -142,3 +141,65 @@ Note que este endpoint possui um campo a mais no JSON, este campo indica que tip
 Você deve ter notado que temos um cadeado neste endpoint, ou seja, um outro usuário logado deve criar um usuário externo. Mas apenas logar não é o suficiente neste caso. Para acessar essa rota o sistema pede que você tenha como permissão Admin. 
 
 E agora, aquele usuário inicial se torna tão importante! Ele possui as permissões de Admin e Finance (pois é possível acumular Roles). Logando com os dados dele (basta pegar o UserName e Password informados no appsettings), você poderá acessar este endpoint. Lembrando que: mesmo criando este usuário em outra rota, ele continuará tendo que confirmar seu email, então apenas informe emails válidos.
+
+## Permissões do Sistema
+
+Como dito, trabalhamos com 3 tipos de Roles (permissões) utilizando o Identity. Abaixo, segue uma tabela com todos os endpoints visíveis no Swagger e quais são as Roles necessárias para prosseguir.
+
+|  Endpoints (Ações)                       | Controller (Subdivisão)       |                Roles                             |
+| :--------------------------------------: | :---------------------------: | :----------------------------------------------: |
+|`/api/ChatGPT/check`                      | Chat GPT - Vision             |     Admin                                        | 
+|`/api/Promotion/ask-for-promotion`        | Promotion User                |     Usuário autenticado                          | 
+|`/api/Promotion/promote-user`             | Promotion User                |     Usuário autenticado                          | 
+|`/api/Expense/create-expense-image-file`  | Report Expense                |     Usuário autenticado                          | 
+|`/api/Expense/create-expense-image-url`   | Report Expense                |     Usuário autenticado                          | 
+|`/api/Expense/update-status-expense`      | Report Expense                |     Finance                                      | 
+|`/api/Expense/view-expense`               | Report Expense                |     Admin + Finance (necessário ambas as Roles)  | 
+|`/api/Expense/view-expense-active`        | Report Expense                |     Admin + Finance (necessário ambas as Roles)  | 
+|`/api/Expense/view-expense-submitted`     | Report Expense                |     Finance                                      | 
+|`/api/Expense/delete`                     | Report Expense                |     Admin + Finance (necessário ambas as Roles)  | 
+|`/api/Expense/delete-soft`                | Report Expense                |     Finance                                      | 
+|`/api/UserAuth/login`                     | User Authentication           |                                                  | 
+|`/api/UserAuth/logout`                    | User Authentication           |     Usuário autenticado                          |
+|`/api/UserAuth/create-user`               | User Authentication           |                                                  | 
+|`/api/UserAuth/create-super-user`         | User Authentication           |     Admin                                        |
+|`/api/UserManagement/view-user`           | User Management               |     Admin                                        |
+|`/api/UserManagement/view-all-users`      | User Management               |     Admin                                        |
+|`/api/UserManagement/delete-user`         | User Management               |     Admin                                        |
+
+Há um endpoint em User Authentication invisível ao Swagger, o endpoint que está responsável pela confirmação de e-mail via link, uma vez que a ideia é que esta confirmação seja feita via usuário em seu e-mail pessoal e não dentro da aplicação.
+
+Nota: `Usuário Autenticado -> permissão para qualquer usuário mesmo sem Roles que esteja logado no sistema.`
+
+
+## Como Obtenho Permissões?
+
+Todo usuário, assim que é criado, possui as permissões mais simples, conhecida como Role Employee. Mas é claro que é possível pedir uma evolução de cargo dentro do sistema. Isso acontece através do endpoint abaixo:
+
+![image](https://github.com/tauanyfeitosa/AdaTech.AIntelligence/assets/93644115/a2faed82-6297-4841-8727-5a331602a67a)
+
+Para fazer um requerimento de cargo você deve estar logado e preencher o ComboBox abaixo de acordo com sua escolha:
+
+![image](https://github.com/tauanyfeitosa/AdaTech.AIntelligence/assets/93644115/04448e7c-1ffa-42b0-a29d-7b57f9d096c9)
+
+Como pode notar, as escolhas variam de 1 a 3, a fim de consulta, abaixo temos as relações dos números com as respectivas regras:
+
+![image](https://github.com/tauanyfeitosa/AdaTech.AIntelligence/assets/93644115/fce72fd3-dd1a-4d50-b312-14c3e4947de7)
+
+Após enviar com sucesso a requisição, um administrador poderá aprovar ou não sua evolução de cargo. Seu cargo anterior permanece, você ganha assim uma permissão a mais no sistema, mantendo as anteriores. Já quando um usuário é criado por um Admin, este pode definir as permissões daquele já durante a criação. Super simples, não?
+
+Com todas essas informações, esperamos que esteja bem instruído para navegar por nossa aplicação!!!
+
+# Autores
+
+
+|<a href="https://www.linkedin.com/in/charles-serafim/" target="_blank">**Charles Serafim**</a> | <a href="https://www.linkedin.com/in/maria-eduarda-sampaio-955087213/" target="_blank">**Maria Eduarda Sampaio**</a>      |<a href="https://www.linkedin.com/in/tauanyfeitosa/" target="_blank">**Tauany Feitosa**</a> | <a href="https://www.linkedin.com/in/miguelsousakoh/" target="_blank">**Miguel Pereira**</a> | <a href="https://www.linkedin.com/in/yuri-cifuentes/" target="_blank">**Yuri Cifuentes**</a> |
+|:-----------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------:|
+|                   <img src="img/charles.jpeg" width="200px"> </img>                            |               <img src="img/eduarda.jpeg" width="200px"> </img>                          |                   <img src="img/tauany.jpg" width="200px"> </img>                            |               <img src="img/miguel.jpeg" width="200px"> </img>                          |               <img src="img/yuri.jpeg" width="200px"> </img>                          |
+|               <a href="https://github.com/charles-serafim" target="_blank">`github.com/charles-serafim`</a>      |  <a href="https://github.com/MariaEduardaSampaio" target="_blank">`github.com/MariaEduardaSampaio`</a>  |               <a href="https://github.com/tauanyfeitosa" target="_blank">`github.com/tauanyfeitosa`</a>      |   <a href="https://github.com/Koohra" target="_blank">`github.com/Koohra`</a>  |  <a href="https://github.com/Montaguine" target="_blank">`github.com/Montaguine`</a>  |
+|               <a href="mailto:charles.serafim.morais@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=red" target="_blank"></a>      |  <a href="mailto:mariaeduardamrs0@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=red" target="_blank"></a>  |               <a href="mailto:tauanysanttos13@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=red" target="_blank"></a>     |   <a href="mailto:miguel.pereira.12@live.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=red" target="_blank"></a>  |  <a href="mailto:yuria.cifuentes@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=red" target="_blank"></a>  |
+
+
+
+
+

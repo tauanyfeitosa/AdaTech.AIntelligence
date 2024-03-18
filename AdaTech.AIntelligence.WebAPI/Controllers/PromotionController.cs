@@ -1,11 +1,9 @@
-﻿using AdaTech.AIntelligence.Attributes;
-using AdaTech.AIntelligence.DbLibrary.Repository;
-using AdaTech.AIntelligence.Entities.Enums;
-using AdaTech.AIntelligence.Entities.Objects;
-using AdaTech.AIntelligence.Service.Services.RoleRequirementService;
-using AdaTech.AIntelligence.Service.Services.RoleRequirementService.PromotionServices;
+﻿using AdaTech.AIntelligence.Service.Services.RoleRequirementService;
 using AdaTech.WebAPI.SistemaVendas.Utilities.Filters;
+using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Entities.Enums;
 using Microsoft.AspNetCore.Authorization;
+using AdaTech.AIntelligence.Attributes;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -58,7 +56,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         /// <param name="idRequirement"></param>
         /// <param name="status"></param>
         /// <returns></returns>
-        [HttpPatch]
+        [HttpPatch("promote-user")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PromoteUser(int idRequirement, Status status)
         {

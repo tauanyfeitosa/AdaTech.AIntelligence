@@ -1,8 +1,6 @@
 ﻿using AdaTech.AIntelligence.OCR.Services.ChatGPT;
 using AdaTech.AIntelligence.OCR.Services.Image;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic;
-using System.Net.Http.Headers;
 
 namespace AdaTech.AIntelligence.OCR.WebAPI.Controllers
 {
@@ -29,7 +27,7 @@ namespace AdaTech.AIntelligence.OCR.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Check if the GPT connection is working
+        /// Checks the connection to the Chat GPT 4 Vision API.
         /// </summary>
         /// <param name="apiKey"></param>
         /// <returns></returns>

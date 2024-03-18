@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Headers;
+﻿using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
+using System.Net.Http.Headers;
 using System.Text.Json;
 
 namespace AdaTech.AIntelligence.OCR.Services.ChatGPT
@@ -13,7 +14,7 @@ namespace AdaTech.AIntelligence.OCR.Services.ChatGPT
         /// </summary>
         /// <param name="apiKey"></param>
         /// <param name="clientFactory"></param>
-        /// <returns></returns>
+        /// <returns cref="string">Returns a string indicating if connection with chat GPT 4 API was successfull.</returns>
         /// <exception cref="Exception"></exception>
         public static async Task<string> GenerateResponse(this string apiKey, IHttpClientFactory clientFactory)
         {
@@ -29,14 +30,14 @@ namespace AdaTech.AIntelligence.OCR.Services.ChatGPT
                 return "Conexão com o chat GPT bem-sucedida!";
             }
 
-            throw new Exception("Erro ao conectar-se ao chat GPT.");
+            throw new NotConnectionGPTException("Erro ao conectar-se ao chat GPT.");
         }
 
         /// <summary>
         /// Extension method to process the response from the chat GPT.
         /// </summary>
         /// <param name="response"></param>
-        /// <returns></returns>
+        /// <returns cref="string">Returns parse response content in string format.</returns>
         public static async Task<string> ProcessResponse(this HttpResponseMessage response)
         {
             var jsonResponse = await response.Content.ReadAsStringAsync();
@@ -53,7 +54,7 @@ namespace AdaTech.AIntelligence.OCR.Services.ChatGPT
         /// Method to parse the response content from the chat GPT.
         /// </summary>
         /// <param name="jsonResponse"></param>
-        /// <returns></returns>
+        /// <returns cref="string">Returns JSON response content as a string.</returns>
         private static string ParseResponseContent(string jsonResponse)
         {
             using var doc = JsonDocument.Parse(jsonResponse);

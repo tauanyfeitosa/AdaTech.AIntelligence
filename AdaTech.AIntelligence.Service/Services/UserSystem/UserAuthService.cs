@@ -1,13 +1,18 @@
-﻿using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Identity;
-using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
+using AdaTech.AIntelligence.Service.Services.UserSystem.UserInterface;
 using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
 using AdaTech.AIntelligence.Service.DTOs.Interfaces;
+using AdaTech.AIntelligence.Entities.Objects;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using AdaTech.AIntelligence.Service.Services.EmailService;
 
 namespace AdaTech.AIntelligence.Service.Services.UserSystem
 {
+    /// <summary>
+    /// Service responsible for user authentication and registration.
+    /// </summary>
     public class UserAuthService : IUserAuthService
     {
         private readonly UserManager<UserInfo> _userManager;
@@ -16,7 +21,14 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
         private readonly IEmailService _emailService;
         private readonly IConfiguration _appSettings;
 
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserAuthService"/> class.
+        /// </summary>
+        /// <param name="signInManager">The sign-in manager.</param>
+        /// <param name="userManager">The user manager.</param>
+        /// <param name="logger">The logger.</param>
+        /// <param name="emailService">The email service.</param>
+        /// <param name="appSettings">The application settings.</param>
         public UserAuthService(SignInManager<UserInfo> signInManager,
             UserManager<UserInfo> userManager,
             ILogger<UserAuthService> logger,
@@ -48,12 +60,12 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
                 var user = await _userManager.FindByEmailAsync(email);
 
                 _logger.LogInformation("Usuário autenticado com sucesso.");
-                return user == null ? throw new ArgumentException("Usuário não encontrado.") : result.Succeeded;
+                return user == null ? throw new NotFoundException("Usuário não encontrado.") : result.Succeeded;
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Tentativa de login sem sucesso: {ex}");
-                throw new ArgumentException($"Tentativa de login sem sucesso: {ex}");
+                throw new InvalidOperationException($"Tentativa de login sem sucesso: {ex}");
             }
         }
 
@@ -70,6 +82,7 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
             catch (Exception ex)
             {
                 _logger.LogError($"Tentativa de logout sem sucesso: {ex}");
+                throw new InvalidOperationException($"Tentativa de logout sem sucesso: {ex}");
             }
         }
 
@@ -114,7 +127,7 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
             catch (Exception ex)
             {
                 _logger.LogError($"Tentativa de registro sem sucesso com email {userRegister.Email}: {ex}");
-                throw new ArgumentException($"Tentativa de registro sem sucesso: {ex}");
+                throw new UnprocessableEntityException($"Tentativa de registro sem sucesso: {ex}");
             }
         }
     }
