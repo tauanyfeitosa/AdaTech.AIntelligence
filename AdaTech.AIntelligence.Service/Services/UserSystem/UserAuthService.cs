@@ -1,12 +1,12 @@
 using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
 using AdaTech.AIntelligence.Service.Services.UserSystem.UserInterface;
+using AdaTech.AIntelligence.Service.Services.EmailService;
 using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
 using AdaTech.AIntelligence.Service.DTOs.Interfaces;
 using AdaTech.AIntelligence.Entities.Objects;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using AdaTech.AIntelligence.Service.Services.EmailService;
 
 namespace AdaTech.AIntelligence.Service.Services.UserSystem
 {
