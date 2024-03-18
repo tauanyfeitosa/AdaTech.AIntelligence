@@ -60,12 +60,13 @@ namespace AdaTech.AIntelligence.Service.Services.RoleRequirementService
         public async Task<string> PromoteUser(int idRequirement, Status status)
         {
             var requirement = await _promotionService.GetRequirementById(idRequirement);
-            var user = await _userManager.FindByIdAsync(requirement.UserInfoId);
 
             if (requirement == null)
             {
                 throw new NotFoundException("Requisição não encontrada.");
             }
+
+            var user = await _userManager.FindByIdAsync(requirement.UserInfoId);
 
             requirement.Status = status;
             var succeeded = await _promotionService.PromotionApproval(requirement);
@@ -75,7 +76,7 @@ namespace AdaTech.AIntelligence.Service.Services.RoleRequirementService
                 if (status == Status.Approved)
                 {
                     var verificacao = await _userManager.AddToRoleAsync(user, requirement.Role.ToString());
-                    return "Requisição atualizada com sucesso! Usuário promovido para {requirement.Role}.";
+                    return $"Requisição atualizada com sucesso! Usuário promovido para {requirement.Role}.";
                 }
                 return "Requisição atualizada com sucesso!";
             }
