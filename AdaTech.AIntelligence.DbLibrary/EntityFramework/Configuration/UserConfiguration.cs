@@ -18,7 +18,6 @@ namespace AdaTech.AIntelligence.DbLibrary.EntityFramework.Configuration
             builder.Property(u => u.Name).IsRequired();
             builder.Property(u => u.LastName).IsRequired();
             builder.Property(u => u.IsActive).IsRequired();
-            builder.Property(u => u.IsLogged).IsRequired();
             builder.Property(u => u.IsStaff).IsRequired();
             builder.Property(u => u.IsSuperUser).IsRequired();
             builder.Property(u => u.UserName).IsRequired();
