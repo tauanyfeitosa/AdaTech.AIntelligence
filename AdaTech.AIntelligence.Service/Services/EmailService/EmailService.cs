@@ -1,4 +1,4 @@
-﻿using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Entities.Objects;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
 using System.Net.Mail;

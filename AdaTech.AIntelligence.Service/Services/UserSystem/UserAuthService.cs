@@ -1,5 +1,6 @@
-﻿using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
+using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
 using AdaTech.AIntelligence.Service.Services.UserSystem.UserInterface;
+using AdaTech.AIntelligence.Service.Services.EmailService;
 using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
 using AdaTech.AIntelligence.Service.DTOs.Interfaces;
 using AdaTech.AIntelligence.Entities.Objects;
@@ -17,7 +18,7 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
         private readonly UserManager<UserInfo> _userManager;
         private readonly SignInManager<UserInfo> _signInManager;
         private readonly ILogger<UserAuthService> _logger;
-        private readonly EmailService.IEmailService _emailService;
+        private readonly IEmailService _emailService;
         private readonly IConfiguration _appSettings;
 
         /// <summary>
@@ -31,7 +32,7 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
         public UserAuthService(SignInManager<UserInfo> signInManager,
             UserManager<UserInfo> userManager,
             ILogger<UserAuthService> logger,
-            EmailService.IEmailService emailService, IConfiguration appSettings)
+            IEmailService emailService, IConfiguration appSettings)
         {
             _signInManager = signInManager;
             _userManager = userManager;

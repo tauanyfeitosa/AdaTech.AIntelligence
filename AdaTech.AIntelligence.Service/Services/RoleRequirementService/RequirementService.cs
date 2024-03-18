@@ -1,4 +1,4 @@
-﻿using AdaTech.AIntelligence.Service.Services.RoleRequirementService.PromotionServices;
+using AdaTech.AIntelligence.Service.Services.RoleRequirementService.PromotionServices;
 using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
 using AdaTech.AIntelligence.Entities.Objects;
 using AdaTech.AIntelligence.Entities.Enums;
