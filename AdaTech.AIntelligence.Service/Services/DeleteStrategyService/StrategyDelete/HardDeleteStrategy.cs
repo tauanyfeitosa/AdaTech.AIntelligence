@@ -46,7 +46,7 @@ namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyD
                 result = await _userManager.DeleteAsync(entityUser);
             }
 
-            if (result.Succeeded)
+            if (result is not null && result.Succeeded)
             {
                 return "Deleção realizada com sucesso.";
             }
