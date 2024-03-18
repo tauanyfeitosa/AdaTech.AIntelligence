@@ -52,7 +52,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService
                     
                     throw new UnprocessableEntityException("Erro ao cadastrar despesa");
 
-                return "Expense created successfully!";
+                return "Despesa criada com sucesso!";
             }
 
             return await response.Content.ReadAsStringAsync();
