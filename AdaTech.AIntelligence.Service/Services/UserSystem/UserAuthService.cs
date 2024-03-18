@@ -58,6 +58,12 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
             if (user == null)
                 throw new NotFoundException("Usuário não encontrado. Por favor, realize o autocadastro!");
 
+            if (!user.EmailConfirmed)
+                throw new UnauthorizedAccessException("E-mail não confirmado. Por favor, confirme seu e-mail.");
+
+            if (!user.IsActive)
+                throw new UnauthorizedAccessException("Usuário inativo. Por favor, entre em contato com o administrador.");
+
             _logger.LogInformation("Usuário autenticado com sucesso.");
             return result.Succeeded;
         }
@@ -90,6 +96,7 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
             await ValidateEmailAsync(userRegister.Email);
 
             var userInfo = await userRegister.RegisterUserAsync();
+            userInfo.LockoutEnabled = false;
             var result = await _userManager.CreateAsync(userInfo, userRegister.Password);
             if (!result.Succeeded)
             {
