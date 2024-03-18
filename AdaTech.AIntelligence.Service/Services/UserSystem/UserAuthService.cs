@@ -7,6 +7,7 @@ using AdaTech.AIntelligence.Entities.Objects;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdaTech.AIntelligence.Service.Services.UserSystem
 {
@@ -85,6 +86,11 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
         /// <returns>A task representing the asynchronous operation. Returns true if the registration is successful; otherwise, false.</returns>
         public async Task<bool> RegisterUserAsync(IUserRegister userRegister)
         {
+            var userCpf = await _userManager.Users.FirstOrDefaultAsync(u => u.CPF == userRegister.CPF);
+
+            if (userCpf != null)
+                throw new UnprocessableEntityException("CPF já cadastrado.");
+
             var user = await _userManager.FindByEmailAsync(userRegister.Email);
 
             if (user != null)
