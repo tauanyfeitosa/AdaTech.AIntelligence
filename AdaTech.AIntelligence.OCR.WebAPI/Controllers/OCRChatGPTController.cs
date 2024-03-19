@@ -1,5 +1,6 @@
 ﻿using AdaTech.AIntelligence.OCR.Services.ChatGPT;
 using AdaTech.AIntelligence.OCR.Services.Image;
+using AdaTech.AIntelligence.OCR.WebAPI.ConvertService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdaTech.AIntelligence.OCR.WebAPI.Controllers
@@ -13,17 +14,20 @@ namespace AdaTech.AIntelligence.OCR.WebAPI.Controllers
         private readonly HttpClient _httpClient;
         private readonly InputService _inputService;
         private readonly GPTResponseService _gptResponseService;
+        private readonly ImageConvertService _imageConvertService;
 
         private const string _url = "https://api.openai.com/v1/chat/completions";
 
         public OCRChatGPTController(IHttpClientFactory clientFactory, ScriptGPTService scriptGPTService, 
-            HttpClient httpClient, InputService inputService, GPTResponseService gptResponseService)
+            HttpClient httpClient, InputService inputService, GPTResponseService gptResponseService,
+            ImageConvertService imageConvertService)
         {
             _clientFactory = clientFactory;
             _scriptGPTService = scriptGPTService;
             _httpClient = httpClient;
             _inputService = inputService;
             _gptResponseService = gptResponseService;
+            _imageConvertService = imageConvertService;
         }
 
         /// <summary>
@@ -62,7 +66,7 @@ namespace AdaTech.AIntelligence.OCR.WebAPI.Controllers
             var (base64Image, urlObject) = await _inputService.ProcessImageOrUrl(image, requestImage.Url);
 
             var urlFinal = _inputService.DetermineFinalUrl(base64Image, requestImage.Url);
-            var listImage = await CreateObjects();
+            var listImage = await _imageConvertService.CreateObjects();
             var contentRequest = await _scriptGPTService.ScriptPrompt(urlFinal, urlObject,  listImage[0], listImage[1], listImage[2], listImage[3], listImage[4], listImage[5]);
 
             var (success, resposta) = await _gptResponseService.ExecuteRequest(requestImage.ApiKey, contentRequest, _httpClient, _url);
@@ -73,50 +77,6 @@ namespace AdaTech.AIntelligence.OCR.WebAPI.Controllers
             }
 
             return Ok(resposta);
-        }
-
-        private async Task<object> ConvertImageObject(string prompt, string path)
-        {
-
-            var expenseImageDirectory = Path.Combine(Directory.GetCurrentDirectory(), path).Replace("WebAPI", "Services");
-            var image = await CreateIFormFileFromPath(expenseImageDirectory);
-            var imageOject = await image.DescriptionImage(prompt);
-
-            return imageOject;
-
-        }
-
-        private async Task<IFormFile> CreateIFormFileFromPath(string filePath)
-        {
-            var fileInfo = new FileInfo(filePath);
-            var memoryStream = new MemoryStream();
-            using (var fileStream = fileInfo.OpenRead())
-            {
-                await fileStream.CopyToAsync(memoryStream);
-            }
-            memoryStream.Seek(0, SeekOrigin.Begin);
-            var formFile = new FormFile(memoryStream, 0, memoryStream.Length, fileInfo.Name, fileInfo.Name)
-            {
-                Headers = new HeaderDictionary(),
-                ContentType = "image/png"
-            };
-
-            return formFile;
-        }
-
-        private async Task<List<object>> CreateObjects()
-        {
-            var listObject =  new List<object>
-            {
-             await ConvertImageObject("Este cupom fiscal é uma nota fiscal e seu valor é 150,00 reais", "ExpenseImage\\Cupom.png"),
-             await ConvertImageObject("Este cupom fiscal é uma nota fiscal e seu valor é 6,00 reais", "ExpenseImage\\Cupom2.jpeg"),
-             await ConvertImageObject("Este NF é uma nota fiscal e seu valor é 400,00 reais", "ExpenseImage\\NF.jpg"),
-             await ConvertImageObject("Este NF é uma nota fiscal e seu valor é 169,76 reais", "ExpenseImage\\NF2.jpeg"),
-             await ConvertImageObject("Este Danfe é uma nota fiscal e seu valor é 19,90 reais", "ExpenseImage\\Danfe.png"),
-             await ConvertImageObject("Este NF é uma nota fiscal e seu valor é 333,33 reais", "ExpenseImage\\NFRuim.jpeg"),
-            };
-
-            return listObject;
         }
     }
 }

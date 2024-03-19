@@ -46,7 +46,15 @@ namespace AdaTech.AIntelligence.OCR.Services.ChatGPT
                         role = "system",
                         content = new object[]
                         {
-                            new { type = "text", text = $"Agora vou te mandar a sétima imagem. A imagem ou url contém uma nota fiscal? Uma nota fiscal tem o nome nota fiscal, comprovante fiscal ou DANFE nela. Uma nota fiscal tem um valor nela. Continuar somente se a resposta for SIM, caso contrário, responder {invalidImageResponse}" },
+                            new { type = "text", text = $"Perceba que uma nota fiscal é: um documento digitado contendo os nomes DANFE, cumpo fiscal, comprovante fiscal, NF ou nota fiscal. E todas elas deve ter um valor. Aceite cupom fiscal como nota fiscal sempre que o cupom tiver um valor." },
+                        }
+                    },
+                    new
+                    {
+                        role = "system",
+                        content = new object[]
+                        {
+                            new { type = "text", text = $"Agora vou te mandar a sétima imagem. A imagem ou url contém uma nota fiscal?  Continuar somente se a resposta for SIM, caso contrário, responder {invalidImageResponse}" },
                         }
                     },
                     new
@@ -79,14 +87,6 @@ namespace AdaTech.AIntelligence.OCR.Services.ChatGPT
                         content = new object[]
                         {
                             new { type = "text", text = "elabore a descricao da despesa em no máximo 30 caracteres, tente aproveitar o maximo de caracteres possivel, se houver somente 1 item na nota, descreva o item" },
-                        }
-                    },
-                    new
-                    {
-                        role = "system",
-                        content = new object[]
-                        {
-                            new { type = "text", text = "você sempre gera uma resposta diferente para esta imagem. O quão seguro você está da resposta gerada desta vez? Em uma escala de 0 a 100 você sempre me responde 100.. Seja sincero." },
                         }
                     },
 
