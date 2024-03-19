@@ -31,12 +31,15 @@ namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyD
         /// <param name="context">The database context (optional).</param>
         public async Task<string> DeleteAsync(IAIntelligenceRepository<T> repository, string id, ExpenseReportingDbContext? context = null)
         {
-            IdentityResult result = null;
+            IdentityResult? result = null;
 
             if (int.TryParse(id, out int intId))
             {
                 var entity = await repository.GetOne(intId);
-                return await DeleteEntityAsync(repository, entity, context);
+                if (entity is not null)
+                    return await DeleteEntityAsync(repository, entity, context);
+                else
+                    throw new NotFoundException($"{typeof(T).Name} não encontrado para exclusão.");
             }
 
             var entityUser = await _userManager.FindByIdAsync(id);
@@ -66,7 +69,7 @@ namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyD
             {
                 context.Remove(entity);
             }
-            else if (entity == null)
+            else if (entity is null)
             {
                 throw new NotFoundException($"{typeof(T).Name} não encontrado para exclusão.");
             }

@@ -26,25 +26,25 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense
         /// </summary>
         /// <param name="idExpense">The ID of the expense to retrieve.</param>
         /// <returns>A task representing the asynchronous operation, returning the expense object if found.</returns>
-        Task<Expense> GetOne(int idExpense);
+        Task<Expense?> GetOne(int idExpense);
 
         /// <summary>
         /// Retrieves all submitted expenses asynchronously.
         /// </summary>
         /// <returns>A task representing the asynchronous operation, returning a collection of submitted expenses.</returns>
-        Task<IEnumerable<Expense>> GetAllSubmitted();
+        Task<IEnumerable<Expense>?> GetAllSubmitted();
 
         /// <summary>
         /// Retrieves all active expenses asynchronously.
         /// </summary>
         /// <returns>A task representing the asynchronous operation, returning a collection of active expenses.</returns>
-        Task<IEnumerable<Expense>> GetAllActive();
+        Task<IEnumerable<Expense>?> GetAllActive();
 
         /// <summary>
         /// Retrieves all expenses asynchronously.
         /// </summary>
         /// <returns>A task representing the asynchronous operation, returning a collection of all expenses.</returns>
-        Task<IEnumerable<Expense>> GetAll();
+        Task<IEnumerable<Expense>?> GetAll();
 
         /// <summary>
         /// Deletes an expense asynchronously by its ID.

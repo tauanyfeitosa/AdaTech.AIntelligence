@@ -49,7 +49,7 @@ namespace AdaTech.AIntelligence.Service.Services.RoleRequirementService.Promotio
         /// </summary>
         /// <param name="id">The ID of the role requirement to retrieve.</param>
         /// <returns>A task representing the asynchronous operation. Returns the role requirement object if found; otherwise, null.</returns>
-        public async Task<RoleRequirement> GetRequirementById(int id)
+        public async Task<RoleRequirement?> GetRequirementById(int id)
         {
             return await _repository.GetOne(id);
         }

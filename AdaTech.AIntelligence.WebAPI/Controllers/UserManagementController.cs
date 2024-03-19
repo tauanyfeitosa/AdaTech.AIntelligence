@@ -14,12 +14,10 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
     public class UserManagementController : ControllerBase
     {
         private readonly IUserCRUDService _userCRUDService;
-        private readonly ILogger<UserManagementController> _logger;
 
-        public UserManagementController(ILogger<UserManagementController> logger, IUserCRUDService userCRUDService)
+        public UserManagementController(IUserCRUDService userCRUDService)
         {
             _userCRUDService = userCRUDService;
-            _logger = logger;
         }
 
         /// <summary>
@@ -31,11 +29,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ViewUser(string id)
         {
-            var success = await _userCRUDService.GetOne(id);
-
-            if (success == null)
-                throw new NotFoundException("Não existe um usuário cadastrado com o Id fornecido.");
-
+            var success = await _userCRUDService.GetOne(id) ?? throw new NotFoundException("Não existe um usuário cadastrado com o Id fornecido.");
             return Ok(success);
         }
 
@@ -47,11 +41,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ViewAllUsers()
         {
-            var success = await _userCRUDService.GetAll();
-
-            if (success == null)
-                throw new NotFoundException("Não existem usuários cadastrados.");
-
+            var success = await _userCRUDService.GetAll() ?? throw new NotFoundException("Não existem usuários cadastrados.");
             return Ok(success);
         }
 

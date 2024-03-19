@@ -9,17 +9,17 @@ namespace AdaTech.AIntelligence.Service.DTOs.Interfaces
         /// <summary>
         /// Gets or sets the email of the user.
         /// </summary>
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         /// <summary>
         /// Gets or sets the first name of the user.
         /// </summary>
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         /// <summary>
         /// Gets or sets the last name of the user.
         /// </summary>
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
 
         /// <summary>
         /// Gets or sets the date of birth of the user.
@@ -29,11 +29,11 @@ namespace AdaTech.AIntelligence.Service.DTOs.Interfaces
         /// <summary>
         /// Gets or sets the password of the user.
         /// </summary>
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
         /// <summary>
         /// Gets or sets the CPF (Brazilian individual taxpayer registry) of the user.
         /// </summary>
-        public string CPF { get; set; }
+        public string? CPF { get; set; }
     }
 }

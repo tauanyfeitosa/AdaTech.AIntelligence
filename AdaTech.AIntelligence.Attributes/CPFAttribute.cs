@@ -9,7 +9,7 @@ namespace AdaTech.AIntelligence.Attributes
     /// </summary>   
     public class CPFAttribute : ValidationAttribute
     {
-        private static int LenghtCPF = 11;
+        private readonly int LenghtCPF = 11;
         /// <summary>
         /// Verifies if CPF length is valid
         /// </summary>
@@ -22,7 +22,7 @@ namespace AdaTech.AIntelligence.Attributes
             {
                 return new ValidationResult("O CPF não pode ser vazio.");
             }
-            string cpf = value.ToString();
+            string cpf = value.ToString()!;
 
             cpf = new string(cpf.Where(char.IsDigit).ToArray());
 
@@ -39,7 +39,7 @@ namespace AdaTech.AIntelligence.Attributes
         /// <returns><c>true</c> if CPF is valid, <c>false</c> otherwise.</returns>
         private bool IsCpfValid(string cpf)
         {
-            int[] numberCPF = cpf.Substring(0, 9).Select(c => int.Parse(c.ToString())).ToArray();
+            int[] numberCPF = cpf[..9].Select(c => int.Parse(c.ToString())).ToArray();
             int[] checkDigits = new int[2];
 
             for (int i = 0; i < 2; i++)
@@ -59,7 +59,7 @@ namespace AdaTech.AIntelligence.Attributes
 
                 if (i == 0)
                 {
-                    numberCPF = (cpf.Substring(0, 9) + checkDigits[0].ToString()).Select(c => int.Parse(c.ToString())).ToArray();
+                    numberCPF = (cpf[..9] + checkDigits[0].ToString()).Select(c => int.Parse(c.ToString())).ToArray();
                 }
             }
 

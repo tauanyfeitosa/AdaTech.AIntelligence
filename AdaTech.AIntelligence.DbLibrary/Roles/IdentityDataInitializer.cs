@@ -24,22 +24,28 @@ namespace AdaTech.AIntelligence.DbLibrary.Roles
         {
             if (!roleManager.RoleExistsAsync("Admin").Result)
             {
-                IdentityRole role = new IdentityRole();
-                role.Name = "Admin";
+                IdentityRole role = new()
+                {
+                    Name = "Admin"
+                };
                 roleManager.CreateAsync(role).Wait();
             }
 
             if (!roleManager.RoleExistsAsync("Finance").Result)
             {
-                IdentityRole role = new IdentityRole();
-                role.Name = "Finance";
+                IdentityRole role = new()
+                {
+                    Name = "Finance"
+                };
                 roleManager.CreateAsync(role).Wait();
             }
 
             if (!roleManager.RoleExistsAsync("Employee").Result)
             {
-                IdentityRole role = new IdentityRole();
-                role.Name = "Employee";
+                IdentityRole role = new()
+                {
+                    Name = "Employee"
+                };
                 roleManager.CreateAsync(role).Wait();
             }
         }

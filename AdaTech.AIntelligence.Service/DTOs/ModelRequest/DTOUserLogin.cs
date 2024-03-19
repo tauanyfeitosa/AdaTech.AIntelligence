@@ -13,13 +13,13 @@ namespace AdaTech.AIntelligence.Service.DTOs.ModelRequest
         /// </summary>
         [Required(ErrorMessage = "O campo email é obrigatório.")]
         [EmailAddress(ErrorMessage = "Formato de email inválido.")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         /// <summary>
         /// Gets or sets the password of the user.
         /// </summary>
         [Required(ErrorMessage = "O campo senha é obrigatório e deve ter no mínimo 8 caracteres.")]
         [JsonPropertyName("Senha")]
-        public string Password { get; set; }
+        public string? Password { get; set; }
     }
 }

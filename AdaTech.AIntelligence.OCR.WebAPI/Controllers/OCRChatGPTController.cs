@@ -48,22 +48,22 @@ namespace AdaTech.AIntelligence.OCR.WebAPI.Controllers
         [HttpPost("create-expenseRequest-image-file")]
         public async Task<IActionResult> CreateExpenseImage([FromBody] RequestImage requestImage)
         {
-            var image = new List<string>
+            var image = new List<string?>
             {
                 !string.IsNullOrEmpty(requestImage.Base64Image) ? requestImage.Base64Image : null,
                 !string.IsNullOrEmpty(requestImage.Extension) ? requestImage.Extension : null
             }.Where(s => !string.IsNullOrEmpty(s)).ToList();
 
-            if (!_inputService.ValidateInput(image, requestImage.Url))
+            if (!_inputService.ValidateInput(image!, requestImage.Url))
             {
                 return BadRequest("Nenhuma imagem ou URL foi enviada ou foram enviados tanto imagem quanto URL.");
             }
 
-            var (base64Image, urlObject) = await _inputService.ProcessImageOrUrl(image, requestImage.Url);
+            var (base64Image, urlObject) = _inputService.ProcessImageOrUrl(image!, requestImage.Url);
 
             var urlFinal = _inputService.DetermineFinalUrl(base64Image, requestImage.Url);
             var listImage = await CreateObjects();
-            var contentRequest = await _scriptGPTService.ScriptPrompt(urlFinal, urlObject,  listImage[0], listImage[1], listImage[2], listImage[3], listImage[4], listImage[5]);
+            var contentRequest = _scriptGPTService.ScriptPrompt(urlObject,  listImage[0], listImage[1], listImage[2], listImage[3], listImage[4], listImage[5]);
 
             var (success, resposta) = await _gptResponseService.ExecuteRequest(requestImage.ApiKey, contentRequest, _httpClient, _url);
 

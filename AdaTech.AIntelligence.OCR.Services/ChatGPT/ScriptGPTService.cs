@@ -14,7 +14,7 @@ namespace AdaTech.AIntelligence.OCR.Services.ChatGPT
         /// <param name="image"></param>
         /// <param name="url"></param>
         /// <returns cref="StringContent">Returns a portion of the request following business's rules.</returns>
-        public async Task<StringContent> ScriptPrompt(string image, object url, object image1, object image2, object image3, object image4, object image5, object image6)
+        public StringContent ScriptPrompt(object url, object image1, object image2, object image3, object image4, object image5, object image6)
         {
             var invalidImageResponse = "ERROR_RESPONSE";
 
@@ -98,6 +98,6 @@ namespace AdaTech.AIntelligence.OCR.Services.ChatGPT
 
             return contentRequest;
         }
-       
+
     }
 }

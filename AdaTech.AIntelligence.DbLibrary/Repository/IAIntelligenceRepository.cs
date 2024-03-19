@@ -31,13 +31,13 @@
         /// Retrieves all entities asynchronously.
         /// </summary>
         /// <returns>A task representing the asynchronous operation. Returns a collection of all entities.</returns>
-        Task<IEnumerable<T>> GetAll();
+        Task<IEnumerable<T>?> GetAll();
 
         /// <summary>
         /// Retrieves a single entity by its ID asynchronously.
         /// </summary>
         /// <param name="id">The ID of the entity to retrieve.</param>
         /// <returns>A task representing the asynchronous operation. Returns the entity if found; otherwise, null.</returns>
-        Task<T> GetOne(int id);
+        Task<T?> GetOne(int id);
     }
 }

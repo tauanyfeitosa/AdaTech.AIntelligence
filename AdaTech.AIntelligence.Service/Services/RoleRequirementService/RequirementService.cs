@@ -5,6 +5,7 @@ using AdaTech.AIntelligence.Entities.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Http;
+using Azure.Core;
 
 namespace AdaTech.AIntelligence.Service.Services.RoleRequirementService
 {
@@ -26,7 +27,7 @@ namespace AdaTech.AIntelligence.Service.Services.RoleRequirementService
         {
             _promotionService = promotionService;
             _userManager = userManager;
-            _httpContext = httpContextAccessor.HttpContext;
+            _httpContext = httpContextAccessor.HttpContext!;
         }
 
         /// <summary>
@@ -75,15 +76,8 @@ namespace AdaTech.AIntelligence.Service.Services.RoleRequirementService
         /// <returns>A task representing the asynchronous operation. Returns a message indicating the result of the promotion.</returns>
         public async Task<string> PromoteUser(int idRequirement, Status status)
         {
-            var requirement = await _promotionService.GetRequirementById(idRequirement);
-
-            if (requirement == null)
-            {
-                throw new NotFoundException("Requisição não encontrada.");
-            }
-
-            var user = await _userManager.FindByIdAsync(requirement.UserInfoId);
-
+            var requirement = await _promotionService.GetRequirementById(idRequirement) ?? throw new NotFoundException("Requisição não encontrada.");
+            var user = await _userManager.FindByIdAsync(requirement.UserInfoId) ?? throw new NotFoundException("Usuário com este ID não foi encontrado.");
             requirement.Status = status;
             var succeeded = await _promotionService.PromotionApproval(requirement);
 
@@ -91,7 +85,7 @@ namespace AdaTech.AIntelligence.Service.Services.RoleRequirementService
             {
                 if (status == Status.Approved)
                 {
-                    var verificacao = await _userManager.AddToRoleAsync(user, requirement.Role.ToString());
+                    await _userManager.AddToRoleAsync(user, requirement.Role.ToString());
                     return $"Requisição atualizada com sucesso! Usuário promovido para {requirement.Role}.";
                 }
                 return "Requisição atualizada com sucesso!";

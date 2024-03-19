@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using AdaTech.AIntelligence.Attributes;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
 
 namespace AdaTech.AIntelligence.WebAPI.Controllers
 {
@@ -18,7 +19,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         private readonly ILogger<PromotionController> _logger;
         private readonly UserManager<UserInfo> _userManager;
         private readonly RequirementService _requirementService;
-        public PromotionController(ILogger<PromotionController> logger, UserManager<UserInfo> userManager, 
+        public PromotionController(ILogger<PromotionController> logger, UserManager<UserInfo> userManager,
             RequirementService requirementService)
         {
             _logger = logger;
@@ -35,10 +36,9 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         [Authorize]
         public async Task<IActionResult> AskForPromotion(Roles roles)
         {
-            var user = await _userManager.GetUserAsync(User);
-            
+            var user = await _userManager.GetUserAsync(User) ?? throw new NotFoundException("Usuário com este ID não foi encontrado.");
             var result = await _requirementService.AskForPromotion(roles, user);
-
+            
             if (result == "Promoção solicitada com sucesso!")
             {
                 return Ok(result);

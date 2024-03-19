@@ -14,7 +14,7 @@ namespace AdaTech.AIntelligence.IoC.Middleware
     public class AntiXssMiddleware
     {
         private readonly RequestDelegate _next;
-        private ErrorDetails _error;
+        private ErrorDetails? _error = null;
         private readonly int _statusCode = (int)HttpStatusCode.BadRequest;
 
         public AntiXssMiddleware(RequestDelegate next)
@@ -92,14 +92,11 @@ namespace AdaTech.AIntelligence.IoC.Middleware
             context.Response.ContentType = "application/json; charset=utf-8";
             context.Response.StatusCode = _statusCode;
 
-            if (_error == null)
+            _error ??= new ErrorDetails
             {
-                _error = new ErrorDetails
-                {
-                    StatusCode = 400,
-                    Message = "XSS detectado."
-                };
-            }
+                StatusCode = 400,
+                Message = "XSS detectado."
+            };
 
             await context.Response.WriteAsync(JsonConvert.SerializeObject(_error));
         }
@@ -132,7 +129,7 @@ namespace AdaTech.AIntelligence.IoC.Middleware
     /// </summary>
     public static class CrossSiteScriptingValidation
     {
-        private static readonly char[] StartingChars = { '<', '&' };
+        private static readonly char[] StartingChars = ['<', '&'];
 
         /// <summary>
         /// Checks if a string contains potentially dangerous content indicating a Cross-Site Scripting (XSS) attack.

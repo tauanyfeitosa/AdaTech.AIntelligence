@@ -27,7 +27,7 @@ namespace AdaTech.AIntelligence.Service.Services.EmailService
             _smtpClient = smtpClient;
             _smtpClient.Port = 587;
             _smtpClient.Credentials = new System.Net.NetworkCredential(appSettings.GetValue<string>("ServerSMTP:Smtp:User"), appSettings.GetValue<string>("ServerSMTP:Smtp:Password"));
-            _smtpClient.Host = appSettings.GetValue<string>("ServerSMTP:Smtp:Host");
+            _smtpClient.Host = appSettings.GetValue<string>("ServerSMTP:Smtp:Host")!;
             _smtpClient.EnableSsl = true;
         }
 
@@ -45,7 +45,7 @@ namespace AdaTech.AIntelligence.Service.Services.EmailService
             {
                 var mailMessage = new MailMessage
                 {
-                    From = new MailAddress(_appSettings.GetValue<string>("ServerSMTP:Smtp:User")),
+                    From = new MailAddress(_appSettings.GetValue<string>("ServerSMTP:Smtp:User")!),
                 };
                 mailMessage.To.Add(email);
                 mailMessage.Subject = subject;

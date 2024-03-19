@@ -72,7 +72,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService
                 Category = (Category)int.Parse(values[0]),
                 TotalValue = double.Parse(values[1].Replace(".", ",")),
                 Description = values[2],
-                Status = ExpenseStatus.SUBMITTED,
+                Status = ExpenseStatus.Submitted,
                 IsActive = true,
                 UserInfo = user,
                 UserInfoId = user.Id

@@ -42,7 +42,7 @@ namespace AdaTech.AIntelligence.DbLibrary.Repository
         /// Retrieves all entities asynchronously.
         /// </summary>
         /// <returns>A task representing the asynchronous operation. Returns a collection of all entities.</returns>
-        public async Task<IEnumerable<T>> GetAll()
+        public async Task<IEnumerable<T>?> GetAll()
         {
             return await _context.Set<T>().ToListAsync();
         }
@@ -52,7 +52,7 @@ namespace AdaTech.AIntelligence.DbLibrary.Repository
         /// </summary>
         /// <param name="id">The ID of the entity to retrieve.</param>
         /// <returns>A task representing the asynchronous operation. Returns the entity if found; otherwise, null.</returns>
-        public async Task<T> GetOne(int id)
+        public async Task<T?> GetOne(int id)
         {
             return await _context.Set<T>().FindAsync(id);
         }

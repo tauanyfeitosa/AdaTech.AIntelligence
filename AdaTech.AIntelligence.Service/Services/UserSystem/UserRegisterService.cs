@@ -18,9 +18,9 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
             var userInfo = new UserInfo
             {
                 UserName = userRegister.Email,
-                Name = userRegister.Name,
-                LastName = userRegister.LastName,
-                CPF = userRegister.CPF,
+                Name = userRegister.Name!,
+                LastName = userRegister.LastName!,
+                CPF = userRegister.CPF!,
                 Email = userRegister.Email,
                 DateBirth = new DateTime(userRegister.DateBirth.Year, userRegister.DateBirth.Month, userRegister.DateBirth.Day, 0, 0, 0),
                 IsStaff = true

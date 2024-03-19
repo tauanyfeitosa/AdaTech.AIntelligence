@@ -16,21 +16,21 @@ namespace AdaTech.AIntelligence.Service.DTOs.ModelRequest
         [Required(ErrorMessage = "O campo email é obrigatório.")]
         [EmailAddress(ErrorMessage = "O campo email é inválido.")]
         [EmailDomain("EmailSettings:Domain")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the user.
         /// </summary>
         [Required(ErrorMessage = "O campo nome é obrigatório.")]
         [JsonPropertyName("Nome")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         /// <summary>
         /// Gets or sets the email of the user.
         /// </summary>
         [Required(ErrorMessage = "O campo sobrenome é obrigatório.")]
         [JsonPropertyName("Sobrenome")]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
 
         /// <summary>
         /// Gets or sets the birth date of the user.
@@ -47,13 +47,13 @@ namespace AdaTech.AIntelligence.Service.DTOs.ModelRequest
         [Required(ErrorMessage = "O campo senha é obrigatório.")]
         [JsonPropertyName("Senha")]
         [StrongPassword(8)]
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
         /// <summary>
         /// Gets or sets the CPF (Brazilian individual taxpayer registry) of the user.
         /// </summary>
         [CPF]
         [Required(ErrorMessage = "O campo CPF é obrigatório.")]
-        public string CPF { get; set; }
+        public string? CPF { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace AdaTech.AIntelligence.Service.Services.SeedUser.SeedManagerInitial
         /// </summary>
         /// <param name="userCredentialsSettings">The user credentials settings.</param>
         /// <returns>A task representing the asynchronous operation. Returns the created user if successful; otherwise, null.</returns>
-        public async Task<UserInfo> CreateUserAsync(UserCredentialsSettings userCredentialsSettings)
+        public async Task<UserInfo?> CreateUserAsync(UserCredentialsSettings userCredentialsSettings)
         {
             var user = new UserInfo
             {
@@ -40,7 +40,7 @@ namespace AdaTech.AIntelligence.Service.Services.SeedUser.SeedManagerInitial
                 IsSuperUser = true,
             };
 
-            var result = await _userManager.CreateAsync(user, userCredentialsSettings.Password);
+            var result = await _userManager.CreateAsync(user, userCredentialsSettings.Password!);
 
             if(result.Succeeded)
             {
