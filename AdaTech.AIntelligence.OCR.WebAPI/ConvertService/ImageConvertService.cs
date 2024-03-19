@@ -2,8 +2,17 @@
 
 namespace AdaTech.AIntelligence.OCR.WebAPI.ConvertService
 {
+    /// <summary>
+    /// Convert the image to a object to be used in the chatGPT service.
+    /// </summary>
     public class ImageConvertService
     {
+        /// <summary>
+        /// Convert the image to a object to be used in the chatGPT service.
+        /// </summary>
+        /// <param name="prompt"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
         private async Task<object> ConvertImageObject(string prompt, string path)
         {
 
@@ -15,6 +24,11 @@ namespace AdaTech.AIntelligence.OCR.WebAPI.ConvertService
 
         }
 
+        /// <summary>
+        /// Create a IFormFile from a path.
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         private async Task<IFormFile> CreateIFormFileFromPath(string filePath)
         {
             var fileInfo = new FileInfo(filePath);
@@ -33,6 +47,10 @@ namespace AdaTech.AIntelligence.OCR.WebAPI.ConvertService
             return formFile;
         }
 
+        /// <summary>
+        /// Create a list of objects to be used in the chatGPT service.
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<object>> CreateObjects()
         {
             var listObject = new List<object>
