@@ -101,10 +101,10 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         {
             var expense = await _expenseCRUDService.GetOne(idExpense) ?? throw new NotFoundException("Não existe despesa com este ID.");
             
-            if (expense.Status == ExpenseStatus.Paid)
+            if (expense.Status == ExpenseStatus.PAID)
                 throw new NotAnExpenseException("Despesa não encontrada.");
 
-            expense.Status = ExpenseStatus.Paid;
+            expense.Status = ExpenseStatus.PAID;
 
             var success = await _expenseCRUDService.UpdateExpense(expense);
 

@@ -70,7 +70,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
         public async Task<IEnumerable<Expense>?> GetAllSubmitted()
         {
             var allExpenses = await _repository.GetAll() ?? throw new NotFoundException("Não existem despesas submetidas.");
-            return allExpenses.Where(expense => expense.Status == ExpenseStatus.Submitted && expense.IsActive);
+            return allExpenses.Where(expense => expense.Status == ExpenseStatus.SUBMITTED && expense.IsActive);
         }
 
         /// <summary>
