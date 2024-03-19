@@ -15,4 +15,8 @@
     <ProjectReference Include="..\AdaTech.AIntelligence.Exceptions\AdaTech.AIntelligence.Exceptions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ExpenseImage\" />
+  </ItemGroup>
+
 </Project>
