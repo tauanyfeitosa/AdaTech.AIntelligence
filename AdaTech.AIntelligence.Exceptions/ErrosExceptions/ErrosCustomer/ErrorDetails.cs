@@ -16,6 +16,6 @@ namespace AdaTech.AIntelligence.Exceptions.ErrosExceptions.ErrosCustomer
         /// <summary>
         /// Gets or sets the message of the error.
         /// </summary>
-        public string Message { get; set; }
+        public string? Message { get; set; }
     }
 }

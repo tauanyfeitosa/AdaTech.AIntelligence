@@ -8,11 +8,11 @@
         /// <summary>
         /// Gets or sets the username.
         /// </summary>
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
 
         /// <summary>
         /// Gets or sets the password.
         /// </summary>
-        public string Password { get; set; }
+        public string? Password { get; set; }
     }
 }

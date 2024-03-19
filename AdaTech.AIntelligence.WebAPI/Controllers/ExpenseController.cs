@@ -20,23 +20,24 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
     [TypeFilter(typeof(LoggingActionFilter))]
     public class ExpenseController : ControllerBase
     {
-        private readonly ILogger<ExpenseController> _logger;
         private readonly IConfiguration _configuration;
         private readonly IExpenseCRUDService _expenseCRUDService;
         private readonly HttpClient _httpClient;
         private readonly ResponseGPTService _responseGPTService;
         private readonly string _apiKey;
+        private readonly string _path;
+        private readonly string _ocrApiUrl;
         private readonly UserManager<UserInfo> _userManager;
 
-        public ExpenseController(IConfiguration configuration, ILogger<ExpenseController> logger, 
-            IExpenseCRUDService expenseCRUDService, ResponseGPTService responseGPTService, 
-            UserManager<UserInfo> userManager)
+        public ExpenseController(IConfiguration configuration, IExpenseCRUDService expenseCRUDService, 
+            ResponseGPTService responseGPTService, UserManager<UserInfo> userManager)
         {
             _configuration = configuration;
-            _logger = logger;
             _expenseCRUDService = expenseCRUDService;
             _userManager = userManager;
-            _apiKey = _configuration.GetValue<string>("ApiKey");
+            _apiKey = _configuration.GetValue<string>("ApiKey")!;
+            _path = _configuration.GetValue<string>("BaseOCRUrl")!;
+            _ocrApiUrl = $"{_path}api/OCRChatGPT/create-expenseRequest-image-file";
             _responseGPTService = responseGPTService;
 
             _httpClient = new HttpClient();
@@ -52,9 +53,6 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         [HttpPost("create-expense-image-file")]
         public async Task<IActionResult> CreateExpenseImageFile(IFormFile image)
         {
-            string path = _configuration.GetValue<string>("BaseOCRUrl");
-            string ocrApiUrl = $"{path}api/OCRChatGPT/create-expenseRequest-image-file";
-
             var (extension, base64Image) = await image.DescriptionImage();
 
             var requestImage = new
@@ -65,7 +63,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
                 Url = ""
             };
 
-            var response = await _responseGPTService.GetResponseGPT(ocrApiUrl, requestImage, await _userManager.GetUserAsync(User));
+            var response = await _responseGPTService.GetResponseGPT(_ocrApiUrl, requestImage, (await _userManager.GetUserAsync(User))!);
 
             return Ok(response);
         }
@@ -79,9 +77,6 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         [HttpPost("create-expense-image-url")]
         public async Task<IActionResult> CreateExpenseImageUrl([FromQuery] string url)
         {
-            string path = _configuration.GetValue<string>("BaseOCRUrl");
-            string ocrApiUrl = $"{path}api/OCRChatGPT/create-expenseRequest-image-file";
-
             var requestImage = new
             {
                 Base64Image = "",
@@ -90,7 +85,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
                 Url = url
             };
 
-            var response = await _responseGPTService.GetResponseGPT(ocrApiUrl, requestImage, await _userManager.GetUserAsync(User));
+            var response = await _responseGPTService.GetResponseGPT(_ocrApiUrl, requestImage, (await _userManager.GetUserAsync(User))!);
 
             return Ok(response);
         }
@@ -104,9 +99,9 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         [HttpPatch("update-status-expense")]
         public async Task<IActionResult> UpdateStatusExpense([FromQuery] int idExpense)
         {
-            var expense = await _expenseCRUDService.GetOne(idExpense);
-
-            if(expense.Status == ExpenseStatus.PAID)
+            var expense = await _expenseCRUDService.GetOne(idExpense) ?? throw new NotFoundException("Não existe despesa com este ID.");
+            
+            if (expense.Status == ExpenseStatus.PAID)
                 throw new NotAnExpenseException("Despesa não encontrada.");
 
             expense.Status = ExpenseStatus.PAID;

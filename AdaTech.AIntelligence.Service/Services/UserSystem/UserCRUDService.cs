@@ -45,7 +45,7 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
         /// </summary>
         /// <param name="id">The ID of the user to retrieve.</param>
         /// <returns>A task representing the asynchronous operation. Returns the user if found.</returns>
-        public async Task<UserInfo> GetOne(string id)
+        public async Task<UserInfo?> GetOne(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
 
@@ -56,7 +56,7 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
         /// Retrieves all users asynchronously.
         /// </summary>
         /// <returns>A task representing the asynchronous operation. Returns a collection of all users.</returns>
-        public Task<IEnumerable<UserInfo>> GetAll()
+        public Task<IEnumerable<UserInfo>?> GetAll()
         {
             return _repository.GetAll();
         }

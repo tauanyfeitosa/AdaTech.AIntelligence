@@ -19,13 +19,13 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem.UserInterface
         /// </summary>
         /// <param name="id">The ID of the user to retrieve.</param>
         /// <returns>A task representing the asynchronous operation. Returns the user if found.</returns>
-        Task<UserInfo> GetOne(string id);
+        Task<UserInfo?> GetOne(string id);
 
         /// <summary>
         /// Retrieves all users asynchronously.
         /// </summary>
         /// <returns>A task representing the asynchronous operation. Returns a collection of all users.</returns>
-        Task<IEnumerable<UserInfo>> GetAll();
+        Task<IEnumerable<UserInfo>?> GetAll();
 
         /// <summary>
         /// Updates an existing user asynchronously.

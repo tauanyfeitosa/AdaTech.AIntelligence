@@ -53,11 +53,7 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
             var result = await _signInManager.PasswordSignInAsync(email,
             password, false, lockoutOnFailure: false);
 
-            var user = await _userManager.FindByEmailAsync(email);
-
-            if (user == null)
-                throw new NotFoundException("Usuário não encontrado. Por favor, realize o autocadastro!");
-
+            var user = await _userManager.FindByEmailAsync(email) ?? throw new NotFoundException("Usuário não encontrado. Por favor, realize o autocadastro!");
             if (!user.EmailConfirmed)
                 throw new UnauthorizedAccessException("E-mail não confirmado. Por favor, confirme seu e-mail.");
 
@@ -92,12 +88,13 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
         /// <returns>A task representing the asynchronous operation. Returns true if the registration is successful; otherwise, false.</returns>
         public async Task<bool> RegisterUserAsync(IUserRegister userRegister)
         {
-            await ValidateCpfAsync(userRegister.CPF);
-            await ValidateEmailAsync(userRegister.Email);
+            await ValidateCpfAsync(userRegister.CPF!);
+            await ValidateEmailAsync(userRegister.Email!);
 
             var userInfo = await userRegister.RegisterUserAsync();
+            userInfo.IsSuperUser = true;
             userInfo.LockoutEnabled = false;
-            var result = await _userManager.CreateAsync(userInfo, userRegister.Password);
+            var result = await _userManager.CreateAsync(userInfo, userRegister.Password!);
             if (!result.Succeeded)
             {
                 throw new UnprocessableEntityException ("Falha ao criar usuário.");
@@ -145,7 +142,7 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
         {
             if (userRegister is DTOSuperUserRegister superUserRegister)
             {
-                foreach (var role in superUserRegister.Roles)
+                foreach (var role in superUserRegister.Roles!)
                 {
                     await _userManager.AddToRoleAsync(userInfo, role.ToString());
                 }
@@ -167,7 +164,7 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
             var confirmationLink = $"{_appSettings.GetValue<string>("ServerSMTP:BaseUrl")}/{userInfo.Id}/{Uri.EscapeDataString(token)}";
             var emailBody = $"Por favor, clique no link a seguir para confirmar seu endereço de e-mail: <a href='{confirmationLink}'>Confirmar E-mail</a>";
 
-            await _emailService.SendEmailAsync(userInfo.Email, "Confirmação de E-mail", emailBody);
+            await _emailService.SendEmailAsync(userInfo.Email!, "Confirmação de E-mail", emailBody);
         }
     }
 }

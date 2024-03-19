@@ -27,11 +27,9 @@ namespace AdaTech.AIntelligence.IoC.Extensions.ApplicationInitializer
         /// <returns>A task representing the asynchronous operation.</returns>
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            using (var scope = _serviceProvider.CreateScope())
-            {
-                var seedUserRoleInitial = scope.ServiceProvider.GetRequiredService<ISeedUserInitial>();
-                await seedUserRoleInitial.SeedRolesAsync();
-            }
+            using var scope = _serviceProvider.CreateScope();
+            var seedUserRoleInitial = scope.ServiceProvider.GetRequiredService<ISeedUserInitial>();
+            await seedUserRoleInitial.SeedRolesAsync();
         }
 
         /// <summary>

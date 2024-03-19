@@ -53,7 +53,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
         /// </summary>
         /// <param name="idExpense">The ID of the expense to retrieve.</param>
         /// <returns>A task representing the asynchronous operation. Returns the expense if found and active; otherwise, throws a <see cref="NotFoundException"/>.</returns>
-        public async Task<Expense> GetOne(int idExpense)
+        public async Task<Expense?> GetOne(int idExpense)
         {
             var expense = await _repository.GetOne(idExpense);
 
@@ -67,9 +67,9 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
         /// Retrieves all submitted expenses asynchronously.
         /// </summary>
         /// <returns>A task representing the asynchronous operation. Returns a collection of submitted and active expenses.</returns>
-        public async Task<IEnumerable<Expense>> GetAllSubmitted()
+        public async Task<IEnumerable<Expense>?> GetAllSubmitted()
         {
-            var allExpenses = await _repository.GetAll();
+            var allExpenses = await _repository.GetAll() ?? throw new NotFoundException("Não existem despesas submetidas.");
             return allExpenses.Where(expense => expense.Status == ExpenseStatus.SUBMITTED && expense.IsActive);
         }
 
@@ -77,9 +77,9 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
         /// Retrieves all active expenses asynchronously.
         /// </summary>
         /// <returns>A task representing the asynchronous operation. Returns a collection of active expenses.</returns>
-        public async Task<IEnumerable<Expense>> GetAllActive()
+        public async Task<IEnumerable<Expense>?> GetAllActive()
         {
-            var allExpenses = await _repository.GetAll();
+            var allExpenses = await _repository.GetAll() ?? throw new NotFoundException("Não existem despesas ativas.");
             return allExpenses.Where(expense => expense.IsActive);
         }
 
@@ -87,7 +87,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
         /// Retrieves all expenses asynchronously.
         /// </summary>
         /// <returns>A task representing the asynchronous operation. Returns a collection of all expenses.</returns>
-        public Task<IEnumerable<Expense>> GetAll()
+        public Task<IEnumerable<Expense>?> GetAll()
         {
             return _repository.GetAll();
         }

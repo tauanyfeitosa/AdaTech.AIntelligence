@@ -35,11 +35,18 @@ namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyD
             if (int.TryParse(id, out int intId))
             {
                 var entity = await repository.GetOne(intId);
-                return await DeleteEntityAsync(repository, entity, context);
+                if (entity is not null)
+                    return await DeleteEntityAsync(repository, entity, context);
+                else
+                    throw new NotFoundException($"{typeof(T).Name} não encontrado para exclusão.");
             }
 
             var entityUser = await _userManager.FindByIdAsync(id);
-            return await DeleteEntityAsync(repository, entityUser, context);
+
+            if (entityUser is not null)
+                return await DeleteEntityAsync(repository, entityUser, context);
+            else
+                throw new NotFoundException($"{typeof(T).Name} com este ID não foi encontrado.");
         }
 
         /// <summary>
@@ -56,7 +63,7 @@ namespace AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyD
 
             var propertyInfo = entity.GetType().GetProperty("IsActive");
 
-            if (propertyInfo == null || !propertyInfo.CanWrite || !(bool)propertyInfo.GetValue(entity))
+            if (propertyInfo == null || !propertyInfo.CanWrite || !(bool)propertyInfo.GetValue(entity)!)
                 throw new InvalidOperationException("A propriedade 'IsActive' não foi encontrada ou não pode ser escrita. Falha na operação.");
 
             propertyInfo.SetValue(entity, false, null);

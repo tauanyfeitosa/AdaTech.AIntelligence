@@ -23,19 +23,19 @@ namespace AdaTech.AIntelligence.OCR.Services.Image
         /// <param name="image"></param>
         /// <param name="url"></param>
         /// <returns cref="(string, object)">Returns base64 and description of the image.</returns>
-        public async Task<(string base64Image, object urlObject)> ProcessImageOrUrl(List<string> image, string? url)
+        public (string base64Image, object urlObject) ProcessImageOrUrl(List<string> image, string? url)
         {
             var base64Image = string.Empty;
-            object urlObject = new object();
+            object urlObject = new();
 
             if (image.Count == 2)
             {
-                urlObject = await image[0].DescriptionImage(image[1]);
+                urlObject = image[0].DescriptionImage(image[1]);
                 base64Image = image[0];
             }
             else if (!string.IsNullOrEmpty(url))
             {
-                urlObject = await url.DescriptionImage();
+                urlObject = url.DescriptionImage();
             }
 
             return (base64Image, urlObject);
@@ -47,7 +47,7 @@ namespace AdaTech.AIntelligence.OCR.Services.Image
         /// <param name="base64Image"></param>
         /// <param name="url"></param>
         /// <returns cref="string">Returns final url based on which one is not null or empty.</returns>
-        public string DetermineFinalUrl(string base64Image, string? url)
+        public string? DetermineFinalUrl(string base64Image, string? url)
         {
             return !string.IsNullOrEmpty(base64Image) ? base64Image : url;
         }

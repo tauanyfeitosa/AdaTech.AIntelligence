@@ -17,15 +17,11 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
     public class UserAuthController : Controller
     {
         private readonly IUserAuthService _userAuthService;
-        private readonly ILogger<UserAuthController> _logger;
         private readonly UserManager<UserInfo> _userManager;
 
-
-        public UserAuthController(IUserAuthService userService, ILogger<UserAuthController> logger, 
-            UserManager<UserInfo> userManager)
+        public UserAuthController(IUserAuthService userService, UserManager<UserInfo> userManager)
         {
             _userAuthService = userService;
-            _logger = logger;
             _userManager = userManager;
         }
 
@@ -37,13 +33,10 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] DTOUserLogin userLoginInfo)
         {
-            var succeeded = await _userAuthService.AuthenticateAsync(userLoginInfo.Email, userLoginInfo.Password);
-            
+            var succeeded = await _userAuthService.AuthenticateAsync(userLoginInfo.Email!, userLoginInfo.Password!);
+
             if (!succeeded)
-            {
-                _logger.LogError($"Login sem sucesso: {userLoginInfo.Email}.");
                 throw new UnauthorizedAccessException("Login sem sucesso.");
-            }
 
             return Ok($"Usuário {userLoginInfo.Email} logado com sucesso!");
         }
@@ -55,9 +48,8 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         [Authorize]
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()
-        { 
+        {
             await _userAuthService.LogoutAsync();
-            _logger.LogInformation("Logout realizado com sucesso.");
             return Ok("Usuário deslogado com sucesso!");
         }
 
@@ -72,15 +64,9 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             var succeeded = await _userAuthService.RegisterUserAsync(userRegister);
 
             if (succeeded)
-            {
-                _logger.LogInformation($"Usuário criado com sucesso: {userRegister.Email}");
                 return Ok($"Usário {userRegister.Email} foi criado com sucesso!");
-            }
             else
-            {
-                _logger.LogError($"Registro sem sucesso: {userRegister.Email}.");
                 return BadRequest("Registro sem sucesso.");
-            }
         }
 
 
@@ -133,16 +119,9 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             var succeeded = await _userAuthService.RegisterUserAsync(dTOSuperUserRegister);
 
             if (succeeded)
-            {
-                _logger.LogInformation($"Usuário criado com sucesso: {dTOSuperUserRegister.Email}");
                 return Ok($"Usário {dTOSuperUserRegister.Email} foi criado com sucesso!");
-            }
             else
-            {
-                _logger.LogError($"Registro sem sucesso: {dTOSuperUserRegister.Email}.");
                 return BadRequest("Registro sem sucesso.");
-            }
         }
-
     }
 }

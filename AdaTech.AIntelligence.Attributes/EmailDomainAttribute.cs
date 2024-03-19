@@ -21,16 +21,16 @@ namespace AdaTech.AIntelligence.Attributes
         /// <param name="value">The value to validate.</param>
         /// <param name="validationContext">The validation context.</param>
         /// <returns>A <see cref="ValidationResult"/> indicating whether the value is a valid email address for the specified domain.</returns>
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
         {
-            var configuration = (IConfiguration)validationContext.GetService(typeof(IConfiguration));
+            var configuration = (IConfiguration)validationContext.GetService(typeof(IConfiguration))!;
             var allowedDomain = configuration.GetValue<string>(_domain);
 
-            string email = value as string;
+            string? email = value as string;
 
-            if (!string.IsNullOrWhiteSpace(email) && email.EndsWith(allowedDomain))
+            if (!string.IsNullOrWhiteSpace(email) && email.EndsWith(allowedDomain!))
             {
-                return ValidationResult.Success;
+                return ValidationResult.Success!;
             }
             else
             {

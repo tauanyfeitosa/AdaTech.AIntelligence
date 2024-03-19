@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdaTech.AIntelligence.DbLibrary.Migrations
 {
     [DbContext(typeof(ExpenseReportingDbContext))]
-    [Migration("20240315115819_RoleRequirement")]
-    partial class RoleRequirement
+    [Migration("20240319143112_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,6 +36,9 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
                     b.Property<int>("Category")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -49,7 +52,16 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
                     b.Property<double>("TotalValue")
                         .HasColumnType("float");
 
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserInfoId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserInfoId");
 
                     b.ToTable("Expenses");
                 });
@@ -65,6 +77,9 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
                     b.Property<DateTime>("ApprovalDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("CreatAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("RequestDate")
                         .HasColumnType("datetime2");
 
@@ -73,6 +88,9 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserInfoId")
                         .IsRequired()
@@ -101,10 +119,14 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("DateBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -112,9 +134,6 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsLogged")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsStaff")
@@ -160,6 +179,9 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -312,6 +334,17 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("AdaTech.AIntelligence.Entities.Objects.Expense", b =>
+                {
+                    b.HasOne("AdaTech.AIntelligence.Entities.Objects.UserInfo", "UserInfo")
+                        .WithMany("Expenses")
+                        .HasForeignKey("UserInfoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserInfo");
+                });
+
             modelBuilder.Entity("AdaTech.AIntelligence.Entities.Objects.RoleRequirement", b =>
                 {
                     b.HasOne("AdaTech.AIntelligence.Entities.Objects.UserInfo", "UserInfo")
@@ -376,6 +409,8 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
 
             modelBuilder.Entity("AdaTech.AIntelligence.Entities.Objects.UserInfo", b =>
                 {
+                    b.Navigation("Expenses");
+
                     b.Navigation("RoleRequirements");
                 });
 #pragma warning restore 612, 618

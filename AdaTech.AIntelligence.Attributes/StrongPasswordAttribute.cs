@@ -8,10 +8,22 @@ namespace AdaTech.AIntelligence.Attributes
     /// <summary>
     /// Validates that a given password meets the criteria for a strong password.
     /// </summary>
-    public class StrongPasswordAttribute : ValidationAttribute
+    public partial class StrongPasswordAttribute : ValidationAttribute
     {
+        [GeneratedRegex(@"[^A-Za-z0-9]")]
+        private static partial Regex specialCharRegex();
+
+        [GeneratedRegex("\\d")]
+        private static partial Regex digitRegex();
+
+        [GeneratedRegex("[a-z]")]
+        private static partial Regex lowerCaseRegex();
+
+        [GeneratedRegex("[A-Z]")]
+        private static partial Regex upperCaseRegex();
+
         private readonly int _minumumLength;
-        private static int MimumumCharCombinations = 3;
+        private readonly int MimumumCharCombinations = 3;
 
         /// <summary>
         /// Initializes <see cref="StrongPasswordAttribute"/> class with the specified minimum length.
@@ -54,10 +66,10 @@ namespace AdaTech.AIntelligence.Attributes
         /// <returns>True if the password contains the required combinations; otherwise, false.</returns>
         internal bool HasRequiredCombinations(string password)
         {
-            var hasUpperCase = Regex.IsMatch(password, "[A-Z]");
-            var hasLowerCase = Regex.IsMatch(password, "[a-z]");
-            var hasDigit = Regex.IsMatch(password, "\\d");
-            var hasSpecialChar = Regex.IsMatch(password, @"[^A-Za-z0-9]");
+            var hasUpperCase = upperCaseRegex().IsMatch(password);
+            var hasLowerCase = lowerCaseRegex().IsMatch(password);
+            var hasDigit = digitRegex().IsMatch(password);
+            var hasSpecialChar = specialCharRegex().IsMatch(password);
 
             var combinations = new[] { hasUpperCase, hasLowerCase, hasDigit, hasSpecialChar };
             var countTrue = combinations.Count(c => c);

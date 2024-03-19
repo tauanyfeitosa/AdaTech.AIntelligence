@@ -14,7 +14,7 @@ namespace AdaTech.AIntelligence.OCR.Services.Image
         /// <param name="image"></param>
         /// <param name="extension"></param>
         /// <returns cref="object">Returns a portion of the request that describes the image file.</returns>
-        public static async Task<object> DescriptionImage(this string image, string extension)
+        public static object DescriptionImage(this string image, string extension)
         {
 
             var urlImage = new
@@ -23,7 +23,7 @@ namespace AdaTech.AIntelligence.OCR.Services.Image
                 content = new object[]
                         {
                             new { type = "text", text = "What’s in this image?" },
-                            new { type = "image_url", image_url = $"data:image/{extension.Substring(1)};base64,{image}" }
+                            new { type = "image_url", image_url = $"data:image/{extension[1..]};base64,{image}" }
                         }
             };
 
@@ -35,7 +35,7 @@ namespace AdaTech.AIntelligence.OCR.Services.Image
         /// </summary>
         /// <param name="url"></param>
         /// <returns cref="object">Returns a portion of the request that describes the url image.</returns>
-        public static async Task<object> DescriptionImage(this string url)
+        public static object DescriptionImage(this string url)
         {
             var urlObject = new
             {
@@ -65,7 +65,7 @@ namespace AdaTech.AIntelligence.OCR.Services.Image
                 content = new object[]
                        {
                             new { type = "text", text = $"{prompt}" },
-                            new { type = "image_url", image_url = $"data:image/{extension.Substring(1)};base64,{base64}" }
+                            new { type = "image_url", image_url = $"data:image/{extension[1..]};base64,{base64}" }
                        }
             };
             return urlImage;

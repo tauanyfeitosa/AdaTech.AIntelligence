@@ -16,13 +16,11 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly IHttpClientFactory _clientFactory;
-        private readonly ILogger<ChatGPTController> _logger;
 
-        public ChatGPTController(IHttpClientFactory clientFactory, IConfiguration configuration, ILogger<ChatGPTController> logger)
+        public ChatGPTController(IHttpClientFactory clientFactory, IConfiguration configuration)
         {
             _configuration = configuration;
             _clientFactory = clientFactory;
-            _logger = logger;
         }
 
         /// <summary>
@@ -35,7 +33,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         {
             var apiKey = _configuration.GetValue<string>("ApiKey");
 
-            string path = _configuration.GetValue<string>("BaseOCRUrl");
+            string path = _configuration.GetValue<string>("BaseOCRUrl")!;
             string ocrApiUrl = $"{path}api/OCRChatGPT/check";
 
             var builder = new UriBuilder(ocrApiUrl);
