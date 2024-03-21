@@ -23,6 +23,8 @@ Após essas configurações, vamos conhecer um pouco mais sobre o projeto em si.
 
 `Kanban do Projeto`: [AIntelligence](https://github.com/users/tauanyfeitosa/projects/3)
 
+`Relatório do Projeto`: [Relatório LaTeX](https://www.overleaf.com/read/gztsvkssxvnw#78539d)
+
 # Descrição do Projeto
 
 Este projeto foi elaborado por Charles S.M., M. Eduarda Sampaio, M.Tauany Feitosa, Miguel Pereira e Yuri Cifuentes como requisito parcial para a conclusão do curso DiverseDEV pelo Mercado Eletrônico em parceria com a AdaTech. Os requisitos do referido projeto se encontram em: [Dasafio 1 - OCR](https://github.com/mercadoeletronico/diverseDEV/blob/master/README.md).
