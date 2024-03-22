@@ -8,18 +8,30 @@ namespace AdaTech.AIntelligence.Attributes
     /// <summary>
     /// Validates that a given password meets the criteria for a strong password.
     /// </summary>
-    public class StrongPasswordAttribute : ValidationAttribute
+    public partial class StrongPasswordAttribute : ValidationAttribute
     {
+        [GeneratedRegex(@"[^A-Za-z0-9]")]
+        private static partial Regex specialCharRegex();
+
+        [GeneratedRegex("\\d")]
+        private static partial Regex digitRegex();
+
+        [GeneratedRegex("[a-z]")]
+        private static partial Regex lowerCaseRegex();
+
+        [GeneratedRegex("[A-Z]")]
+        private static partial Regex upperCaseRegex();
+
         private readonly int _minumumLength;
-        private static int MimumumCharCombinations = 3;
+        private readonly int MimumumCharCombinations = 3;
 
         /// <summary>
         /// Initializes <see cref="StrongPasswordAttribute"/> class with the specified minimum length.
         /// </summary>
         /// <param name="minimumLength">The minimum length required for the password.</param>
-        public StrongPasswordAttribute(int minumumLength)
+        public StrongPasswordAttribute(int minimumLength)
         {
-            _minumumLength = minumumLength;
+            _minumumLength = minimumLength;
         }
 
         /// <summary>
@@ -33,11 +45,11 @@ namespace AdaTech.AIntelligence.Attributes
             var password = value as string;
             if (string.IsNullOrEmpty(password))
             {
-                return new ValidationResult("A senha não pode ser vazia");
+                return new ValidationResult("A senha não pode ser vazia.");
             }
             if (password.Length < _minumumLength)
             {
-                return new ValidationResult($"A senha deve ter no minimo {_minumumLength} caracteres");
+                return new ValidationResult($"A senha deve ter no mínimo {_minumumLength} caracteres.");
             }
             if (!HasRequiredCombinations(password))
             {
@@ -48,16 +60,16 @@ namespace AdaTech.AIntelligence.Attributes
         }
 
         /// <summary>
-        /// Checks if the password contains the required combinations.
+        /// Checks if password contains the required combinations.
         /// </summary>
         /// <param name="password">The password to check.</param>
         /// <returns>True if the password contains the required combinations; otherwise, false.</returns>
         internal bool HasRequiredCombinations(string password)
         {
-            var hasUpperCase = Regex.IsMatch(password, "[A-Z]");
-            var hasLowerCase = Regex.IsMatch(password, "[a-z]");
-            var hasDigit = Regex.IsMatch(password, "\\d");
-            var hasSpecialChar = Regex.IsMatch(password, @"[^A-Za-z0-9]");
+            var hasUpperCase = upperCaseRegex().IsMatch(password);
+            var hasLowerCase = lowerCaseRegex().IsMatch(password);
+            var hasDigit = digitRegex().IsMatch(password);
+            var hasSpecialChar = specialCharRegex().IsMatch(password);
 
             var combinations = new[] { hasUpperCase, hasLowerCase, hasDigit, hasSpecialChar };
             var countTrue = combinations.Count(c => c);

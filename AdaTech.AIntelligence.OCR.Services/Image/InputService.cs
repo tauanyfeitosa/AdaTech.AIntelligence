@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace AdaTech.AIntelligence.OCR.Services.Image
 {
     /// <summary>
@@ -16,7 +11,7 @@ namespace AdaTech.AIntelligence.OCR.Services.Image
         /// </summary>
         /// <param name="image"></param>
         /// <param name="url"></param>
-        /// <returns></returns>
+        /// <returns cref="bool">Returns a boolean indicating if input image is valid.</returns>
         public bool ValidateInput(List<string> image, string? url)
         {
             return !(image.Count != 2 && string.IsNullOrEmpty(url)) && !(image.Count == 2 && !string.IsNullOrEmpty(url));
@@ -27,20 +22,20 @@ namespace AdaTech.AIntelligence.OCR.Services.Image
         /// </summary>
         /// <param name="image"></param>
         /// <param name="url"></param>
-        /// <returns></returns>
-        public async Task<(string base64Image, object urlObject)> ProcessImageOrUrl(List<string> image, string? url)
+        /// <returns cref="(string, object)">Returns base64 and description of the image.</returns>
+        public (string base64Image, object urlObject) ProcessImageOrUrl(List<string> image, string? url)
         {
             var base64Image = string.Empty;
-            object urlObject = new object();
+            object urlObject = new();
 
             if (image.Count == 2)
             {
-                urlObject = await image[0].DescriptionImage(image[1]);
+                urlObject = image[0].DescriptionImage(image[1]);
                 base64Image = image[0];
             }
             else if (!string.IsNullOrEmpty(url))
             {
-                urlObject = await url.DescriptionImage();
+                urlObject = url.DescriptionImage();
             }
 
             return (base64Image, urlObject);
@@ -51,8 +46,8 @@ namespace AdaTech.AIntelligence.OCR.Services.Image
         /// </summary>
         /// <param name="base64Image"></param>
         /// <param name="url"></param>
-        /// <returns></returns>
-        public string DetermineFinalUrl(string base64Image, string? url)
+        /// <returns cref="string">Returns final url based on which one is not null or empty.</returns>
+        public string? DetermineFinalUrl(string base64Image, string? url)
         {
             return !string.IsNullOrEmpty(base64Image) ? base64Image : url;
         }

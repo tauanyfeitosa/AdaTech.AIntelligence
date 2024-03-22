@@ -1,10 +1,8 @@
-﻿using AdaTech.AIntelligence.Attributes;
-using AdaTech.AIntelligence.DbLibrary.Repository;
-using AdaTech.AIntelligence.Entities.Objects;
-using AdaTech.AIntelligence.Service.Exceptions;
-using AdaTech.AIntelligence.Service.Services.UserSystem;
+using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
+using AdaTech.AIntelligence.Service.Services.UserSystem.UserInterface;
+using AdaTech.WebAPI.SistemaVendas.Utilities.Filters;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+using AdaTech.AIntelligence.Attributes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdaTech.AIntelligence.WebAPI.Controllers
@@ -12,11 +10,12 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [SwaggerDisplayName("User Management")]
+    [TypeFilter(typeof(LoggingActionFilter))]
     public class UserManagementController : ControllerBase
     {
         private readonly IUserCRUDService _userCRUDService;
 
-        public UserManagementController(IAIntelligenceRepository<UserInfo> userRepository, ILogger<PromotionController> logger, IUserCRUDService userCRUDService, UserManager<UserInfo> userManager)
+        public UserManagementController(IUserCRUDService userCRUDService)
         {
             _userCRUDService = userCRUDService;
         }
@@ -30,11 +29,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ViewUser(string id)
         {
-            var success = await _userCRUDService.GetOne(id);
-
-            if (success == null)
-                throw new NotFoundException("Não existe um usuário cadastrado com o Id fornecido.");
-
+            var success = await _userCRUDService.GetOne(id) ?? throw new NotFoundException("Não existe um usuário cadastrado com o Id fornecido.");
             return Ok(success);
         }
 
@@ -46,11 +41,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ViewAllUsers()
         {
-            var success = await _userCRUDService.GetAll();
-
-            if (success == null)
-                throw new NotFoundException("Não existem usuários cadastrados.");
-
+            var success = await _userCRUDService.GetAll() ?? throw new NotFoundException("Não existem usuários cadastrados.");
             return Ok(success);
         }
 

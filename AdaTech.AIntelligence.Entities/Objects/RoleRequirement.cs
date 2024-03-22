@@ -1,12 +1,10 @@
 ﻿using AdaTech.AIntelligence.Entities.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdaTech.AIntelligence.Entities.Objects
 {
+    /// <summary>
+    /// Class to represent the role requirement with properties to control the role requests.
+    /// </summary>
     public class RoleRequirement
     {
         public int Id { get; set; }

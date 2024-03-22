@@ -1,8 +1,18 @@
 ﻿namespace AdaTech.AIntelligence.Configuration
 {
+    /// <summary>
+    /// Class to represent user credentials settings.
+    /// </summary>
     public class UserCredentialsSettings
     {
-        public string UserName { get; set; }
-        public string Password { get; set; }
+        /// <summary>
+        /// Gets or sets the username.
+        /// </summary>
+        public string? UserName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the password.
+        /// </summary>
+        public string? Password { get; set; }
     }
 }

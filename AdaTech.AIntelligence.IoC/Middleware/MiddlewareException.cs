@@ -1,13 +1,15 @@
-﻿using AdaTech.AIntelligence.Service.Exceptions;
+﻿using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
+using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ErrosCustomer;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
+using System.Net.Mail;
 
 namespace AdaTech.AIntelligence.IoC.Middleware
 {
 
     /// <summary>
-    /// Middleware to handle exceptions
+    /// Middleware to handle exceptions.
     /// </summary>
     public class MiddlewareException
     {
@@ -21,7 +23,7 @@ namespace AdaTech.AIntelligence.IoC.Middleware
         }
 
         /// <summary>
-        /// Invoke the middleware
+        /// Invokes the middleware.
         /// </summary>
         /// <param name="httpContext"></param>
         /// <returns></returns>
@@ -41,7 +43,7 @@ namespace AdaTech.AIntelligence.IoC.Middleware
         }
 
         /// <summary>
-        /// Handle exceptions according to the custom exception received
+        /// Handle exceptions according to the custom exception received.
         /// </summary>
         /// <param name="context"></param>
         /// <param name="exception"></param>
@@ -54,17 +56,23 @@ namespace AdaTech.AIntelligence.IoC.Middleware
 
             var statusCode = exception switch
             {
-                InvalidAmountException _ => StatusCodes.Status400BadRequest,
-                InvalidCategoryException _ => StatusCodes.Status400BadRequest,
-                InvalidDescriptionException _ => StatusCodes.Status400BadRequest,
-                NotAnExpenseException _ => StatusCodes.Status400BadRequest,
-                NotFoundException _ => StatusCodes.Status404NotFound,
+                InvalidAmountException _ or
+                NotAnExpenseException _ or
+                FormatException _ => StatusCodes.Status400BadRequest,
+
+                NotFoundException _ or
+                ReadingAmountException _ or
+                NotConnectionGPTException _ => StatusCodes.Status404NotFound,
+
                 NotReadableImageException _ => StatusCodes.Status415UnsupportedMediaType,
-                ReadingAmountException _ => StatusCodes.Status404NotFound,
-                ReadingCategoryException _ => StatusCodes.Status404NotFound,
-                ReadingDescriptionException _ => StatusCodes.Status404NotFound,
+
+                UnprocessableEntityException _ => StatusCodes.Status422UnprocessableEntity,
+
+                SmtpException _ => StatusCodes.Status500InternalServerError,
+
                 _ => StatusCodes.Status500InternalServerError,
             };
+
 
             var message = exception.Message;
 

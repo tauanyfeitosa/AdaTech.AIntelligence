@@ -1,31 +1,28 @@
-using AdaTech.AIntelligence.Attributes;
-using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Service.Services.UserSystem.UserInterface;
 using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
-using AdaTech.AIntelligence.Service.Services.EmailService;
-using AdaTech.AIntelligence.Service.Services.UserSystem;
+using AdaTech.WebAPI.SistemaVendas.Utilities.Filters;
+using AdaTech.AIntelligence.Entities.Objects;
 using Microsoft.AspNetCore.Authorization;
+using AdaTech.AIntelligence.Attributes;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
 
 namespace AdaTech.AIntelligence.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [SwaggerDisplayName("User Authentication")]
+    [TypeFilter(typeof(LoggingActionFilter))]
     public class UserAuthController : Controller
     {
         private readonly IUserAuthService _userAuthService;
-        private readonly ILogger<UserAuthController> _logger;
         private readonly UserManager<UserInfo> _userManager;
-        private readonly IEmailService _emailService;
 
-
-        public UserAuthController(IUserAuthService userService, ILogger<UserAuthController> logger, UserManager<UserInfo> userManager, IEmailService emailService)
+        public UserAuthController(IUserAuthService userService, UserManager<UserInfo> userManager)
         {
             _userAuthService = userService;
-            _logger = logger;
             _userManager = userManager;
-            _emailService = emailService;
         }
 
         /// <summary>
@@ -36,11 +33,12 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] DTOUserLogin userLoginInfo)
         {
-            var succeeded = await _userAuthService.AuthenticateAsync(userLoginInfo.Email, userLoginInfo.Password);
-            if (succeeded)
-                return Ok($"Usuário {userLoginInfo.Email} logado com sucesso!");
-            return BadRequest($"Não foi possível logar com {userLoginInfo.Email}. " +
-                $"Certifique-se de que seu email foi confirmado e que suas credenciais estão corretas.");
+            var succeeded = await _userAuthService.AuthenticateAsync(userLoginInfo.Email!, userLoginInfo.Password!);
+
+            if (!succeeded)
+                throw new UnauthorizedAccessException("Login sem sucesso.");
+
+            return Ok($"Usuário {userLoginInfo.Email} logado com sucesso!");
         }
 
         /// <summary>
@@ -50,9 +48,8 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         [Authorize]
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()
-        { 
+        {
             await _userAuthService.LogoutAsync();
-            _logger.LogInformation("Logout realizado com sucesso.");
             return Ok("Usuário deslogado com sucesso!");
         }
 
@@ -61,21 +58,15 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         /// </summary>
         /// <param name="userRegister"></param>
         /// <returns></returns>
-        [HttpPost("createUser")]
+        [HttpPost("create-user")]
         public async Task<IActionResult> Register([FromBody] DTOUserRegister userRegister)
         {
             var succeeded = await _userAuthService.RegisterUserAsync(userRegister);
 
             if (succeeded)
-            {
-                _logger.LogInformation($"Usuário criado com sucesso: {userRegister.Email}");
                 return Ok($"Usário {userRegister.Email} foi criado com sucesso!");
-            }
             else
-            {
-                _logger.LogError($"Registro sem sucesso: {userRegister.Email}.");
                 return BadRequest("Registro sem sucesso.");
-            }
         }
 
 
@@ -128,16 +119,9 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             var succeeded = await _userAuthService.RegisterUserAsync(dTOSuperUserRegister);
 
             if (succeeded)
-            {
-                _logger.LogInformation($"Usuário criado com sucesso: {dTOSuperUserRegister.Email}");
                 return Ok($"Usário {dTOSuperUserRegister.Email} foi criado com sucesso!");
-            }
             else
-            {
-                _logger.LogError($"Registro sem sucesso: {dTOSuperUserRegister.Email}.");
                 return BadRequest("Registro sem sucesso.");
-            }
         }
-
     }
 }

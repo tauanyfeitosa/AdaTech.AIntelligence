@@ -10,7 +10,8 @@ namespace AdaTech.AIntelligence.Attributes
     public class DateAgeAttribute : ValidationAttribute
     {
         private readonly int _minimumAge;
-        // <summary>
+
+        /// <summary>
         /// Initializes need a <see cref="DateAgeAttribute"/> class with the specified minimum age.
         /// </summary>
         /// <param name="minimumAge">The minimum age allowed.</param>
@@ -25,17 +26,17 @@ namespace AdaTech.AIntelligence.Attributes
         /// <param name="value">The value to validate.</param>
         /// <param name="validationContext">The validation context.</param>
         /// <returns>A <see cref="ValidationResult"/> indicating whether the value is valid.</returns>
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
         {
-            if (value == null || !(value is DateOnly))
+            if (value == null || value is not DateOnly)
             {
                 return new ValidationResult("The value must be of type DateOnly.");
             }
 
 
-            if (value != null && value is DateOnly)
+            if (value != null && value is DateOnly only)
             {
-                DateOnly dateOfBirth = (DateOnly)value;
+                DateOnly dateOfBirth = only;
                 int age = CalculateAge(dateOfBirth);
 
                 if (age < _minimumAge)
@@ -44,13 +45,13 @@ namespace AdaTech.AIntelligence.Attributes
                 }
             }
 
-            return ValidationResult.Success;
+            return ValidationResult.Success!;
         }
 
         /// <summary>
-        /// Calculates the age based on the provided date of birth.
+        /// Calculates the age based on the provided birth date.
         /// </summary>
-        /// <param name="dateOfBirth">Date of birth.</param>
+        /// <param name="dateOfBirth">Birth date.</param>
         /// <returns>The age calculated based on the date of birth.</returns>
         internal int CalculateAge(DateOnly dateOfBirth)
         {

@@ -133,9 +133,6 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsLogged")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsStaff")
                         .HasColumnType("bit");
 

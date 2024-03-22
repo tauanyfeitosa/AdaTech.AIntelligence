@@ -1,21 +1,23 @@
-﻿using AdaTech.AIntelligence.IoC.Middleware;
-using AdaTech.AIntelligence.Service.Services.SeedUser;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using AdaTech.AIntelligence.Service.Services.ExpenseServices;
-using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
-using AdaTech.AIntelligence.Service.Services.UserSystem;
-using AdaTech.AIntelligence.Service.Services;
-using AdaTech.AIntelligence.Service.Services.SeedUser.SeedManagerInitial;
-using AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyDelete;
-using AdaTech.AIntelligence.Service.Services.DeleteStrategyService;
-using AdaTech.AIntelligence.Entities.Objects;
-using AdaTech.AIntelligence.Service.Services.EmailService;
-using System.Net.Mail;
-using AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService;
-using AdaTech.AIntelligence.DbLibrary.Repository;
-using AdaTech.AIntelligence.Service.Services.RoleRequirementService;
 using AdaTech.AIntelligence.Service.Services.RoleRequirementService.PromotionServices;
+using AdaTech.AIntelligence.Service.Services.DeleteStrategyService.StrategyDelete;
+using AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService;
+using AdaTech.AIntelligence.Service.Services.SeedUser.SeedManagerInitial;
+using AdaTech.AIntelligence.Service.Services.UserSystem.UserInterface;
+using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
+using AdaTech.AIntelligence.Service.Services.RoleRequirementService;
+using AdaTech.AIntelligence.Service.Services.DeleteStrategyService;
+using AdaTech.AIntelligence.Service.Services.ExpenseServices;
+using AdaTech.AIntelligence.Service.Services.EmailService;
+using AdaTech.AIntelligence.Service.Services.UserSystem;
+using AdaTech.AIntelligence.Service.Services.SeedUser;
+using AdaTech.AIntelligence.DbLibrary.Repository;
+using Microsoft.Extensions.DependencyInjection;
+using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.IoC.Middleware;
+using Microsoft.AspNetCore.Builder;
+using System.Net.Mail;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Http;
 
 
 namespace AdaTech.AIntelligence.IoC.Extensions.Injections
@@ -57,6 +59,7 @@ namespace AdaTech.AIntelligence.IoC.Extensions.Injections
 
         public static IApplicationBuilder ResolveDependenciesMiddleware(this IApplicationBuilder app)
         {
+            app.UseMiddleware<CustomAuthorizationMiddleware>();
             app.UseAntiXssMiddleware();
             app.UseMiddleware<MiddlewareException>();
             return app;

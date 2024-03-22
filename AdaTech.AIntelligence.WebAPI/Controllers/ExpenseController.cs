@@ -1,47 +1,43 @@
-using AdaTech.AIntelligence.Entities.Enums;
-using AdaTech.AIntelligence.IoC.Extensions.Filters;
-using AdaTech.AIntelligence.Attributes;
-using AdaTech.AIntelligence.Service.Exceptions;
-using AdaTech.AIntelligence.Service.Services.ExpenseServices;
-using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.ImageService;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.Net.Http.Headers;
-using System.Web;
-using Microsoft.AspNetCore.Identity;
+using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
+using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
+using AdaTech.WebAPI.SistemaVendas.Utilities.Filters;
+using AdaTech.AIntelligence.IoC.Extensions.Filters;
 using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Entities.Enums;
+using Microsoft.AspNetCore.Authorization;
+using AdaTech.AIntelligence.Attributes;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System.Net.Http.Headers;
 
 namespace AdaTech.AIntelligence.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [SwaggerDisplayName("Report Expense")]
+    [TypeFilter(typeof(LoggingActionFilter))]
     public class ExpenseController : ControllerBase
     {
-        private readonly ILogger<ExpenseController> _logger;
         private readonly IConfiguration _configuration;
         private readonly IExpenseCRUDService _expenseCRUDService;
-        private readonly IHttpClientFactory _clientFactory;
         private readonly HttpClient _httpClient;
         private readonly ResponseGPTService _responseGPTService;
         private readonly string _apiKey;
+        private readonly string _path;
+        private readonly string _ocrApiUrl;
         private readonly UserManager<UserInfo> _userManager;
 
-
-        private const string _url = "https://api.openai.com/v1/chat/completions";
-
-        public ExpenseController(IConfiguration configuration, ILogger<ExpenseController> logger, 
-            IExpenseCRUDService expenseCRUDService, IHttpClientFactory httpClientFactory, 
+        public ExpenseController(IConfiguration configuration, IExpenseCRUDService expenseCRUDService, 
             ResponseGPTService responseGPTService, UserManager<UserInfo> userManager)
         {
             _configuration = configuration;
-            _logger = logger;
             _expenseCRUDService = expenseCRUDService;
             _userManager = userManager;
-            _apiKey = _configuration.GetValue<string>("ApiKey");
-            _clientFactory = httpClientFactory;
+            _apiKey = _configuration.GetValue<string>("ApiKey")!;
+            _path = _configuration.GetValue<string>("BaseOCRUrl")!;
+            _ocrApiUrl = $"{_path}api/OCRChatGPT/create-expenseRequest-image-file";
             _responseGPTService = responseGPTService;
 
             _httpClient = new HttpClient();
@@ -57,9 +53,6 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         [HttpPost("create-expense-image-file")]
         public async Task<IActionResult> CreateExpenseImageFile(IFormFile image)
         {
-            string path = _configuration.GetValue<string>("BaseOCRUrl");
-            string ocrApiUrl = $"{path}api/OCRChatGPT/create-expenseRequest-image-file";
-
             var (extension, base64Image) = await image.DescriptionImage();
 
             var requestImage = new
@@ -70,7 +63,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
                 Url = ""
             };
 
-            var response = await _responseGPTService.GetResponseGPT(ocrApiUrl, requestImage, await _userManager.GetUserAsync(User));
+            var response = await _responseGPTService.GetResponseGPT(_ocrApiUrl, requestImage, (await _userManager.GetUserAsync(User))!);
 
             return Ok(response);
         }
@@ -84,9 +77,6 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         [HttpPost("create-expense-image-url")]
         public async Task<IActionResult> CreateExpenseImageUrl([FromQuery] string url)
         {
-            string path = _configuration.GetValue<string>("BaseOCRUrl");
-            string ocrApiUrl = $"{path}api/OCRChatGPT/create-expenseRequest-image-file";
-
             var requestImage = new
             {
                 Base64Image = "",
@@ -95,7 +85,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
                 Url = url
             };
 
-            var response = await _responseGPTService.GetResponseGPT(ocrApiUrl, requestImage, await _userManager.GetUserAsync(User));
+            var response = await _responseGPTService.GetResponseGPT(_ocrApiUrl, requestImage, (await _userManager.GetUserAsync(User))!);
 
             return Ok(response);
         }
@@ -109,9 +99,9 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         [HttpPatch("update-status-expense")]
         public async Task<IActionResult> UpdateStatusExpense([FromQuery] int idExpense)
         {
-            var expense = await _expenseCRUDService.GetOne(idExpense);
-
-            if(expense.Status == ExpenseStatus.PAID)
+            var expense = await _expenseCRUDService.GetOne(idExpense) ?? throw new NotFoundException("Não existe despesa com este ID.");
+            
+            if (expense.Status == ExpenseStatus.PAID)
                 throw new NotAnExpenseException("Despesa não encontrada.");
 
             expense.Status = ExpenseStatus.PAID;
@@ -119,7 +109,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             var success = await _expenseCRUDService.UpdateExpense(expense);
 
             if (!success)
-                throw new Exception("Erro ao alterar o status da despesa.");
+                throw new UnprocessableEntityException("Erro ao alterar o status da despesa.");
 
             return Ok("Status da despesa atualizado com sucesso!");
         }
@@ -155,7 +145,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             var success = await _expenseCRUDService.GetAllActive();
 
             if (success.IsNullOrEmpty())
-                throw new NotFoundException("N�o existem despesas ativas.");
+                throw new NotFoundException("Não existem despesas ativas.");
 
             return Ok(success);
         }
@@ -172,7 +162,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             var success = await _expenseCRUDService.GetAllSubmitted();
 
             if (success.IsNullOrEmpty())
-                throw new NotFoundException();
+                throw new NotFoundException("Não existem despesas submetidas.");
 
             return Ok(success);
         }

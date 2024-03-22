@@ -1,25 +1,39 @@
-﻿using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Identity;
-using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
+using AdaTech.AIntelligence.Service.Services.UserSystem.UserInterface;
+using AdaTech.AIntelligence.Service.Services.EmailService;
 using AdaTech.AIntelligence.Service.DTOs.ModelRequest;
 using AdaTech.AIntelligence.Service.DTOs.Interfaces;
+using AdaTech.AIntelligence.Entities.Objects;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdaTech.AIntelligence.Service.Services.UserSystem
 {
+    /// <summary>
+    /// Service responsible for user authentication and registration.
+    /// </summary>
     public class UserAuthService : IUserAuthService
     {
         private readonly UserManager<UserInfo> _userManager;
         private readonly SignInManager<UserInfo> _signInManager;
         private readonly ILogger<UserAuthService> _logger;
-        private readonly EmailService.IEmailService _emailService;
+        private readonly IEmailService _emailService;
         private readonly IConfiguration _appSettings;
 
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserAuthService"/> class.
+        /// </summary>
+        /// <param name="signInManager">The sign-in manager.</param>
+        /// <param name="userManager">The user manager.</param>
+        /// <param name="logger">The logger.</param>
+        /// <param name="emailService">The email service.</param>
+        /// <param name="appSettings">The application settings.</param>
         public UserAuthService(SignInManager<UserInfo> signInManager,
             UserManager<UserInfo> userManager,
             ILogger<UserAuthService> logger,
-            EmailService.IEmailService emailService, IConfiguration appSettings)
+            IEmailService emailService, IConfiguration appSettings)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -36,24 +50,18 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
         /// <returns>A task representing the asynchronous operation. Returns true if the authentication is successful; otherwise, false.</returns>
         public async Task<bool> AuthenticateAsync(string email, string password)
         {
-            try
-            {
-                var result = await _signInManager.PasswordSignInAsync(email,
-                password, false, lockoutOnFailure: false);
+            var result = await _signInManager.PasswordSignInAsync(email,
+            password, false, lockoutOnFailure: false);
 
-                if (!result.Succeeded)
-                    return false;
+            var user = await _userManager.FindByEmailAsync(email) ?? throw new NotFoundException("Usuário não encontrado. Por favor, realize o autocadastro!");
+            if (!user.EmailConfirmed)
+                throw new UnauthorizedAccessException("E-mail não confirmado. Por favor, confirme seu e-mail.");
 
-                var user = await _userManager.FindByEmailAsync(email);
+            if (!user.IsActive)
+                throw new UnauthorizedAccessException("Usuário inativo. Por favor, entre em contato com o administrador.");
 
-                _logger.LogInformation("Usuário autenticado com sucesso.");
-                return user == null ? throw new ArgumentException("Usuário não encontrado.") : result.Succeeded;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Tentativa de login sem sucesso: {ex}");
-                throw new ArgumentException($"Tentativa de login sem sucesso: {ex}");
-            }
+            _logger.LogInformation("Usuário autenticado com sucesso.");
+            return result.Succeeded;
         }
 
         /// <summary>
@@ -69,6 +77,7 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
             catch (Exception ex)
             {
                 _logger.LogError($"Tentativa de logout sem sucesso: {ex}");
+                throw new InvalidOperationException($"Tentativa de logout sem sucesso: {ex}");
             }
         }
 
@@ -79,42 +88,83 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
         /// <returns>A task representing the asynchronous operation. Returns true if the registration is successful; otherwise, false.</returns>
         public async Task<bool> RegisterUserAsync(IUserRegister userRegister)
         {
-            try
+            await ValidateCpfAsync(userRegister.CPF!);
+            await ValidateEmailAsync(userRegister.Email!);
+
+            var userInfo = await userRegister.RegisterUserAsync();
+            userInfo.IsSuperUser = true;
+            userInfo.LockoutEnabled = false;
+            var result = await _userManager.CreateAsync(userInfo, userRegister.Password!);
+            if (!result.Succeeded)
             {
-                var userInfo = await userRegister.RegisterUserAsync();
+                throw new UnprocessableEntityException ("Falha ao criar usuário.");
+            }
 
-                var result = await _userManager.CreateAsync(userInfo, userRegister.Password);
+            await AssignRolesAsync(userInfo, userRegister);
+            await SendConfirmationEmailAsync(userInfo);
 
-                if (result.Succeeded)
+            return result.Succeeded;
+        }
+
+        /// <summary>
+        /// Confirms the email of a user asynchronously.
+        /// </summary>
+        /// <param name="cpf"></param>
+        /// <returns></returns>
+        /// <exception cref="UnprocessableEntityException"></exception>
+        private async Task ValidateCpfAsync(string cpf)
+        {
+            var userCpf = await _userManager.Users.FirstOrDefaultAsync(u => u.CPF == cpf);
+            if (userCpf != null)
+                throw new UnprocessableEntityException("CPF já cadastrado.");
+        }
+
+        /// <summary>
+        /// Confirms the email of a user asynchronously.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        /// <exception cref="UnprocessableEntityException"></exception>
+        private async Task ValidateEmailAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user != null)
+                throw new UnprocessableEntityException("Usuário já cadastrado.");
+        }
+
+        /// <summary>
+        /// Assigns roles to a user asynchronously.
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <param name="userRegister"></param>
+        /// <returns></returns>
+        private async Task AssignRolesAsync(UserInfo userInfo, IUserRegister userRegister)
+        {
+            if (userRegister is DTOSuperUserRegister superUserRegister)
+            {
+                foreach (var role in superUserRegister.Roles!)
                 {
-                    if (userRegister is DTOSuperUserRegister superUserRegister)
-                    {
-                        foreach (var item in superUserRegister.Roles)
-                        {
-                            await _userManager.AddToRoleAsync(userInfo, item.ToString());
-                        }
-                    }
-                    else
-                    {
-                        await _userManager.AddToRoleAsync(userInfo, "Employee");
-                    }
-
-                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(userInfo);
-
-                    var confirmationLink = $"{_appSettings.GetValue<string>("ServerSMTP:BaseUrl")}/{userInfo.Id}/{Uri.EscapeDataString(token)}";
-
-                    var emailBody = $"Por favor, clique no link a seguir para confirmar seu endereço de e-mail: <a href='{confirmationLink}'>Confirmar E-mail</a>";
-
-                    await _emailService.SendEmailAsync(userInfo.Email, "Confirmação de E-mail", emailBody);
+                    await _userManager.AddToRoleAsync(userInfo, role.ToString());
                 }
-                return result.Succeeded;
-
             }
-            catch (Exception ex)
+            else
             {
-                _logger.LogError($"Tentativa de registro sem sucesso com email {userRegister.Email}: {ex}");
-                throw new ArgumentException($"Tentativa de registro sem sucesso: {ex}");
+                await _userManager.AddToRoleAsync(userInfo, "Employee");
             }
+        }
+
+        /// <summary>
+        /// Sends a confirmation email to a user asynchronously.
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
+        private async Task SendConfirmationEmailAsync(UserInfo userInfo)
+        {
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(userInfo);
+            var confirmationLink = $"{_appSettings.GetValue<string>("ServerSMTP:BaseUrl")}/{userInfo.Id}/{Uri.EscapeDataString(token)}";
+            var emailBody = $"Por favor, clique no link a seguir para confirmar seu endereço de e-mail: <a href='{confirmationLink}'>Confirmar E-mail</a>";
+
+            await _emailService.SendEmailAsync(userInfo.Email!, "Confirmação de E-mail", emailBody);
         }
     }
 }

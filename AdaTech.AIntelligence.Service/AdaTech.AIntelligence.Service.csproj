@@ -15,6 +15,7 @@
     <ProjectReference Include="..\AdaTech.AIntelligence.Configuration\AdaTech.AIntelligence.Configuration.csproj" />
     <ProjectReference Include="..\AdaTech.AIntelligence.DbLibrary\AdaTech.AIntelligence.DbLibrary.csproj" />
     <ProjectReference Include="..\AdaTech.AIntelligence.Entities\AdaTech.AIntelligence.Entities.csproj" />
+    <ProjectReference Include="..\AdaTech.AIntelligence.Exceptions\AdaTech.AIntelligence.Exceptions.csproj" />
   </ItemGroup>
 
 </Project>

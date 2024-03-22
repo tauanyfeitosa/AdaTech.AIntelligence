@@ -3,14 +3,23 @@ using System.Text.Json.Serialization;
 
 namespace AdaTech.AIntelligence.Service.DTOs.ModelRequest
 {
+    /// <summary>
+    /// Represents the DTO for user login.
+    /// </summary>
     public class DTOUserLogin
     {
-        [Required(ErrorMessage = "O campo email é obrigatório!")]
-        [EmailAddress(ErrorMessage = "O campo Email é inválido!")]
-        public string Email { get; set; }
+        /// <summary>
+        /// Gets or sets the email of the user.
+        /// </summary>
+        [Required(ErrorMessage = "O campo email é obrigatório.")]
+        [EmailAddress(ErrorMessage = "Formato de email inválido.")]
+        public string? Email { get; set; }
 
-        [Required(ErrorMessage = "O campo senha é obrigatório! O campo senha deve ter no minimo 8 caracteres")]
+        /// <summary>
+        /// Gets or sets the password of the user.
+        /// </summary>
+        [Required(ErrorMessage = "O campo senha é obrigatório e deve ter no mínimo 8 caracteres.")]
         [JsonPropertyName("Senha")]
-        public string Password { get; set; }
+        public string? Password { get; set; }
     }
 }

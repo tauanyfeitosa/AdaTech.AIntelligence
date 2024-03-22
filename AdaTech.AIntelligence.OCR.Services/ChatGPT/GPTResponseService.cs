@@ -1,5 +1,4 @@
-﻿
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 
 namespace AdaTech.AIntelligence.OCR.Services.ChatGPT
 {
@@ -15,7 +14,7 @@ namespace AdaTech.AIntelligence.OCR.Services.ChatGPT
         /// <param name="contentRequest"></param>
         /// <param name="httpClient"></param>
         /// <param name="url"></param>
-        /// <returns></returns>
+        /// <returns cref="bool, string"> Returns a boolean that indicates if operation was successfull and the response content.</returns>
         public async Task<(bool success, string responseContent)> ExecuteRequest(string apiKey, StringContent contentRequest, HttpClient httpClient, string url)
         {
             SetAuthorizationHeader(apiKey, httpClient);

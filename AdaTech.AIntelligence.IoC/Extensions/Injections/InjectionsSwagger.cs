@@ -1,7 +1,7 @@
-﻿using AdaTech.AIntelligence.Attributes;
-using AdaTech.AIntelligence.IoC.Extensions.Filters;
-using Microsoft.AspNetCore.Mvc.Controllers;
+﻿using AdaTech.AIntelligence.IoC.Extensions.Filters;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Mvc.Controllers;
+using AdaTech.AIntelligence.Attributes;
 using Microsoft.OpenApi.Models;
 
 namespace AdaTech.AIntelligence.IoC.Extensions.Injections
@@ -37,14 +37,11 @@ namespace AdaTech.AIntelligence.IoC.Extensions.Injections
                         return new[] { api.GroupName };
                     }
 
-                    var controllerActionDescriptor = api.ActionDescriptor as ControllerActionDescriptor;
-                    if (controllerActionDescriptor != null)
+                    if (api.ActionDescriptor is ControllerActionDescriptor controllerActionDescriptor)
                     {
-                        var displayNameAttribute = controllerActionDescriptor.ControllerTypeInfo
+                        if (controllerActionDescriptor.ControllerTypeInfo
                             .GetCustomAttributes(typeof(SwaggerDisplayNameAttribute), true)
-                            .FirstOrDefault() as SwaggerDisplayNameAttribute;
-
-                        if (displayNameAttribute != null)
+                            .FirstOrDefault() is SwaggerDisplayNameAttribute displayNameAttribute)
                         {
                             return new[] { displayNameAttribute.DisplayName };
                         }

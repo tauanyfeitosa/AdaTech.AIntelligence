@@ -1,17 +1,20 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ErrosCustomer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using System.Net;
-using System.Text;
 using Newtonsoft.Json;
-using AdaTech.AIntelligence.Service.Exceptions;
 using AngleSharp.Text;
+using System.Text;
+using System.Net;
 
 namespace AdaTech.AIntelligence.IoC.Middleware
 {
+    /// <summary>
+    /// Middleware to prevent Cross-Site Scripting (XSS) attacks by validating request URLs and query strings.
+    /// </summary>
     public class AntiXssMiddleware
     {
         private readonly RequestDelegate _next;
-        private ErrorDetails _error;
+        private ErrorDetails? _error = null;
         private readonly int _statusCode = (int)HttpStatusCode.BadRequest;
 
         public AntiXssMiddleware(RequestDelegate next)
@@ -21,6 +24,12 @@ namespace AdaTech.AIntelligence.IoC.Middleware
 
         public async Task Invoke(HttpContext context)
         {
+            if (IsImageRequest(context))
+            {
+                await _next(context);
+                return;
+            }
+
             if (!string.IsNullOrWhiteSpace(context.Request.Path.Value))
             {
                 var url = context.Request.Path.Value;
@@ -83,16 +92,35 @@ namespace AdaTech.AIntelligence.IoC.Middleware
             context.Response.ContentType = "application/json; charset=utf-8";
             context.Response.StatusCode = _statusCode;
 
-            if (_error == null)
+            _error ??= new ErrorDetails
             {
-                _error = new ErrorDetails
-                {
-                    StatusCode = 400,
-                    Message = "XSS detectado."
-                };
-            }
+                StatusCode = 400,
+                Message = "XSS detectado."
+            };
 
             await context.Response.WriteAsync(JsonConvert.SerializeObject(_error));
+        }
+
+        private static bool IsImageRequest(HttpContext context)
+        {
+            var contentType = context.Request.ContentType;
+            if (!string.IsNullOrEmpty(contentType) && (contentType.StartsWith("image/jpeg") || contentType.StartsWith("image/png") || contentType.StartsWith("image/gif")))
+                return true;
+
+            if (context.Request.HasFormContentType)
+            {
+                var form = context.Request.Form;
+                foreach (var file in form.Files)
+                {
+                    var fileName = file.FileName;
+                    var fileExtension = Path.GetExtension(fileName).ToLower();
+                    if (fileExtension == ".jpg" || fileExtension == ".jpeg" || fileExtension == ".png" || fileExtension == ".gif")
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 
@@ -101,8 +129,14 @@ namespace AdaTech.AIntelligence.IoC.Middleware
     /// </summary>
     public static class CrossSiteScriptingValidation
     {
-        private static readonly char[] StartingChars = { '<', '&' };
+        private static readonly char[] StartingChars = ['<', '&'];
 
+        /// <summary>
+        /// Checks if a string contains potentially dangerous content indicating a Cross-Site Scripting (XSS) attack.
+        /// </summary>
+        /// <param name="request">The string to validate.</param>
+        /// <param name="matchIndex">The index of the first character of the potentially dangerous content if found; otherwise, 0.</param>
+        /// <returns>True if the string contains potentially dangerous content; otherwise, false.</returns>
         public static bool IsDangerousString(string request, out int matchIndex)
         {
             matchIndex = 0;
@@ -120,11 +154,11 @@ namespace AdaTech.AIntelligence.IoC.Middleware
                 switch (letter)
                 {
                     case '<':
-                        if (letter.IsLetter() || request[n + 1] == '!' || request[n + 1] == '/' || request[n + 1] == '?') 
+                        if (letter.IsLetter() || request[n + 1] == '!' || request[n + 1] == '/' || request[n + 1] == '?')
                             return true;
                         break;
                     case '&':
-                        if (request[n + 1] == '#') 
+                        if (request[n + 1] == '#')
                             return true;
                         break;
                 }
@@ -132,6 +166,10 @@ namespace AdaTech.AIntelligence.IoC.Middleware
             return false;
         }
 
+        /// <summary>
+        /// Adds the P3P header to the HTTP response headers if it's not already present.
+        /// </summary>
+        /// <param name="headers">The HTTP response headers.</param>
         public static void AddHeaders(this IHeaderDictionary headers)
         {
             if (headers["P3P"].IsNullOrEmpty())
@@ -140,14 +178,28 @@ namespace AdaTech.AIntelligence.IoC.Middleware
             }
         }
 
+        /// <summary>
+        /// Checks if a sequence is null or empty.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the sequence.</typeparam>
+        /// <param name="source">The sequence to check.</param>
+        /// <returns>True if the sequence is null or empty; otherwise, false.</returns>
         public static bool IsNullOrEmpty<T>(this IEnumerable<T> source)
         {
             return source == null || !source.Any();
         }
     }
 
+    /// <summary>
+    /// Extension method to add the AntiXssMiddleware to the request pipeline.
+    /// </summary>
     public static class AntiXssMiddlewareExtension
     {
+        /// <summary>
+        /// Adds the AntiXssMiddleware to the request pipeline.
+        /// </summary>
+        /// <param name="builder">The application builder.</param>
+        /// <returns>The application builder.</returns>
         public static IApplicationBuilder UseAntiXssMiddleware(this IApplicationBuilder builder)
         {
             return builder.UseMiddleware<AntiXssMiddleware>();

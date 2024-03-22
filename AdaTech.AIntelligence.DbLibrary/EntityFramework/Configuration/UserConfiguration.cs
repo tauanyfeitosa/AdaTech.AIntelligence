@@ -1,11 +1,12 @@
-﻿using AdaTech.AIntelligence.Entities.Objects;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using AdaTech.AIntelligence.Entities.Objects;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
 
 namespace AdaTech.AIntelligence.DbLibrary.EntityFramework.Configuration
 {
     /// <summary>
-    /// Configuration for the User entity based in IdentityUser
+    /// Configuration for the User entity based in IdentityUser.
     /// </summary>
     internal class UserConfiguration : IEntityTypeConfiguration<UserInfo>
     {
@@ -17,7 +18,6 @@ namespace AdaTech.AIntelligence.DbLibrary.EntityFramework.Configuration
             builder.Property(u => u.Name).IsRequired();
             builder.Property(u => u.LastName).IsRequired();
             builder.Property(u => u.IsActive).IsRequired();
-            builder.Property(u => u.IsLogged).IsRequired();
             builder.Property(u => u.IsStaff).IsRequired();
             builder.Property(u => u.IsSuperUser).IsRequired();
             builder.Property(u => u.UserName).IsRequired();

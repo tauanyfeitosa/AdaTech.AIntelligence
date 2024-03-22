@@ -5,13 +5,13 @@ using System.Runtime.CompilerServices;
 namespace AdaTech.AIntelligence.Attributes
 {
     /// <summary>
-    /// Custom validation for CPF format.
+    /// Custom validation attribute for CPF format.
     /// </summary>   
     public class CPFAttribute : ValidationAttribute
     {
-        private static int LenghtCPF = 11;
+        private readonly int LenghtCPF = 11;
         /// <summary>
-        /// Validates CPF
+        /// Verifies if CPF length is valid
         /// </summary>
         /// <param name="value">Value to be validated.</param>
         /// <param name="validationContext">Validation context.</param>
@@ -22,7 +22,7 @@ namespace AdaTech.AIntelligence.Attributes
             {
                 return new ValidationResult("O CPF não pode ser vazio.");
             }
-            string cpf = value.ToString();
+            string cpf = value.ToString()!;
 
             cpf = new string(cpf.Where(char.IsDigit).ToArray());
 
@@ -33,13 +33,13 @@ namespace AdaTech.AIntelligence.Attributes
             return ValidationResult.Success;
         }
         /// <summary>
-        /// Check if a CPF is valid.
+        /// Verifies if CPF value is valid
         /// </summary>
         /// <param name="cpf">CPF to be checked</param>
-        /// <returns><c>true</c>if CPF is valid, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if CPF is valid, <c>false</c> otherwise.</returns>
         private bool IsCpfValid(string cpf)
         {
-            int[] numberCPF = cpf.Substring(0, 9).Select(c => int.Parse(c.ToString())).ToArray();
+            int[] numberCPF = cpf[..9].Select(c => int.Parse(c.ToString())).ToArray();
             int[] checkDigits = new int[2];
 
             for (int i = 0; i < 2; i++)
@@ -59,7 +59,7 @@ namespace AdaTech.AIntelligence.Attributes
 
                 if (i == 0)
                 {
-                    numberCPF = (cpf.Substring(0, 9) + checkDigits[0].ToString()).Select(c => int.Parse(c.ToString())).ToArray();
+                    numberCPF = (cpf[..9] + checkDigits[0].ToString()).Select(c => int.Parse(c.ToString())).ToArray();
                 }
             }
 

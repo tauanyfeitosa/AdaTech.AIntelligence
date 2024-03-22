@@ -1,17 +1,25 @@
-using AdaTech.AIntelligence.Entities.Enums;
-using AdaTech.AIntelligence.Entities.Objects;
-using AdaTech.AIntelligence.Service.Services.DeleteStrategyService;
-using AdaTech.AIntelligence.Service.Exceptions;
+using AdaTech.AIntelligence.Exceptions.ErrosExceptions.ExceptionsCustomer;
 using AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense;
+using AdaTech.AIntelligence.Service.Services.DeleteStrategyService;
 using AdaTech.AIntelligence.DbLibrary.Repository;
+using AdaTech.AIntelligence.Entities.Objects;
+using AdaTech.AIntelligence.Entities.Enums;
 
 namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
 {
+    /// <summary>
+    /// Service class for performing CRUD operations on expenses.
+    /// </summary>
     public class ExpenseCRUDService : IExpenseCRUDService
     {
         private readonly IAIntelligenceRepository<Expense> _repository;
         private readonly GenericDeleteService<Expense> _deleteService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExpenseCRUDService"/> class.
+        /// </summary>
+        /// <param name="repository">The repository for accessing expense data.</param>
+        /// <param name="deleteService">The service for deleting expenses.</param>
         public ExpenseCRUDService(IAIntelligenceRepository<Expense> repository, GenericDeleteService<Expense> deleteService)
         {
             _repository = repository;
@@ -26,7 +34,6 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
         public async Task<bool> CreateExpense(Expense expense)
         {
             var success = await _repository.Create(expense);
-
             return success;
         }
 
@@ -46,23 +53,23 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
         /// </summary>
         /// <param name="idExpense">The ID of the expense to retrieve.</param>
         /// <returns>A task representing the asynchronous operation. Returns the expense if found and active; otherwise, throws a <see cref="NotFoundException"/>.</returns>
-        public async Task<Expense> GetOne(int idExpense)
+        public async Task<Expense?> GetOne(int idExpense)
         {
             var expense = await _repository.GetOne(idExpense);
 
             if (expense != null && expense.IsActive)
                 return expense;
 
-            throw new NotFoundException("Não foi localizada uma nota ativa com o ID fornecido. Tente novamente.");
+            throw new NotFoundException("Não existe despesa ativa com este ID.");
         }
 
         /// <summary>
         /// Retrieves all submitted expenses asynchronously.
         /// </summary>
         /// <returns>A task representing the asynchronous operation. Returns a collection of submitted and active expenses.</returns>
-        public async Task<IEnumerable<Expense>> GetAllSubmitted()
+        public async Task<IEnumerable<Expense>?> GetAllSubmitted()
         {
-            var allExpenses = await _repository.GetAll();
+            var allExpenses = await _repository.GetAll() ?? throw new NotFoundException("Não existem despesas submetidas.");
             return allExpenses.Where(expense => expense.Status == ExpenseStatus.SUBMITTED && expense.IsActive);
         }
 
@@ -70,9 +77,9 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
         /// Retrieves all active expenses asynchronously.
         /// </summary>
         /// <returns>A task representing the asynchronous operation. Returns a collection of active expenses.</returns>
-        public async Task<IEnumerable<Expense>> GetAllActive()
+        public async Task<IEnumerable<Expense>?> GetAllActive()
         {
-            var allExpenses = await _repository.GetAll();
+            var allExpenses = await _repository.GetAll() ?? throw new NotFoundException("Não existem despesas ativas.");
             return allExpenses.Where(expense => expense.IsActive);
         }
 
@@ -80,7 +87,7 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
         /// Retrieves all expenses asynchronously.
         /// </summary>
         /// <returns>A task representing the asynchronous operation. Returns a collection of all expenses.</returns>
-        public Task<IEnumerable<Expense>> GetAll()
+        public Task<IEnumerable<Expense>?> GetAll()
         {
             return _repository.GetAll();
         }
