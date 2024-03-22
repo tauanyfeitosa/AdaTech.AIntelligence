@@ -2,13 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login Page</title>
-    <link rel="stylesheet" type="text/css" href="../css/background.css">
+    <title>Contact Us</title>
     <link rel="stylesheet" type="text/css" href="../css/styleAuth.css">
     <link rel="stylesheet" type="text/css" href="../css/navbar.css">
-
-
-    <script src="./js/loginJs.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/background.css">
+    <link rel="stylesheet" type="text/css" href="../css/teamMember.css">
 </head>
 <body>
 
@@ -17,21 +15,21 @@
             <a class="logo" href="https://github.com/tauanyfeitosa/AdaTech.AIntelligence">AIntelligence</a>
             <ul class="nav-links">
                 <li><a href="https://github.com/tauanyfeitosa/AdaTech.AIntelligence/blob/master/README.md">Documentação</a></li>
-                <li><a href="../contact/contactUs.html">Contate-nos</a></li>
+                <li><a href="/authentication/login.html">Entrar</a></li>
                 <li><a href="/authentication/register.html">Cadastre-se</a></li>
             </ul>
         </div>
     </nav>
 
-    <div class="login-container">
-        <h1>Login</h1>
-        <form onsubmit="login(event)">
-            <input type="text" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="submit" value="Log In">
-        </form>
-        <p>Ainda não possui uma conta? <a href="/authentication/register.html">Cadastre-se</a></p>
+    <div class="team-container">
+        <h1>Equipe AIntelligence</h1>
+        <div id="team-member" class="team-member">
+        </div>
+        <button id="prev" class="arrow-button">◄</button>
+        <button id="next" class="arrow-button">►</button>
     </div>
+
+    <script src="./js/teamPagination.js"></script>
 
 </body>
 </html>
