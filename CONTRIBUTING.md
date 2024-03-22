@@ -4,7 +4,7 @@ Estamos muito animados que você está interessado em contribuir! Aqui estão al
 
 ## Código de Conduta
 
-Este projeto e todos que participam nele são regidos pelo Código de Conduta de AdaTech.AIntelligence. Ao participar, espera-se que você respeite este código. Por favor, leia [Código de Conduta](LINK_PARA_CODIGO_DE_CONDUTA) antes de contribuir.
+Este projeto e todos que participam nele são regidos pelo Código de Conduta de AdaTech.AIntelligence. Ao participar, espera-se que você respeite este código. Por favor, leia [Código de Conduta](https://github.com/tauanyfeitosa/AdaTech.AIntelligence/blob/master/CODE_OF_CONDUCT.md) antes de contribuir.
 
 ## Como Contribuir
 
