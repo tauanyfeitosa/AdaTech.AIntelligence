@@ -32,6 +32,9 @@ app.ResolveDependenciesMiddleware();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseStaticFiles();
+
+app.UseDefaultFiles();
 app.MapControllers();
 
 app.Run();
