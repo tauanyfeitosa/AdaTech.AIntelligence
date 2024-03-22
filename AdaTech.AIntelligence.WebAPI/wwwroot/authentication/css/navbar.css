@@ -1,0 +1,39 @@
+﻿.navbar {
+    background-color: #64C0D7;
+    color: #fff;
+    padding: 10px 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+    .nav-links li {
+        display: inline;
+        margin-left: 20px;
+    }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: #fff;
+        }

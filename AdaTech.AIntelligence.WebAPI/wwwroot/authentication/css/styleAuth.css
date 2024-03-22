@@ -8,8 +8,21 @@
     margin: 0;
 }
 
+h1 {
+    text-align: center;
+    color: #0A8CCC;
+    font-weight: bold;
+}
+
 .login-container {
-    background-color: white;
+    background-color: rgba(100, 192, 215, 0.8);
+    padding: 40px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.registration-container {
+    background-color: rgba(100, 192, 215, 0.8);
     padding: 40px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -28,18 +41,24 @@ input[type="password"] {
 input[type="submit"] {
     width: 100%;
     padding: 10px;
-    background-color: #5cacf2;
+    background-color: #0A8CCC;
     border: none;
     border-radius: 4px;
     color: white;
     cursor: pointer;
 }
 
-    input[type="submit"]:hover {
-        background-color: #4a9ed1;
-    }
-
-.login-container h2 {
-    text-align: center;
-    color: #333;
+input[type="submit"]:hover {
+    background-color: #5cacf2;
 }
+
+p, p a {
+    color: #0A8CCC;
+    font-weight: bold;
+}
+
+p a:link, p a:visited, p a:hover, p a:active {
+    color: #0A8CCC;
+    font-weight: bold;
+}
+

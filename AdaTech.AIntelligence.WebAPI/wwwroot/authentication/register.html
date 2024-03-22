@@ -4,11 +4,24 @@
     <meta charset="UTF-8">
     <title>Registro de Usuário</title>
     <link rel="stylesheet" type="text/css" href="./css/styleAuth.css">
+    <link rel="stylesheet" type="text/css" href="./css/navbar.css">
+    <link rel="stylesheet" type="text/css" href="./css/background.css">
 </head>
 <body>
 
+    <nav class="navbar">
+        <div class="container">
+            <a class="logo" href="https://github.com/tauanyfeitosa/AdaTech.AIntelligence">AIntelligence</a>
+            <ul class="nav-links">
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="/authentication/login.html">Entrar</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <div class="registration-container">
-        <h2>Registro de Usuário</h2>
+        <h1>Registro de Usuário</h1>
         <form id="registrationForm">
             <input type="text" name="email" placeholder="Email" required>
             <input type="text" name="nome" placeholder="Nome" required>
@@ -18,6 +31,7 @@
             <input type="text" name="cpf" placeholder="CPF" required>
             <input type="submit" value="Registrar">
         </form>
+        <p>Já possui uma conta? <a href="/authentication/login.html">Login</a></p>
     </div>
 
     <script src="./js/registerJs.js"></script>

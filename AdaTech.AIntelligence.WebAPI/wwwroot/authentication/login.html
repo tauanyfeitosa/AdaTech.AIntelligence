@@ -4,17 +4,32 @@
     <meta charset="UTF-8">
     <title>Login Page</title>
     <link rel="stylesheet" type="text/css" href="./css/styleAuth.css">
+    <link rel="stylesheet" type="text/css" href="./css/navbar.css">
+    <link rel="stylesheet" type="text/css" href="./css/background.css">
+
     <script src="./js/loginJs.js"></script>
 </head>
 <body>
 
+    <nav class="navbar">
+        <div class="container">
+            <a class="logo" href="https://github.com/tauanyfeitosa/AdaTech.AIntelligence">AIntelligence</a>
+            <ul class="nav-links">
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="/authentication/register.html">Cadastre-se</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <div class="login-container">
-        <h2>Login</h2>
+        <h1>Login</h1>
         <form onsubmit="login(event)">
             <input type="text" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
             <input type="submit" value="Log In">
         </form>
+        <p>Ainda não possui uma conta? <a href="/authentication/register.html">Cadastre-se</a></p>
     </div>
 
 </body>
