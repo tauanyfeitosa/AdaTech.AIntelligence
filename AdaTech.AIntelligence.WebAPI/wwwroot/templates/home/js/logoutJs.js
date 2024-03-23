@@ -7,7 +7,6 @@
             const response = await fetch('https://localhost:7016/api/userauth/logout', { 
                 method: 'POST'
             });
-            const responseData = await response.json();
             alert("Você será redirecionado para a página de login!"); 
             window.location.href = '/templates/authentication/login.html'; 
         } catch (error) {
