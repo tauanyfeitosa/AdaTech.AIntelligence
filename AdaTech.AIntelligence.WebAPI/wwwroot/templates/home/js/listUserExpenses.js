@@ -18,18 +18,37 @@
 
             console.log(expenses);
 
+            const statusMap = {
+                1: 'Submetida',
+                2: 'Paga'
+            }
+
+            const categoryMap = {
+                1: 'Alojamento',
+                2: 'Transporte',
+                3: 'Viagem',
+                4: 'Alimentação',
+                5: 'Outros'
+            };
+
             // Itera sobre cada despesa e cria uma nova linha na tabela
             expenses.forEach(expense => {
                 const row = document.createElement('tr');
 
+                const statusText = statusMap[expense.status] || 'Desconhecido';
+                const categoryText = categoryMap[expense.category] || 'Desconhecido';
+                const totalFormatted = `R$ ${expense.totalValue.toFixed(2)}`;
+                const isActiveText = expense.isActive ? 'Sim' : 'Não';
+
+
                 // Adiciona os dados da despesa em cada célula da linha
                 row.innerHTML = `
                         <td>${expense.id}</td>
-                        <td>${expense.status}</td>
+                        <td>${statusText}</td>
                         <td>${expense.description}</td>
-                        <td>${expense.category}</td>
-                        <td>${expense.totalValue}</td>
-                        <td>${expense.isActive ? 'Yes' : 'No'}</td>
+                        <td>${categoryText}</td>
+                        <td>${totalFormatted}</td>
+                        <td>${isActiveText}</td>
                         <td>${new Date(expense.creatAt).toLocaleString()}</td>
                     `;
 
