@@ -1,5 +1,4 @@
-﻿/* Style the tab */
-.tab-panel {
+﻿.tab-panel {
     background-color: rgba(100, 192, 215, 0.6);
     width: 80%;
     height: 20%;
@@ -19,7 +18,6 @@
     border-radius: 10px;
 }
 
-    /* Style the buttons that are used to open the tab content */
     .tab button {
         background-color: inherit;
         float: left;
@@ -28,20 +26,18 @@
         cursor: pointer;
         padding: 14px 16px;
         transition: 0.3s;
+        color: white;
     }
 
-        /* Change background color of buttons on hover */
         .tab button:hover {
             background-color: rgba(100, 192, 215, 0.8);
             ;
         }
 
-        /* Create an active/current tablink class */
         .tab button.active {
             background-color: #64C0D7
         }
 
-/* Style the tab content */
 .tabcontent {
     display: none;
     padding: 10px;
@@ -52,18 +48,20 @@
 }
 
 .tabcontent.active {
-    display: block; /* Show active tab content */
+    display: block; 
 }
 
-/* Style the tab content with different background colors */
-#Minhas_expenses {
+#My_expense {
     background-color: rgba(100, 192, 215, 0.8);
+    color: white;
 }
 
 #Finance {
     background-color: rgba(100, 192, 215, 0.8);
+    color: white;
 }
 
 #Admin {
     background-color: rgba(100, 192, 215, 0.8);
+    color: white;
 }
