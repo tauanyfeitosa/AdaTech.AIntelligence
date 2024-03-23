@@ -11,7 +11,7 @@
 
             const expenses = data.$values; // Obtém o array de despesas
 
-            const tableBody = document.querySelector('#expensesTable tbody');
+            const tableBody = document.querySelector('#expensesUserTable tbody');
 
             // Limpa o conteúdo da tabela antes de adicionar os novos dados
             tableBody.innerHTML = '';
