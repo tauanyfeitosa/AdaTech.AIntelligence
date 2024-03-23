@@ -93,6 +93,22 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices
         }
 
         /// <summary>
+        /// Retrieves all expenses from one particular user (actives and inactives) asynchronously.
+        /// </summary>
+        /// <returns>A task representing the asynchronous operation. Returns a collection of all expenses.</returns>
+        public async Task<IEnumerable<Expense>?> GetUserExpenses(string userId)
+        {
+            var allExpenses = await _repository.GetAll();
+
+            if(allExpenses == null)
+                return null;
+
+            var userExpenses = allExpenses.Where(expense => expense.UserInfoId == userId).ToList();
+
+            return userExpenses;
+        }
+
+        /// <summary>
         /// Deletes an expense asynchronously.
         /// </summary>
         /// <param name="id">The ID of the expense to delete.</param>

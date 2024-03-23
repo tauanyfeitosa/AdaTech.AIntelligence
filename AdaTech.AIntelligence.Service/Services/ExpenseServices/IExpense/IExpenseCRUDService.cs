@@ -47,6 +47,12 @@ namespace AdaTech.AIntelligence.Service.Services.ExpenseServices.IExpense
         Task<IEnumerable<Expense>?> GetAll();
 
         /// <summary>
+        /// Retrieves all expenses from one particular user (actives and inactives) asynchronously.
+        /// </summary>
+        /// <returns>A task representing the asynchronous operation. Returns a collection of all expenses.</returns>
+        Task<IEnumerable<Expense>?> GetUserExpenses(string userId);
+
+        /// <summary>
         /// Deletes an expense asynchronously by its ID.
         /// </summary>
         /// <param name="id">The ID of the expense to delete.</param>

@@ -115,6 +115,25 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         }
 
         /// <summary>
+        /// View all expenses from authenticated user (actives and inactives)
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
+        [HttpGet("view-user-expenses")]
+        [Authorize]
+        public async Task<IActionResult> ViewUserExpenses()
+        {
+            var authenticatedUser = await _userManager.GetUserAsync(User) ?? throw new NotFoundException("Usuário com este ID não foi encontrado.");
+
+            var success = await _expenseCRUDService.GetUserExpenses(authenticatedUser.Id);
+
+            if (success.IsNullOrEmpty())
+                throw new NotFoundException("Não existem despesas.");
+
+            return Ok(success);
+        }
+
+        /// <summary>
         /// View all expenses (actives and inactives)
         /// </summary>
         /// <returns></returns>
