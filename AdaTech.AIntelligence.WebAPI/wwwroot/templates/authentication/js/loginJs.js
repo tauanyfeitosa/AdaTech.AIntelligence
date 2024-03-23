@@ -20,7 +20,7 @@
         }
 
         const result = await response.json();
-        window.location.href = 'https://localhost:7016/home/homepage.html';
+        window.location.href = 'https://localhost:7016/templates/home/homepage.html';
     } catch (error) {
         alert('Login error: ' + error.message);
     }
