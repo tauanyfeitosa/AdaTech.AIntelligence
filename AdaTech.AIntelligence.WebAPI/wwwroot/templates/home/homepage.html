@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="/css/navbar.css">
     <link rel="stylesheet" type="text/css" href="/css/background.css">
     <link rel="stylesheet" type="text/css" href="/css/painelUser.css">
+    <link rel="stylesheet" type="text/css" href="/css/modal.css">
 </head>
 <body>
 
@@ -21,12 +22,29 @@
 
     <div class="user-panel">
         <div class="user-details"></div>
-        <script src="./js/userInfoPanel.js"></script>
-        <button class="button-request">Solicitar Permissões</button>
+        <button id="requestButton" class="button-request">Solicitar Permissões</button>
+
+        <div id="myModal" class="modal">
+
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form id="promotionForm">
+                    <label for="roles">Escolha os cargos:</label><br>
+                    <select id="roles" name="roles">
+                    </select><br>
+                    <input type="submit" value="Enviar solicitação">
+                </form>
+            </div>
+
+        </div>
+
     </div>
 
-
-    <script src="./js/logoutJs.js"></script>
     <script src="./js/checkAuthentication.js"></script>
+    <script src="./js/logoutJs.js"></script>
+    <script src="./js/userInfoPanel.js"></script>
+    <script src="./js/modalJs.js"></script>
+    <script src="./js/fetchRoles.js"></script> 
+
 </body>
 </html>
