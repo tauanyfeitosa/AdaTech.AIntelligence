@@ -26,6 +26,17 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             _userManager = userManager;
             _requirementService = requirementService;
         }
+        [ApiExplorerSettings(IgnoreApi = true)]
+        [HttpGet("roles-for-promotion")]
+        [Authorize]
+        public IActionResult GetRolesForPromotion()
+        {
+            var user = _userManager.GetUserAsync(User).Result ?? throw new NotFoundException("Usuário com este ID não foi encontrado.");
+            var rolesUser = _userManager.GetRolesAsync(user).Result;
+            var roles = Enum.GetValues(typeof(Roles)).Cast<Roles>().ToList();
+            roles = roles.Where(r => !rolesUser.Contains(r.ToString())).ToList();
+            return Ok(roles);
+        }
 
         /// <summary>
         /// Ask for promotion
