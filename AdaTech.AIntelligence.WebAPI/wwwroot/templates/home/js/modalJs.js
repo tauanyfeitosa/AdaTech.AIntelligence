@@ -1,5 +1,4 @@
-﻿// Quando o usuário clicar no botão, abrir o modal
-var modal = document.getElementById("myModal");
+﻿var modal = document.getElementById("myModal");
 var btn = document.getElementById("requestButton");
 var span = document.getElementsByClassName("close")[0];
 
@@ -7,19 +6,16 @@ btn.onclick = function () {
     modal.style.display = "block";
 }
 
-// Quando o usuário clicar em (x), fechar o modal
 span.onclick = function () {
     modal.style.display = "none";
 }
 
-// Quando o usuário clicar fora do modal, fechar
 window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
 }
 
-// Manipular o envio do formulário
 document.getElementById("promotionForm").onsubmit = function (event) {
     event.preventDefault();
 
@@ -29,7 +25,6 @@ document.getElementById("promotionForm").onsubmit = function (event) {
         roles: selectedOptions
     };
 
-    // Substitua 'endpointUrl' pela URL do seu endpoint
     fetch('endpointUrl', {
         method: 'POST',
         headers: {

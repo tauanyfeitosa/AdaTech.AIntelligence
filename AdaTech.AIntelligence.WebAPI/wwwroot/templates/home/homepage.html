@@ -17,40 +17,33 @@
                 <li><a href="https://github.com/tauanyfeitosa/AdaTech.AIntelligence/blob/master/README.md">Documentação</a></li>
                 <li><a href="#" id="logoutLink">Logout</a></li>
             </ul>
-
-            <script src="./js/logoutJs.js"></script>
         </div>
     </nav>
 
     <div class="user-panel">
         <div class="user-details"></div>
-        <script src="./js/userInfoPanel.js"></script>
-        <!-- Botão para abrir o modal -->
         <button id="requestButton" class="button-request">Solicitar Permissões</button>
 
-        <!-- O Modal -->
         <div id="myModal" class="modal">
 
-            <!-- Conteúdo do modal -->
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <form id="promotionForm">
                     <label for="roles">Escolha os cargos:</label><br>
                     <select id="roles" name="roles" multiple>
-                        <option value="cargo1">Cargo 1</option>
-                        <option value="cargo2">Cargo 2</option>
-                        <!-- Adicione mais opções conforme necessário -->
                     </select><br>
                     <input type="submit" value="Enviar solicitação">
                 </form>
             </div>
 
-            <script src="./js/modalJs.js"></script>
-
         </div>
 
-
     </div>
+
+    <script src="./js/logoutJs.js"></script>
+    <script src="./js/userInfoPanel.js"></script>
+    <script src="./js/modalJs.js"></script>
+    <script src="./js/fetchRoles.js"></script> 
 
 </body>
 </html>
