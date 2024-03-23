@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="wwwroot\authentication\css\navbar.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\navbar.css" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,7 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\authentication\img\" />
+    <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
 </Project>

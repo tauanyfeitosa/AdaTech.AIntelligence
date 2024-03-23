@@ -1,11 +1,19 @@
-﻿body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+﻿html, body {
+    height: 100%; /* Garante que o html e o body tenham altura total */
+    margin: 0; /* Remove qualquer margem padrão */
+    padding: 0; /* Remove qualquer padding padrão */
+}
+
+body {
+    background-image: url('../img/background.jpg');
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
 }
 
 h1 {
@@ -14,7 +22,13 @@ h1 {
     font-weight: bold;
 }
 
+h2 {
+    color: antiquewhite;
+    font-weight: bold;
+}
+
 .login-container {
+    margin-top: 60px;
     background-color: rgba(100, 192, 215, 0.8);
     padding: 40px;
     border-radius: 5px;
@@ -22,6 +36,21 @@ h1 {
 }
 
 .registration-container {
+    margin-top: 60px;
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: rgba(100, 192, 215, 0.8);
+    padding: 40px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.team-container {
+    position: relative;
+    width: 1000px; 
+    height: 350px; 
+    margin-top: 60px;
+    max-width: 500px;
     background-color: rgba(100, 192, 215, 0.8);
     padding: 40px;
     border-radius: 5px;
@@ -60,5 +89,12 @@ p, p a {
 p a:link, p a:visited, p a:hover, p a:active {
     color: #0A8CCC;
     font-weight: bold;
+}
+
+.team-container {
+    position: relative; 
+    display: flex; 
+    align-items: center;
+    justify-content: space-between; 
 }
 

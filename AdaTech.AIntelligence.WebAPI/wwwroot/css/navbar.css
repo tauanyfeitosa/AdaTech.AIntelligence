@@ -28,12 +28,12 @@
     margin: 0;
 }
 
-    .nav-links li {
-        display: inline;
-        margin-left: 20px;
-    }
+.nav-links li {
+    display: inline;
+    margin-left: 20px;
+}
 
-        .nav-links li a {
-            text-decoration: none;
-            color: #fff;
-        }
+.nav-links li a {
+    text-decoration: none;
+    color: #fff;
+}

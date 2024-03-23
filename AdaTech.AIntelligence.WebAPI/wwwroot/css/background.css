@@ -2,5 +2,5 @@
     background-image: url('../img/background.jpg');
     background-size: cover;
     background-position: bottom;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
 }
