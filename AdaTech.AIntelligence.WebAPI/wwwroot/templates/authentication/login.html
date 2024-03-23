@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <link rel="stylesheet" type="text/css" href="/css/background.css">
+    <link rel="stylesheet" type="text/css" href="/css/styleAuth.css">
+    <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+
+
+    <script src="./js/loginJs.js"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <a class="logo" href="https://github.com/tauanyfeitosa/AdaTech.AIntelligence">AIntelligence</a>
+            <ul class="nav-links">
+                <li><a href="https://github.com/tauanyfeitosa/AdaTech.AIntelligence/blob/master/README.md">Documentação</a></li>
+                <li><a href="../contact/contactUs.html">Contate-nos</a></li>
+                <li><a href="/templates/authentication/register.html">Cadastre-se</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="login-container">
+        <h1>Login</h1>
+        <form onsubmit="login(event)">
+            <input type="text" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="submit" value="Log In">
+        </form>
+        <p>Ainda não possui uma conta? <a href="/authentication/register.html">Cadastre-se</a></p>
+    </div>
+
+</body>
+</html>

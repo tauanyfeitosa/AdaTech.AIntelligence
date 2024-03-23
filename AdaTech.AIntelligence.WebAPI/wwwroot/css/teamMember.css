@@ -1,0 +1,29 @@
+﻿.team-member img {
+    width: 200px; 
+    height: 200px; 
+    object-fit: cover; 
+    border-radius: 50%; 
+}
+
+.arrow-button {
+    position: absolute; /* Posicionamento absoluto para os botões de seta */
+    top: 50%; /* Posiciona no meio verticalmente */
+    transform: translateY(-50%); /* Desloca para cima para centralizar exatamente no meio */
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 24px; /* ou o tamanho que desejar */
+    cursor: pointer;
+    padding: 10px;
+    outline: none;
+    transition: color 0.3s;
+    z-index: 10; /* Assegura que as setas fiquem acima das outras imagens/conteúdo */
+}
+
+#prev {
+    left: 0; /* Ajuste conforme necessário para colocar a seta no local desejado */
+}
+
+#next {
+    right: 0; /* Ajuste conforme necessário para colocar a seta no local desejado */
+}

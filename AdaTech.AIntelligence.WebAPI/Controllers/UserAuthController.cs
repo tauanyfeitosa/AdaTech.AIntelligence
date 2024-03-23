@@ -38,7 +38,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             if (!succeeded)
                 throw new UnauthorizedAccessException("Login sem sucesso.");
 
-            return Ok($"Usuário {userLoginInfo.Email} logado com sucesso!");
+            return Ok(new { message = $"Usuário {userLoginInfo.Email} logado com sucesso!" });
         }
 
         /// <summary>
@@ -53,6 +53,19 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             return Ok("Usuário deslogado com sucesso!");
         }
 
+
+
+        /// <summary>
+        /// Checks if the user is authenticated in the system
+        /// </summary>
+        /// <returns></returns>
+        [Authorize]
+        [HttpGet("check-authentication")]
+        public async Task<IActionResult> CheckAuthentication()
+        {
+            return Ok();
+        }
+
         /// <summary>
         /// Register a new user withouth roles
         /// </summary>
@@ -64,9 +77,9 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             var succeeded = await _userAuthService.RegisterUserAsync(userRegister);
 
             if (succeeded)
-                return Ok($"Usário {userRegister.Email} foi criado com sucesso!");
+                return Ok(new { message = $"Usário {userRegister.Email} foi criado com sucesso!" });
             else
-                return BadRequest("Registro sem sucesso.");
+                return BadRequest(new { message = "Registro sem sucesso." });
         }
 
 

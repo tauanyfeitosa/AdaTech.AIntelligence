@@ -4,6 +4,8 @@ using AdaTech.WebAPI.SistemaVendas.Utilities.Filters;
 using Microsoft.AspNetCore.Authorization;
 using AdaTech.AIntelligence.Attributes;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
+using AdaTech.AIntelligence.Entities.Objects;
 
 namespace AdaTech.AIntelligence.WebAPI.Controllers
 {
@@ -14,10 +16,32 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
     public class UserManagementController : ControllerBase
     {
         private readonly IUserCRUDService _userCRUDService;
+        private readonly UserManager<UserInfo> _userManager;
 
-        public UserManagementController(IUserCRUDService userCRUDService)
+        public UserManagementController(IUserCRUDService userCRUDService, UserManager<UserInfo> userManager)
         {
             _userCRUDService = userCRUDService;
+            _userManager = userManager;
+        }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
+        [HttpGet("view-user-logged")]
+        [Authorize]
+        public async Task<IActionResult> ViewUserLogged()
+        {
+            var user = await _userManager.GetUserAsync(User) ?? throw new NotFoundException("Usuário não encontrado.");
+            return Ok(new { values = user });
+        }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
+        [HttpGet("view-role-user-logged")]
+        [Authorize]
+        public async Task<IActionResult> ViewRoleUserLogged()
+        {
+            var user = await _userManager.GetUserAsync(User) ?? throw new NotFoundException("Usuário não encontrado.");
+            var roles = await _userManager.GetRolesAsync(user);
+            var rolesArray = roles.ToArray();
+            return Ok(new { values = rolesArray });
         }
 
         /// <summary>

@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Usuário</title>
+    <link rel="stylesheet" type="text/css" href="/css/styleAuth.css">
+    <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+    <link rel="stylesheet" type="text/css" href="/css/background.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <a class="logo" href="https://github.com/tauanyfeitosa/AdaTech.AIntelligence">AIntelligence</a>
+            <ul class="nav-links">
+                <li><a href="https://github.com/tauanyfeitosa/AdaTech.AIntelligence/blob/master/README.md">Documentação</a></li>
+                <li><a href="../contact/contactUs.html">Contate-nos</a></li>
+                <li><a href="/templates/authentication/login.html">Entrar</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="registration-container">
+        <h1>Registro de Usuário</h1>
+        <form id="registrationForm">
+            <input type="text" name="email" placeholder="Email" required>
+            <input type="text" name="nome" placeholder="Nome" required>
+            <input type="text" name="sobrenome" placeholder="Sobrenome" required>
+            <input type="date" name="dataNascimento" placeholder="Data de Nascimento" required>
+            <input type="password" name="senha" placeholder="Senha" required>
+            <input type="text" name="cpf" placeholder="CPF" required>
+            <input type="submit" value="Registrar">
+        </form>
+        <p>Já possui uma conta? <a href="/authentication/login.html">Login</a></p>
+    </div>
+
+    <script src="./js/registerJs.js"></script>
+
+</body>
+</html>
