@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="/css/painelUser.css">
     <link rel="stylesheet" type="text/css" href="/css/modal.css">
     <link rel="stylesheet" type="text/css" href="/css/tabPainel.css">
+    <link rel="stylesheet" type="text/css" href="/css/tabUsers.css">
 </head>
 <body>
 
@@ -60,7 +61,20 @@
 
         <div id="Admin" class="tabcontent">
             <h3>Administrativo</h3>
-            <p>Content for Admin...</p>
+            <p>Abaixo, ações para gerenciamento de usuários:</p>
+
+            <table id="usersTable" class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Nome Completo</th>
+                        <th>Cargo</th>
+                        <th>CPF</th>
+                        <th>Status Ativo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -70,6 +84,7 @@
     <script src="./js/modalJs.js"></script>
     <script src="./js/fetchRoles.js"></script>
     <script src="./js/tabLinkJs.js"></script>
+    <script src="./js/loadUsersJs.js"></script>
 
 </body>
 </html>

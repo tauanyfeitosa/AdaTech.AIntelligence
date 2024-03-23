@@ -44,6 +44,17 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             return Ok(new { values = rolesArray });
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
+        [HttpGet("view-role-user")]
+        [Authorize]
+        public async Task<IActionResult> ViewRoleUse([FromQuery] string id)
+        {
+            var user = await _userManager.FindByIdAsync(id) ?? throw new NotFoundException("Usuário não encontrado.");
+            var roles = await _userManager.GetRolesAsync(user);
+
+            return Ok(new { values = roles.ToArray() });
+        }
+
         /// <summary>
         /// View the data of a single user
         /// </summary>
@@ -66,7 +77,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         public async Task<IActionResult> ViewAllUsers()
         {
             var success = await _userCRUDService.GetAll() ?? throw new NotFoundException("Não existem usuários cadastrados.");
-            return Ok(success);
+            return Ok(success.ToArray());
         }
 
         /// <summary>
