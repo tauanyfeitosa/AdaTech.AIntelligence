@@ -26,6 +26,17 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             _userManager = userManager;
             _requirementService = requirementService;
         }
+        [ApiExplorerSettings(IgnoreApi = true)]
+        [HttpGet("roles-for-promotion")]
+        [Authorize]
+        public IActionResult GetRolesForPromotion()
+        {
+            var user = _userManager.GetUserAsync(User).Result ?? throw new NotFoundException("Usuário com este ID não foi encontrado.");
+            var rolesUser = _userManager.GetRolesAsync(user).Result;
+            var roles = Enum.GetValues(typeof(Roles)).Cast<Roles>().ToList();
+            roles = roles.Where(r => !rolesUser.Contains(r.ToString())).ToList();
+            return Ok(roles);
+        }
 
         /// <summary>
         /// Ask for promotion
@@ -34,14 +45,15 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         /// <returns></returns>
         [HttpPost("ask-for-promotion")]
         [Authorize]
-        public async Task<IActionResult> AskForPromotion(Roles roles)
+        public async Task<IActionResult> AskForPromotion(int role)
         {
+            var roles = (Roles)role;
             var user = await _userManager.GetUserAsync(User) ?? throw new NotFoundException("Usuário com este ID não foi encontrado.");
             var result = await _requirementService.AskForPromotion(roles, user);
             
             if (result == "Promoção solicitada com sucesso!")
             {
-                return Ok(result);
+                return Ok(new { message = result });
             }
             else
             {
