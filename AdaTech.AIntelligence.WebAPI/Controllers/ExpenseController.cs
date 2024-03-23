@@ -130,7 +130,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             if (success.IsNullOrEmpty())
                 throw new NotFoundException("Não existem despesas.");
 
-            return Ok(success);
+            return Ok(success.ToArray());
         }
 
         /// <summary>
@@ -183,7 +183,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             if (success.IsNullOrEmpty())
                 throw new NotFoundException("Não existem despesas submetidas.");
 
-            return Ok(success);
+            return Ok(success.ToArray());
         }
 
         /// <summary>
