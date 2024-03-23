@@ -51,7 +51,21 @@
 
         <div id="My_expense" class="tabcontent">
             <h3>Minhas despesas</h3>
-            <p>Content for Minhas expenses...</p>
+            <table id="expensesTable" class="styled-table-expense">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Status</th>
+                        <th>Descrição</th>
+                        <th>Categoria</th>
+                        <th>Valor total</th>
+                        <th>Ativa</th>
+                        <th>Data de criação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
 
         <div id="Finance" class="tabcontent">
@@ -93,6 +107,7 @@
     </div>
 
     <script src="./js/checkAuthentication.js"></script>
+    <script src="./js/listUserExpenses.js"></script>
     <script src="./js/logoutJs.js"></script>
     <script src="./js/userInfoPanel.js"></script>
     <script src="./js/modalJs.js"></script>

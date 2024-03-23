@@ -125,12 +125,27 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         {
             var authenticatedUser = await _userManager.GetUserAsync(User) ?? throw new NotFoundException("Usuário com este ID não foi encontrado.");
 
-            var success = await _expenseCRUDService.GetUserExpenses(authenticatedUser.Id);
+            string userId = authenticatedUser.Id;
 
-            if (success.IsNullOrEmpty())
+            var expenses = await _expenseCRUDService.GetUserExpenses(userId);
+
+            if (expenses.IsNullOrEmpty())
                 throw new NotFoundException("Não existem despesas.");
 
-            return Ok(success.ToArray());
+            // Selecionar apenas as propriedades desejadas das despesas
+            var expenseInfos = expenses.Select(expense => new
+            {
+                expense.Id,
+                expense.TotalValue,
+                expense.Status,
+                expense.Category,
+                expense.Description,
+                expense.IsActive,
+                expense.CreatAt,
+                expense.UpdateAt
+            });
+
+            return Ok(expenseInfos);
         }
 
         /// <summary>
