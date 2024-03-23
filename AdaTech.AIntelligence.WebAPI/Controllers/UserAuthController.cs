@@ -53,6 +53,19 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             return Ok("Usuário deslogado com sucesso!");
         }
 
+
+
+        /// <summary>
+        /// Checks if the user is authenticated in the system
+        /// </summary>
+        /// <returns></returns>
+        [Authorize]
+        [HttpGet("check-authentication")]
+        public async Task<IActionResult> CheckAuthentication()
+        {
+            return Ok();
+        }
+
         /// <summary>
         /// Register a new user withouth roles
         /// </summary>
