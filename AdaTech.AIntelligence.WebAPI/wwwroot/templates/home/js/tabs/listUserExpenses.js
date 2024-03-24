@@ -47,7 +47,7 @@
                         <td>${categoryText}</td>
                         <td>${totalFormatted}</td>
                         <td>${isActiveText}</td>
-                        <td>${new Date(expense.creatAt).toLocaleString()}</td>
+                        <td>${new Date(expense.createdAt).toLocaleString()}</td>
                     `;
 
                 // Adiciona a linha à tabela

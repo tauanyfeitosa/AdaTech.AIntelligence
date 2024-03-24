@@ -142,8 +142,8 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
                 expense.Category,
                 expense.Description,
                 expense.IsActive,
-                expense.CreatAt,
-                expense.UpdateAt
+                expense.CreatedAt,
+                expense.UpdatedAt
             });
 
             return Ok(expenseInfos);

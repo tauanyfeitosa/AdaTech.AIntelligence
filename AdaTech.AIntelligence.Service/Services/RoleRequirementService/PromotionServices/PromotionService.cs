@@ -39,7 +39,7 @@ namespace AdaTech.AIntelligence.Service.Services.RoleRequirementService.Promotio
         public async Task<bool> PromotionApproval(RoleRequirement roleRequirement)
         {
             roleRequirement.ApprovalDate = DateTime.Now;
-            roleRequirement.UpdateAt = DateTime.Now;
+            roleRequirement.UpdatedAt = DateTime.Now;
             roleRequirement.Status = Entities.Enums.Status.Approved;
             return await _repository.Update(roleRequirement);
         }

@@ -8,9 +8,8 @@ namespace AdaTech.AIntelligence.Entities.Objects
     public class UserAuth : IdentityUser
     {
         public bool IsStaff { get; set; } = false;
-        public bool IsSuperUser { get; set; } = false;
         public bool IsActive { get; set; } = true;
-        public DateTime CreatAt { get; set; } = DateTime.Now;
-        public DateTime? UpdateAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime? UpdatedAt { get; set; }
     }
 }
