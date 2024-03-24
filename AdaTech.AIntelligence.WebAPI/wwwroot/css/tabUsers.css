@@ -1,26 +1,24 @@
-﻿/* Add styles for the table */
-.styled-table {
-    width: 80%; /* Set table width to 80% of its parent */
-    margin: 0 auto; /* Center the table */
-    border-collapse: collapse; /* Collapse borders */
+﻿.styled-table, .styled-table-expense {
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
 }
 
-    .styled-table thead th,
-    .styled-table tbody td {
-        border: 1px solid #0A8CCC; /* Add border to table headers and cells */
-        padding: 8px; /* Add some padding */
+    .styled-table thead th, .styled-table-expense thead th,
+    .styled-table tbody td, .styled-table-expense tbody td {
+        border: 1px solid #0A8CCC;
+        padding: 8px;
     }
-    .styled-table thead th {
-        background-color: #0A8CCC; 
+
+    .styled-table thead th, .styled-table-expense thead th {
+        background-color: #0A8CCC;
         color: white;
     }
 
-    /* Add alternating background to table rows */
-    .styled-table tbody tr:nth-child(odd) {
+    .styled-table tbody tr:nth-child(odd), .styled-table-expense tbody tr:nth-child(odd) {
         background-color: #64C0D7;
     }
 
-    .styled-table tbody tr:nth-child(even) {
+    .styled-table tbody tr:nth-child(even), .styled-table-expense tbody tr:nth-child(even) {
         background-color: #1BCDD4;
     }
-

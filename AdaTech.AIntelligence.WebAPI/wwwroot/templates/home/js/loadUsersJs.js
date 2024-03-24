@@ -1,4 +1,10 @@
-﻿async function loadUsers() {
+﻿function formatarCPF(cpf) {
+    cpf = cpf.replace(/\D/g, '');
+    cpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+    return cpf;
+}
+
+async function loadUsers() {
     const response = await fetch('https://localhost:7016/api/usermanagement/view-all-users');
     if (response.ok) {
         const users = await response.json();
@@ -6,12 +12,8 @@
         tableBody.innerHTML = '';
 
         for (const user of users) {
-            // Get roles for each user
             const rolesResponse = await fetch(`https://localhost:7016/api/usermanagement/view-role-user?id=${user.id}`);
             const rolesData = await rolesResponse.json();
-            console.log(rolesData);
-
-            // Assume rolesData is an array and map to a string
             const roles = rolesData.values.join(', ');
 
             const row = tableBody.insertRow();
@@ -19,10 +21,10 @@
             fullNameCell.textContent = `${user.name} ${user.lastName}`;
 
             const roleCell = row.insertCell();
-            roleCell.textContent = roles; // Now we have the roles from the endpoint
+            roleCell.textContent = roles; 
 
             const cpfCell = row.insertCell();
-            cpfCell.textContent = user.cpf;
+            cpfCell.textContent = formatarCPF(user.cpf);
 
             const isActiveCell = row.insertCell();
             isActiveCell.textContent = user.isActive ? 'Sim' : 'Não';

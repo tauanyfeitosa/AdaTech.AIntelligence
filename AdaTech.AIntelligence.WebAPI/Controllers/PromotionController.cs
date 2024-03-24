@@ -26,6 +26,8 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             _userManager = userManager;
             _requirementService = requirementService;
         }
+
+
         [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet("roles-for-promotion")]
         [Authorize]

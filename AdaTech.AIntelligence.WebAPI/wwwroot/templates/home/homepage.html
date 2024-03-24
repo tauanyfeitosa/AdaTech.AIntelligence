@@ -31,10 +31,11 @@
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <form id="promotionForm">
-                    <label for="roles">Escolha os cargos:</label><br>
+                    <label for="roles">Escolha o cargo:</label><br>
                     <select id="roles" name="roles">
                     </select><br>
                     <input type="submit" value="Enviar solicitação">
+                    <input type="button" value="Cancelar" onclick="document.getElementById('myModal').style.display='none'">
                 </form>
             </div>
 
@@ -50,18 +51,177 @@
         </div>
 
         <div id="My_expense" class="tabcontent">
-            <h3>Minhas despesas</h3>
-            <p>Content for Minhas expenses...</p>
+            <div class="tab-header">
+                <h3 style="text-align: left; font-weight: bold; font-size: 25px">Minhas despesas</h3>
+                <button style="justify-content: right;" id="register-expense" class="button-request">Registrar despesa</button>
+
+
+                <div id="modalExpense" class="modal">
+
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <form id="expenseForm">
+                            <label for="options">Escolha o tipo de arquivo:</label><br>
+                            <select id="options" name="options">
+                            </select><br>
+                            <label for="file-input" id="file-label" style="display: none;">Envie o arquivo abaixo:</label>
+                            <input type="file" id="file-input" name="arquivo" style="display: none;"><br>
+                            <label for="url-input" id="url-label" style="display: none;">Insira a URL abaixo:</label>
+                            <input type="url" id="url-input" name="url" style="display: none;"><br>
+                            <input type="submit" value="Criar Despesa">
+                            <input type="button" value="Cancelar" onclick="document.getElementById('modalExpense').style.display='none'">
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <table id="expensesUserTable" class="styled-table-expense">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Status</th>
+                        <th>Descrição</th>
+                        <th>Categoria</th>
+                        <th>Valor total</th>
+                        <th>Ativa</th>
+                        <th>Data de criação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
 
         <div id="Finance" class="tabcontent">
-            <h3>Financeiro</h3>
-            <p>Content for Finance...</p>
+            <h3 style="text-align: center; width: 100%; font-weight: bold; font-size: 30px">Financeiro</h3>
+            <div class="tab-header">
+                <button style="text-align: center; width: 220px; font-weight: bold; font-size: 12px" id="all-expense" class="button-request">Ver Todas Despesas</button>
+
+                <div id="modalExpenseAll" class="modal">
+
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <table id="expensesTableAll" class="styled-table-expense">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Colaborador</th>
+                                    <th>CPF</th>
+                                    <th>Descrição</th>
+                                    <th>Valor</th>
+                                    <th>Status</th>
+                                    <th>Ativo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <button style="text-align: center; width: 220px; font-weight: bold; font-size: 12px" id="active-expense" class="button-request">Ver Despesas Ativas</button>
+
+                <div id="modalExpenseActive" class="modal">
+
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <table id="expensesTableActive" class="styled-table-expense">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Colaborador</th>
+                                    <th>CPF</th>
+                                    <th>Descrição</th>
+                                    <th>Valor</th>
+                                    <th>Status</th>
+                                    <th>Ativo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <button style="text-align: center; width: 220px; font-weight: bold; font-size: 12px" id="delete-expense" class="button-request">Deletar Despesas</button>
+
+                <div id="modalDeleteExpense" class="modal">
+
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <form id="expenseDeleteForm">
+                            <label for="optionDelete">Escolha o tipo de deleção: HardDelete (apagar completamente) ou SoftDelete (inativar)</label><br>
+                            <select id="optionDelete" name="optionDelete">
+                                <option value="hard">HardDelete</option>
+                                <option value="soft">SoftDelete</option>
+                            </select><br>
+
+                            <label for="numericInput">Insira o ID da despesa:</label><br>
+                            <input type="number" id="numericInput" name="numericInput"><br>
+
+                            <input type="submit" value="Deletar Despesa">
+                            <input type="button" value="Cancelar" onclick="document.getElementById('modalDeleteExpense').style.display='none'">
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+            <p style="text-align: center; width: 100%; font-weight: bold; font-size: 20px">Despesas Submetidas (p/ avaliação)</p>
+
+            <table id="expensesTable" class="styled-table-expense">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Colaborador</th>
+                        <th>CPF</th>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th>Status</th>
+                        <th>Ativo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
 
         <div id="Admin" class="tabcontent">
-            <h3>Administrativo</h3>
-            <p>Abaixo, ações para gerenciamento de usuários:</p>
+            <h3 style="text-align: center; width: 100%; font-weight: bold; font-size: 30px">Administrativo</h3>
+
+            <div class="tab-header">
+                <button style="text-align: center; width: 220px; font-weight: bold; font-size: 12px" id="connection-gpt" class="button-request">Conexão com GPT-4</button>
+                <button style="text-align: center; width: 220px; font-weight: bold; font-size: 12px" id="permission-admin" class="button-request">Gerenciar Permissões</button>
+                <button style="text-align: center; width: 220px; font-weight: bold; font-size: 12px" id="create-user" class="button-request">Criar Usuário</button>
+                <button style="text-align: center; width: 220px; font-weight: bold; font-size: 12px" id="delete-user" class="button-request">Deletar Usuário</button>
+
+                <div id="modalDeleteUser" class="modal">
+
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <form id="expenseDeleteForm">
+                            <label for="optionDeleteUser">Escolha o tipo de deleção: HardDelete (apagar completamente) ou SoftDelete (inativar)</label><br>
+                            <select id="optionDeleteUser" name="optionDelete">
+                                <option value="hard">HardDelete</option>
+                                <option value="soft">SoftDelete</option>
+                            </select><br>
+
+                            <label for="optionUser">Selecione o usuário:</label><br>
+                            <select id="optionUser" name="optionUser">
+                            </select><br>
+
+                            <input type="submit" value="Deletar Usuário">
+                            <input type="button" value="Cancelar" onclick="document.getElementById('modalDeleteExpense').style.display='none'">
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+            <p style="text-align: center; width: 100%; font-weight: bold; font-size: 20px"> Usuários do Sistema</p>
 
             <table id="usersTable" class="styled-table">
                 <thead>
@@ -79,12 +239,16 @@
     </div>
 
     <script src="./js/checkAuthentication.js"></script>
+    <script src="./js/listUserExpenses.js"></script>
     <script src="./js/logoutJs.js"></script>
     <script src="./js/userInfoPanel.js"></script>
     <script src="./js/modalJs.js"></script>
     <script src="./js/fetchRoles.js"></script>
     <script src="./js/tabLinkJs.js"></script>
     <script src="./js/loadUsersJs.js"></script>
+    <script src="./js/expenseTab.js"></script>
+    <script src="./js/modalExpense.js"></script>
+    <script src="./js/selectorUser.js"></script>
 
 </body>
 </html>

@@ -119,18 +119,34 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet("view-user-expenses")]
         [Authorize]
         public async Task<IActionResult> ViewUserExpenses()
         {
             var authenticatedUser = await _userManager.GetUserAsync(User) ?? throw new NotFoundException("Usuário com este ID não foi encontrado.");
 
-            var success = await _expenseCRUDService.GetUserExpenses(authenticatedUser.Id);
+            string userId = authenticatedUser.Id;
 
-            if (success.IsNullOrEmpty())
+            var expenses = await _expenseCRUDService.GetUserExpenses(userId);
+
+            if (expenses.IsNullOrEmpty())
                 throw new NotFoundException("Não existem despesas.");
 
-            return Ok(success);
+            // Selecionar apenas as propriedades desejadas das despesas
+            var expenseInfos = expenses.Select(expense => new
+            {
+                expense.Id,
+                expense.TotalValue,
+                expense.Status,
+                expense.Category,
+                expense.Description,
+                expense.IsActive,
+                expense.CreatAt,
+                expense.UpdateAt
+            });
+
+            return Ok(expenseInfos);
         }
 
         /// <summary>
@@ -148,7 +164,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             if (success.IsNullOrEmpty())
                 throw new NotFoundException("Não existem despesas.");
 
-            return Ok(success);
+            return Ok(success.ToArray());
         }
 
         /// <summary>
@@ -166,7 +182,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             if (success.IsNullOrEmpty())
                 throw new NotFoundException("Não existem despesas ativas.");
 
-            return Ok(success);
+            return Ok(success.ToArray());
         }
 
         /// <summary>
@@ -183,7 +199,7 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
             if (success.IsNullOrEmpty())
                 throw new NotFoundException("Não existem despesas submetidas.");
 
-            return Ok(success);
+            return Ok(success.ToArray());
         }
 
         /// <summary>

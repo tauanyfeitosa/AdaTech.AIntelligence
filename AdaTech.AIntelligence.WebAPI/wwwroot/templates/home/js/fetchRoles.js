@@ -62,7 +62,6 @@
             credentials: 'include'
         })
             .then(response => {
-                console.log(selectedRole);
                 if (!response.ok) {
                     throw new Error('Falha na solicitação: ' + response.statusText);
                 }

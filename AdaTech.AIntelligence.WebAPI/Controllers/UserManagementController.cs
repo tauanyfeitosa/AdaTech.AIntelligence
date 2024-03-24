@@ -81,6 +81,19 @@ namespace AdaTech.AIntelligence.WebAPI.Controllers
         }
 
         /// <summary>
+        /// View all users actives
+        /// </summary>
+        /// <returns>A task representing the asynchronous operation. Returns a collection of all users.</returns>
+        [HttpGet("view-all-users-actives")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> ViewAllUsersActives()
+        {
+            var success = await _userCRUDService.GetAll() ?? throw new NotFoundException("Não existem usuários cadastrados.");
+            success = success.Where(u => u.IsActive).ToList();
+            return Ok(success.ToArray());
+        }
+
+        /// <summary>
         /// Delete an user asynchronously
         /// </summary>
         /// <param name="id">The ID of the user to delete.</param>
