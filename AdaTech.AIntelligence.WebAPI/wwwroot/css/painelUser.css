@@ -23,7 +23,19 @@
 }
 
 .user-details {
-    color: #ffffff;
+    color: #0A8CCC;
+    font-size: 20px;
+    line-height: 1.6;
+    font-weight: bold;
+}
+
+    .user-details p {
+        margin: 5px 0; 
+    }
+
+.label {
+    font-weight: bold;
+    color: white;
 }
 
 .button-request {
