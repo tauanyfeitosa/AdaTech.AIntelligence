@@ -13,7 +13,6 @@ span.onclick = function () {
 
 document.getElementById('register-expense').onclick = function () {
     document.getElementById('modalExpense').style.display = 'block';
-    updateForm(document.getElementById('fileOrUrl').value);
 };
 
 document.getElementById('delete-expense').onclick = function () {

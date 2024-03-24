@@ -55,28 +55,52 @@
                 <h3 style="text-align: left; font-weight: bold; font-size: 25px">Minhas despesas</h3>
                 <button style="justify-content: right;" id="register-expense" class="button-request">Registrar despesa</button>
 
-
                 <div id="modalExpense" class="modal">
-
                     <div class="modal-content">
                         <span class="close">&times;</span>
                         <form id="expenseForm">
-                            <label for="options">Escolha o tipo de arquivo:</label><br>
+                            <label for="options">Escolha uma opção:</label><br>
                             <select id="options" name="options">
-                            </select><br>
-                            <label for="file-input" id="file-label" style="display: none;">Envie o arquivo abaixo:</label>
-                            <input type="file" id="file-input" name="arquivo" style="display: none;"><br>
-                            <label for="url-input" id="url-label" style="display: none;">Insira a URL abaixo:</label>
-                            <input type="url" id="url-input" name="url" style="display: none;"><br>
-                            <input type="submit" value="Criar Despesa">
-                            <input type="button" value="Cancelar" onclick="document.getElementById('modalExpense').style.display='none'">
+                            </select>
+                            <div class="file-input-div">
+                                <label class="file-label" for="file-input" id="file-label" style="display: none;">Procurar imagem</label>
+                                <input type="file" id="file-input" name="arquivo" accept=".jpg,.jpeg,.png">
+                                <span id="file-label-2" style="display: none;">Nenhum arquivo selecionado</span>
+                            </div>
+                            <div class="url-input-div">
+                                <label for="url-input" id="url-label" style="display: none;">Insira a URL da imagem abaixo:</label>
+                                <input type="url" id="url-input" name="url" style="display: none;">
+                            </div>
+                            <br />
+                            <div>
+                                <input class="expense-button" type="submit" disabled id="botao-criar-despesa" value="Criar despesa">
+                                <input type="button" value="Cancelar" onclick="document.getElementById('modalExpense').style.display='none'">
+                                <div id="loadingIndicator" style="display: none;">
+                                    <div class="spinner"></div>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
-
-
             </div>
 
+            <div id="modalCreateExpenseSuccess" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h1 id="successMessageTitle">Despesa cadastrada</h1>
+                    <p id="successMessage">Despesa cadastrada com sucesso</p>
+                    <button id="okButton">OK</button>
+                </div>
+            </div>
+
+            <div id="modalCreateExpenseError" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h1 id="errorMessageTitle">Erro</h1>
+                    <p id="errorMessage">Erro ao cadastrar despesa</p>
+                    <button id="okButton">OK</button>
+                </div>
+            </div>
 
             <table id="expensesUserTable" class="styled-table-expense">
                 <thead>
@@ -183,6 +207,7 @@
                         <th>Valor</th>
                         <th>Status</th>
                         <th>Ativo</th>
+                        <th>Aprovar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -239,18 +264,32 @@
         </div>
     </div>
 
-    <script src="./js/checkAuthentication.js"></script>
-    <script src="./js/listUserExpenses.js"></script>
-    <script src="./js/logoutJs.js"></script>
+    <!-- JS de informações gerais -->
     <script src="./js/userInfoPanel.js"></script>
-    <script src="./js/modalJs.js"></script>
-    <script src="./js/fetchRoles.js"></script>
-    <script src="./js/tabLinkJs.js"></script>
-    <script src="./js/loadUsersJs.js"></script>
-    <script src="./js/expenseTab.js"></script>
-    <script src="./js/modalExpense.js"></script>
-    <script src="./js/selectorUser.js"></script>
-    <script src="./js/selectorExpense.js"></script>
+    <script src="./js/connectionGPT.js"></script>
+
+    <!-- JS de autenticação -->
+    <script src="./js/authentication/checkAuthentication.js"></script>
+    <script src="./js/authentication/logoutJs.js"></script>
+
+    <!-- JS de criação de objetos -->
+    <script src="./js/create/createExpense.js"></script>
+    <script src="./js/create/fetchRoles.js"></script>
+
+    <!-- JS de modais -->
+    <script src="./js/modal/modalExpense.js"></script>
+    <script src="./js/modal/modalJs.js"></script>
+
+    <!-- JS para preenchimento de seletores -->
+    <script src="./js/selector/selectorExpense.js"></script>
+    <script src="./js/selector/selectorUser.js"></script>
+
+    <!-- JS de tabelas e paineis -->
+    <script src="./js/tabs/expenseTab.js"></script>
+    <script src="./js/tabs/listUserExpenses.js"></script>
+    <script src="./js/tabs/loadUsersJs.js"></script>
+    <script src="./js/tabs/tabLinkJs.js"></script>
+
 
 </body>
 </html>

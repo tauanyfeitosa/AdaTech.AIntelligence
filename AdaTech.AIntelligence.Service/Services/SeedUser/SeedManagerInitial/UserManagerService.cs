@@ -37,7 +37,6 @@ namespace AdaTech.AIntelligence.Service.Services.SeedUser.SeedManagerInitial
                 DateBirth = DateTime.Now.AddYears(-18),
                 Name = "Adriana",
                 LastName = "Oliveira",
-                IsSuperUser = true,
             };
 
             var result = await _userManager.CreateAsync(user, userCredentialsSettings.Password!);

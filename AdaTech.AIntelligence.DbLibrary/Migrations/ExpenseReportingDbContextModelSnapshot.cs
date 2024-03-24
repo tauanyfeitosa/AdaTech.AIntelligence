@@ -33,7 +33,7 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
                     b.Property<int>("Category")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatAt")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -49,7 +49,7 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
                     b.Property<double>("TotalValue")
                         .HasColumnType("float");
 
-                    b.Property<DateTime?>("UpdateAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserInfoId")
@@ -74,7 +74,7 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
                     b.Property<DateTime>("ApprovalDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("CreatAt")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("RequestDate")
@@ -86,7 +86,7 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("UpdateAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserInfoId")
@@ -116,7 +116,7 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatAt")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateBirth")
@@ -134,9 +134,6 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsStaff")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsSuperUser")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
@@ -177,7 +174,7 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("UpdateAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserName")
