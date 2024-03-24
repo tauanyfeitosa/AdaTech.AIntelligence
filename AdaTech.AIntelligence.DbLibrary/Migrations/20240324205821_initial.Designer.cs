@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdaTech.AIntelligence.DbLibrary.Migrations
 {
     [DbContext(typeof(ExpenseReportingDbContext))]
-    [Migration("20240324200951_removeSuperUser")]
-    partial class removeSuperUser
+    [Migration("20240324205821_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,7 +36,7 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
                     b.Property<int>("Category")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatAt")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -52,7 +52,7 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
                     b.Property<double>("TotalValue")
                         .HasColumnType("float");
 
-                    b.Property<DateTime?>("UpdateAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserInfoId")
@@ -77,7 +77,7 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
                     b.Property<DateTime>("ApprovalDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("CreatAt")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("RequestDate")
@@ -89,7 +89,7 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("UpdateAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserInfoId")
