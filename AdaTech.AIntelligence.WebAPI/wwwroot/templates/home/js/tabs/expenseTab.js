@@ -38,6 +38,33 @@ async function loadExpenses(url, tabela) {
             const statusCell = row.insertCell();
             const activeCell = row.insertCell();
 
+            if (tabela === 'expensesTable') {
+                const actionCell = row.insertCell();
+                const actionButton = document.createElement('button');
+                actionButton.textContent = 'Aprovar';
+                actionButton.onclick = async function () {
+                    try {
+                        const response = await fetch(`https://localhost:7016/api/expense/update-status-expense?idExpense=${expense.id}`, {
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                        });
+
+                        if (!response.ok) {
+                            throw new Error(`Erro ao atualizar status da despesa: ${response.statusText}`);
+                        }
+
+                        location.reload();
+
+                    } catch (error) {
+                        console.error('Falha ao fazer a requisição:', error);
+                    }
+                };
+                actionCell.appendChild(actionButton);
+            }
+
+
             idCell.textContent = expense.id;
             fullNameCell.textContent = `${userInfo.name} ${userInfo.lastName}`;
             cpfCell.textContent = formatarCPF(userInfo.cpf);
