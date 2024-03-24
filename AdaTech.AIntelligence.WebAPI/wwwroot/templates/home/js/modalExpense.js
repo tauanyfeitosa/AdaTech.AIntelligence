@@ -31,12 +31,12 @@ function setupOptions() {
 
     const fileOption = document.createElement('option');
     fileOption.value = 'file';
-    fileOption.textContent = 'File';
+    fileOption.textContent = 'Enviar uma imagem';
     optionsSelect.appendChild(fileOption);
 
     const urlOption = document.createElement('option');
     urlOption.value = 'url';
-    urlOption.textContent = 'URL';
+    urlOption.textContent = 'Inserir uma URL';
     optionsSelect.appendChild(urlOption);
 
     optionsSelect.addEventListener('change', function () {

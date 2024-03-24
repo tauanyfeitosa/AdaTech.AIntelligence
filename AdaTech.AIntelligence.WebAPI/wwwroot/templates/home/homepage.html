@@ -61,14 +61,14 @@
                     <div class="modal-content">
                         <span class="close">&times;</span>
                         <form id="expenseForm">
-                            <label for="options">Escolha o tipo de arquivo:</label><br>
+                            <label for="options">Escolha uma opção:</label><br>
                             <select id="options" name="options">
                             </select><br>
-                            <label for="file-input" id="file-label" style="display: none;">Envie o arquivo abaixo:</label>
-                            <input type="file" id="file-input" name="arquivo" style="display: none;"><br>
-                            <label for="url-input" id="url-label" style="display: none;">Insira a URL abaixo:</label>
+                            <label for="file-input" id="file-label" style="display: none;">Selecione uma imagem:</label>
+                            <input type="file" id="file-input" name="arquivo" accept=".jpg,.jpeg,.png" style="display: none;"><br>
+                            <label for="url-input" id="url-label" style="display: none;">Insira a URL da imagem abaixo:</label>
                             <input type="url" id="url-input" name="url" style="display: none;"><br>
-                            <input type="submit" value="Criar Despesa">
+                            <input type="submit" value="Criar despesa">
                             <input type="button" value="Cancelar" onclick="document.getElementById('modalExpense').style.display='none'">
                         </form>
                     </div>
