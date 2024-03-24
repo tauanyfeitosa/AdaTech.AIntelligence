@@ -56,25 +56,29 @@
                 <button style="justify-content: right;" id="register-expense" class="button-request">Registrar despesa</button>
 
 
-                <div id="modalExpense" class="modal">
+                <div id="modalExpense" class="modal" style="display: block">
 
                     <div class="modal-content">
                         <span class="close">&times;</span>
                         <form id="expenseForm">
                             <label for="options">Escolha uma opção:</label><br>
                             <select id="options" name="options">
-                            </select><br>
-                            <label for="file-input" id="file-label" style="display: none;">Selecione uma imagem:</label>
-                            <input type="file" id="file-input" name="arquivo" accept=".jpg,.jpeg,.png" style="display: none;"><br>
-                            <label for="url-input" id="url-label" style="display: none;">Insira a URL da imagem abaixo:</label>
-                            <input type="url" id="url-input" name="url" style="display: none;"><br>
-                            <input type="submit" value="Criar despesa">
+                            </select>
+                            <div class="file-input-div">
+                                <label class="file-label" for="file-input" id="file-label" style="display: none;">Procurar imagem</label>
+                                <input type="file" id="file-input" name="arquivo" accept=".jpg,.jpeg,.png">
+                                <span id="file-label-2" style="display: none;">Nenhum arquivo selecionado</span>
+                            </div>
+                            <div class="url-input-div">
+                                <label for="url-input" id="url-label" style="display: none;">Insira a URL da imagem abaixo:</label>
+                                <input type="url" id="url-input" name="url" style="display: none;">
+                            </div>
+                            <br />
+                            <input class="expense-button" type="submit" disabled="true" id="botao-criar-despesa" value="Criar despesa">
                             <input type="button" value="Cancelar" onclick="document.getElementById('modalExpense').style.display='none'">
                         </form>
                     </div>
                 </div>
-
-
             </div>
 
 

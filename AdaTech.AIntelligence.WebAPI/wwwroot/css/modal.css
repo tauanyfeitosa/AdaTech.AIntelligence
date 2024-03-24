@@ -111,3 +111,45 @@
     font-weight: bold;
 }
 
+input[type="file"] {
+    display: none;
+}
+
+input[type="url"] {
+    font-size: 16px;
+    margin-top: 10px;
+    background: #fff;
+    padding: 10px 10px;
+    width: 50%;
+    border-radius: 4px;
+    border: none;
+}
+
+.file-label {
+    font-size: 16px;
+    color: #064d66;
+    background: #fff;
+    padding: 12px 10px;
+    max-width: 132px;
+    user-select: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#file-label-2 {
+    margin-left: 10px;
+    margin-top: 20px;
+}
+
+.file-input-div {
+    display: inline-flex; /* Garante que os elementos filhos fiquem em linha */
+    align-items: center; /* Alinha os elementos verticalmente */
+    margin-bottom: 12px;
+    margin-top: 10px;
+}
+
+.expense-button:disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+    filter: grayscale(100%);
+}
