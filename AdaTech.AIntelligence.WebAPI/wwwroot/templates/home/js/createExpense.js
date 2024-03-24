@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
     async function createExpenseFromFile(file) {
         try {
             const formData = new FormData();
