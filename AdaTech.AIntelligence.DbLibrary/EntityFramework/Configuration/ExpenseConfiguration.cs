@@ -18,7 +18,7 @@ namespace AdaTech.AIntelligence.DbLibrary.EntityFramework.Configuration
             builder.Property(e => e.Category).IsRequired();
             builder.Property(e => e.Description).IsRequired();
             builder.Property(e => e.IsActive).IsRequired();
-            builder.Property(e => e.CreatAt).IsRequired();
+            builder.Property(e => e.CreatedAt).IsRequired();
             builder.Property(e => e.UserInfoId).IsRequired();
             builder.Property(e => e.TotalValue).IsRequired();
 
