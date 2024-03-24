@@ -33,10 +33,10 @@ namespace AdaTech.AIntelligence.Service.Services.SeedUser.SeedManagerInitial
                 Email = userCredentialsSettings.UserName,
                 EmailConfirmed = true,
                 IsStaff = true,
-                CPF = "00000000000",
+                CPF = "56825504045",
                 DateBirth = DateTime.Now.AddYears(-18),
-                Name = "FinancialAdmin",
-                LastName = "FinancialAdmin",
+                Name = "Adriana",
+                LastName = "Oliveira",
             };
 
             var result = await _userManager.CreateAsync(user, userCredentialsSettings.Password!);
