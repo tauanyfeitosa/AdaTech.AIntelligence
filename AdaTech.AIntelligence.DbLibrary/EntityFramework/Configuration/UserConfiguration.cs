@@ -19,11 +19,10 @@ namespace AdaTech.AIntelligence.DbLibrary.EntityFramework.Configuration
             builder.Property(u => u.LastName).IsRequired();
             builder.Property(u => u.IsActive).IsRequired();
             builder.Property(u => u.IsStaff).IsRequired();
-            builder.Property(u => u.IsSuperUser).IsRequired();
             builder.Property(u => u.UserName).IsRequired();
             builder.Property(u => u.PasswordHash).IsRequired();
             builder.Property(u => u.Email).IsRequired();
-            builder.Property(u => u.CreatAt).IsRequired();
+            builder.Property(u => u.CreatedAt).IsRequired();
         }
     }
 }

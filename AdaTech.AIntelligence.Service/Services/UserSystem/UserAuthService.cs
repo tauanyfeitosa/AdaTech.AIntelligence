@@ -92,7 +92,6 @@ namespace AdaTech.AIntelligence.Service.Services.UserSystem
             await ValidateEmailAsync(userRegister.Email!);
 
             var userInfo = await userRegister.RegisterUserAsync();
-            userInfo.IsSuperUser = true;
             userInfo.LockoutEnabled = false;
             var result = await _userManager.CreateAsync(userInfo, userRegister.Password!);
             if (!result.Succeeded)

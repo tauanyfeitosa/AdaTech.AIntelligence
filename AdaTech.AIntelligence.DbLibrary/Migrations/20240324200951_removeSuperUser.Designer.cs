@@ -4,6 +4,7 @@ using AdaTech.AIntelligence.DbLibrary.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdaTech.AIntelligence.DbLibrary.Migrations
 {
     [DbContext(typeof(ExpenseReportingDbContext))]
-    partial class ExpenseReportingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240324200951_removeSuperUser")]
+    partial class removeSuperUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,7 +36,7 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
                     b.Property<int>("Category")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime>("CreatAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -49,7 +52,7 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
                     b.Property<double>("TotalValue")
                         .HasColumnType("float");
 
-                    b.Property<DateTime?>("UpdatedAt")
+                    b.Property<DateTime?>("UpdateAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserInfoId")
@@ -74,7 +77,7 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
                     b.Property<DateTime>("ApprovalDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime>("CreatAt")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("RequestDate")
@@ -86,7 +89,7 @@ namespace AdaTech.AIntelligence.DbLibrary.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("UpdatedAt")
+                    b.Property<DateTime?>("UpdateAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserInfoId")
