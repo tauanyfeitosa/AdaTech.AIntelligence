@@ -159,8 +159,9 @@
                                 <option value="soft">SoftDelete</option>
                             </select><br>
 
-                            <label for="numericInput">Insira o ID da despesa:</label><br>
-                            <input type="number" id="numericInput" name="numericInput"><br>
+                            <label for="optionsExpensesDelete">Insira o ID da despesa:</label><br>
+                            <select id="optionsExpensesDelete" name="optionsExpensesDelete">
+                            </select><br>
 
                             <input type="submit" value="Deletar Despesa">
                             <input type="button" value="Cancelar" onclick="document.getElementById('modalDeleteExpense').style.display='none'">
@@ -249,6 +250,7 @@
     <script src="./js/expenseTab.js"></script>
     <script src="./js/modalExpense.js"></script>
     <script src="./js/selectorUser.js"></script>
+    <script src="./js/selectorExpense.js"></script>
 
 </body>
 </html>
