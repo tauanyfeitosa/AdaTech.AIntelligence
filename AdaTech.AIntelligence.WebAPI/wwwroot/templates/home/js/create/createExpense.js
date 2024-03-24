@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     async function createExpenseFromUrl(url) {
+
+        document.getElementById('loadingIndicator').style.display = 'block';
         try {
             const response = await fetch(`https://localhost:7016/api/expense/create-expense-image-url?url=${encodeURIComponent(url)}`, {
                 method: 'POST',
@@ -27,23 +29,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
                 const responseData = await response.text();
-                console.log('Resposta do servidor:', responseData);
-
-                alert('Despesa criada com sucesso!');
-                form.reset();
+                if (responseData == "Despesa criada com sucesso!") {
+                    document.getElementById('modalCreateExpenseSuccess').style.display = 'block';
+                    document.getElementById('successMessageTitle').textContent = "Despesa cadastrada";
+                    document.getElementById('successMessage').textContent = responseData;
+                    form.reset();
+                }
+                else {
+                    document.getElementById('modalCreateExpenseError').style.display = 'block';
+                    document.getElementById('errorMessageTitle').textContent = "Erro";
+                    document.getElementById('errorMessage').textContent = "Erro ao cadastrar despesa";
+                }
             } else {
                 const errorText = await response.text();
-                console.error('Erro ao criar despesa:', response.statusText);
-                alert('Erro ao criar despesa. Mensagem do servidor:', errorText);
+                console.log("errinho");
+                //console.error('Erro ao criar despesa:', response.statusText);
+                document.getElementById('modalCreateExpenseError').style.display = 'block';
+                document.getElementById('errorMessageTitle').textContent = "Erro";
+                document.getElementById('errorMessage').textContent = "Erro ao cadastrar despesa";
             }
         } catch (error) {
-            console.error('Erro ao fazer a requisição:', error);
-            alert('Erro ao criar despesa. Por favor, tente novamente mais tarde.');
+            //console.error('Erro ao fazer a requisição:', error);
+            console.log("errinho");
+            document.getElementById('modalCreateExpenseError').style.display = 'block';
+            document.getElementById('errorMessageTitle').textContent = "Erro";
+            document.getElementById('errorMessage').textContent = "Erro ao estabelecer conexão com o servidor";
+        } finally {
+            document.getElementById('loadingIndicator').style.display = 'none';
         }
     }
 
-
     async function createExpenseFromFile(file) {
+        document.getElementById('loadingIndicator').style.display = 'block';
         try {
             const formData = new FormData();
             formData.append('image', file);
@@ -55,18 +72,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
                 const responseData = await response.text();
-                console.log('Resposta do servidor:', responseData);
-
-                alert('Despesa criada com sucesso!');
-                form.reset();
+                if (responseData == "Despesa criada com sucesso!") {
+                    document.getElementById('modalCreateExpenseSuccess').style.display = 'block';
+                    document.getElementById('successMessageTitle').textContent = "Despesa cadastrada";
+                    document.getElementById('successMessage').textContent = responseData;
+                    form.reset();
+                }
+                else {
+                    document.getElementById('modalCreateExpenseError').style.display = 'block';
+                    document.getElementById('errorMessageTitle').textContent = "Erro";
+                    document.getElementById('errorMessage').textContent = "Erro ao cadastrar despesa";
+                }
             } else {
                 const errorText = await response.text();
-                console.error('Erro ao criar despesa:', response.statusText);
-                alert('Erro ao criar despesa. Mensagem do servidor:', errorText);
+                console.log("errinho");
+                //console.error('Erro ao criar despesa:', response.statusText);
+                document.getElementById('modalCreateExpenseError').style.display = 'block';
+                document.getElementById('errorMessageTitle').textContent = "Erro";
+                document.getElementById('errorMessage').textContent = "Erro ao cadastrar despesa";
             }
         } catch (error) {
-            console.error('Erro ao fazer a requisição:', error);
-            alert('Erro ao criar despesa. Por favor, tente novamente mais tarde.');
+            //console.error('Erro ao fazer a requisição:', error);
+            console.log("errinho");
+            document.getElementById('modalCreateExpenseError').style.display = 'block';
+            document.getElementById('errorMessageTitle').textContent = "Erro";
+            document.getElementById('errorMessage').textContent = "Erro ao estabelecer conexão com o servidor";
+        } finally {
+            document.getElementById('loadingIndicator').style.display = 'none';
         }
     }
+
+
+    // Adiciona o evento de clique no botão "OK"
+    document.getElementById('okButton').addEventListener('click', () => {
+        location.reload(); // Recarrega a página
+    });
 });

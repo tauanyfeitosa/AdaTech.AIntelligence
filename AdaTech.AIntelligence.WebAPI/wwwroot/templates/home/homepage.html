@@ -55,9 +55,7 @@
                 <h3 style="text-align: left; font-weight: bold; font-size: 25px">Minhas despesas</h3>
                 <button style="justify-content: right;" id="register-expense" class="button-request">Registrar despesa</button>
 
-
                 <div id="modalExpense" class="modal">
-
                     <div class="modal-content">
                         <span class="close">&times;</span>
                         <form id="expenseForm">
@@ -74,13 +72,35 @@
                                 <input type="url" id="url-input" name="url" style="display: none;">
                             </div>
                             <br />
-                            <input class="expense-button" type="submit" disabled id="botao-criar-despesa" value="Criar despesa">
-                            <input type="button" value="Cancelar" onclick="document.getElementById('modalExpense').style.display='none'">
+                            <div>
+                                <input class="expense-button" type="submit" disabled id="botao-criar-despesa" value="Criar despesa">
+                                <input type="button" value="Cancelar" onclick="document.getElementById('modalExpense').style.display='none'">
+                                <div id="loadingIndicator" style="display: none;">
+                                    <div class="spinner"></div>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
 
+            <div id="modalCreateExpenseSuccess" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h1 id="successMessageTitle">Despesa cadastrada</h1>
+                    <p id="successMessage">Despesa cadastrada com sucesso</p>
+                    <button id="okButton">OK</button>
+                </div>
+            </div>
+
+            <div id="modalCreateExpenseError" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h1 id="errorMessageTitle">Erro</h1>
+                    <p id="errorMessage">Erro ao cadastrar despesa</p>
+                    <button id="okButton">OK</button>
+                </div>
+            </div>
 
             <table id="expensesUserTable" class="styled-table-expense">
                 <thead>
