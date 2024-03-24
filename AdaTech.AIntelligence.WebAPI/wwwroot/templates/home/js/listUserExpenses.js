@@ -7,7 +7,6 @@
             return response.json();
         })
         .then(data => {
-            console.log(data);
 
             const expenses = data.$values; // Obtém o array de despesas
 
@@ -16,7 +15,6 @@
             // Limpa o conteúdo da tabela antes de adicionar os novos dados
             tableBody.innerHTML = '';
 
-            console.log(expenses);
 
             const statusMap = {
                 1: 'Submetida',
