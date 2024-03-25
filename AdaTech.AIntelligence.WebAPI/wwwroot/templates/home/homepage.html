@@ -177,7 +177,7 @@
                     <div class="modal-content">
                         <span class="close">&times;</span>
                         <form id="expenseDeleteForm">
-                            <label for="optionDelete">Escolha o tipo de deleção: HardDelete (apagar completamente) ou SoftDelete (inativar)</label><br>
+                            <label for="optionDelete">Escolha o tipo de deleção:</label><br>
                             <select id="optionDelete" name="optionDelete">
                             </select><br>
 
@@ -227,10 +227,10 @@
                     <div class="modal-content">
                         <span class="close">&times;</span>
                         <form id="expenseDeleteForm">
-                            <label for="optionDeleteUser">Escolha o tipo de deleção: HardDelete (apagar completamente) ou SoftDelete (inativar)</label><br>
+                            <label for="optionDeleteUser">Escolha o tipo de deleção:</label><br>
                             <select id="optionDeleteUser" name="optionDelete">
-                                <option value="hard">HardDelete</option>
-                                <option value="soft">SoftDelete</option>
+                                <option value="hard">Excluir permanentemente</option>
+                                <option value="soft">Tornar inativo</option>
                             </select><br>
 
                             <label for="optionUser">Selecione o usuário:</label><br>
@@ -238,7 +238,7 @@
                             </select><br>
 
                             <input type="submit" value="Deletar Usuário">
-                            <input type="button" value="Cancelar" onclick="document.getElementById('modalDeleteExpense').style.display='none'">
+                            <input type="button" value="Cancelar" onclick="document.getElementById('modalDeleteUser').style.display='none'">
                         </form>
                     </div>
                 </div>

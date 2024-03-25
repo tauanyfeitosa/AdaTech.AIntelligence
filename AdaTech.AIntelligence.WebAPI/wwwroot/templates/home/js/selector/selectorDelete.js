@@ -20,12 +20,12 @@ async function setupDeleteOptions() {
 
     if (userRoles.includes('Admin') && userRoles.includes('Finance')) {
         optionDeleteSelect.innerHTML = `
-      <option value="hard">HardDelete</option>
-      <option value="soft">SoftDelete</option>
+      <option value="hard">Excluir permanentemente</option>
+      <option value="soft">Tornar inativo</option>
     `;
     } else if (userRoles.includes('Finance')) {
         optionDeleteSelect.innerHTML = `
-      <option value="soft">SoftDelete</option>
+      <option value="soft">Tornar inativo</option>
     `;
     } else {
         optionDeleteSelect.innerHTML = '<option value="">Não autorizado</option>';
