@@ -34,4 +34,29 @@ async function loadUsers() {
     }
 }
 
-loadUsers();
+async function getUserRoles() {
+    try {
+        const response = await fetch('https://localhost:7016/api/UserManagement/view-role-user-logged');
+        if (response.ok) {
+            const data = await response.json();
+            return data.values;
+        } else {
+            console.error('Erro ao carregar roles:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Erro ao fazer a requisição para obter roles:', error);
+    }
+    return [];
+}
+
+async function init() {
+    const roles = await getUserRoles();
+    const isAdmin = roles.includes('Admin');
+
+    if (isAdmin) {
+        loadUsers();
+    }
+}
+
+init();
+
