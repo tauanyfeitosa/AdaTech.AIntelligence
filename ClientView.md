@@ -51,9 +51,10 @@ Após clicar em "Criar despesa", aguarde alguns segundos e logo em seguida a sua
 </div>
 
 ### Financeiro
+O funcionário do setor financeiro tem acesso a todas as notas fiscais pendentes de avaliação enviadas para o sistema. Este funcionário pode atualizar os estados das notas submetidas para pagas, desativar notas e solicitar evolução de cargo.
 
 ### Administrador
-
+O administrador tem acesso ao gerenciamento dos usuários. Este tipo de funcionário pode criar usuários com qualquer cargo ou permissões internas, e é ele quem aprova ou rejeita as solicitações de evolução de cargo.
 
 ## Documentação
 Ao clicar no botão de documentação você é redirecionado para a nossa documentação técnica, feita no README.md do projeto. Esta documentação apresenta:
