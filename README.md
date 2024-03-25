@@ -21,6 +21,8 @@ Clique aqui: [QuickSetup](https://github.com/tauanyfeitosa/AdaTech.AIntelligence
 
 Após essas configurações, vamos conhecer um pouco mais sobre o projeto em si.
 
+`Visão do cliente`: [Visualização do site](https://github.com/tauanyfeitosa/AdaTech.AIntelligence/blob/master/ClientView.md)
+
 `Kanban do Projeto`: [AIntelligence](https://github.com/users/tauanyfeitosa/projects/3)
 
 `Relatório do Projeto`: [Relatório LaTeX](https://www.overleaf.com/read/gztsvkssxvnw#78539d)
