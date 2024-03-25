@@ -14,7 +14,7 @@
 
     <nav class="navbar">
         <div class="container">
-            <a class="logo" href="https://github.com/tauanyfeitosa/AdaTech.AIntelligence">AIntelligence</a>
+            <a class="logo" href="https://localhost:7016/templates/home/homepage.html">AIntelligence</a>
             <ul class="nav-links">
                 <li><a href="https://github.com/tauanyfeitosa/AdaTech.AIntelligence/blob/master/README.md">Documentação</a></li>
                 <li><a href="#" id="logoutLink">Logout</a></li>
@@ -179,8 +179,6 @@
                         <form id="expenseDeleteForm">
                             <label for="optionDelete">Escolha o tipo de deleção: HardDelete (apagar completamente) ou SoftDelete (inativar)</label><br>
                             <select id="optionDelete" name="optionDelete">
-                                <option value="hard">HardDelete</option>
-                                <option value="soft">SoftDelete</option>
                             </select><br>
 
                             <label for="optionsExpensesDelete">Insira o ID da despesa:</label><br>
@@ -283,6 +281,7 @@
     <!-- JS para preenchimento de seletores -->
     <script src="./js/selector/selectorExpense.js"></script>
     <script src="./js/selector/selectorUser.js"></script>
+    <script src="./js/selector/selectorDelete.js"></script>
 
     <!-- JS de tabelas e paineis -->
     <script src="./js/tabs/expenseTab.js"></script>
