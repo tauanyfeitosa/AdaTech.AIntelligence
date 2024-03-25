@@ -27,7 +27,7 @@
 
         const result = await response.json();
         alert('Usuário criado com sucesso!');
-        window.location.href = '/authentication/login.html';
+        window.location.href = 'https://localhost:7016/templates/authentication/login.html';
     } catch (error) {
         alert('Erro no registro: ' + error.message);
     }
