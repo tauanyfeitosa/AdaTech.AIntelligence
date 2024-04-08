@@ -18,7 +18,7 @@ namespace AdaTech.AIntelligence.Service.Attributes.Tests
 
             // Assert
             result.Should().NotBeNull();
-            result.ErrorMessage.Should().Be("A senha não pode ser vazia");
+            result.ErrorMessage.Should().Be("A senha não pode ser vazia.");
         }
 
         [Fact]
@@ -34,7 +34,7 @@ namespace AdaTech.AIntelligence.Service.Attributes.Tests
 
             // Assert
             result.Should().NotBeNull();
-            result.ErrorMessage.Should().Be("A senha deve ter no minimo 8 caracteres");
+            result.ErrorMessage.Should().Be("A senha deve ter no mínimo 8 caracteres.");
         }
 
         [Fact]
